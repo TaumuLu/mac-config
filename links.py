@@ -13,7 +13,7 @@ files = (
   '.gitconfig',
   '.npmrc',
   '.vimrc',
-  '.zshrc'`
+  '.zshrc'
 )
 
 HOME = os.environ.get('HOME')
