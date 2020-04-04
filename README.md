@@ -2,9 +2,10 @@
 在这组织我的mac配置，定义一些脚本方便快速重装、迁移、同步配置  
 同时记录一些配置和技巧，以及app  
 
+## 使用
+`sh -c "$(curl -fsSL https://raw.githubusercontent.com/TaumuLu/mac-config/master/init.sh)"`
+
 ## 配置清单
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
-sh -c "$(curl -fsSL https://github.com/TaumuLu/mac-config/init.sh)"
 
 ## 技巧
 - 如果当前shell为zsh，则不会加载bash相关文件，如需要加载，在.zshrc中写入source引用bahs配置
