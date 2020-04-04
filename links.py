@@ -13,13 +13,13 @@ files = (
   '.gitconfig',
   '.npmrc',
   '.vimrc',
-  '.zshrc'`
+  '.zshrc'
 )
 
 HOME = os.environ.get('HOME')
 PROJECTROOT = sys.path[0]
 
-opts, args = getopt.getopt(sys.argv[1:], 'f')``
+opts, args = getopt.getopt(sys.argv[1:], 'df')
 
 def hasOption(option):
   for opt, arg in opts:
@@ -46,9 +46,10 @@ def links(data, basePath):
         parent = Path(targetPath.parent)
         if not parent.exists():
           os.makedirs(parent)
+        targetPath.unlink()
         targetPath.symlink_to(sourcePath)
         pass
-      elif targetPath.samefile(sourcePath):
+      elif targetPath.samefile(sourcePath) and not hasOption('-d'):
         print('链接已创建，无需重复创建: %s' % targetPath)
         pass
       else:
@@ -57,7 +58,7 @@ def links(data, basePath):
             shutil.rmtree(targetPath)
           else:
             targetPath.unlink()
-          targetPath.symlink_to(sourcePath)
+            targetPath.symlink_to(sourcePath)
         else:
           print('存在同名文件，无法创建链接: %s' % targetPath)
 
