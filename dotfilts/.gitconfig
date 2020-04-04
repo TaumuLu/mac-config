@@ -1,0 +1,10 @@
+[user]
+	name = TaumuLu
+	email = 972409545@qq.com
+[core]
+	quotepath = false
+	ignorecase = false
+	longpaths = true
+	editor = vim
+[credential]
+	helper = store
