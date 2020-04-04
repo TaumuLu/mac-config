@@ -19,7 +19,7 @@ files = (
 HOME = os.environ.get('HOME')
 PROJECTROOT = sys.path[0]
 
-opts, args = getopt.getopt(sys.argv[1:], 'df')
+opts, args = getopt.getopt(sys.argv[1:], 'if')
 
 def hasOption(option):
   for opt, arg in opts:
@@ -49,12 +49,12 @@ def links(data, basePath):
         targetPath.unlink()
         targetPath.symlink_to(sourcePath)
         pass
-      elif targetPath.samefile(sourcePath) and not hasOption('-d'):
+      elif targetPath.samefile(sourcePath) and not hasOption('-i'):
         print('链接已创建，无需重复创建: %s' % targetPath)
         pass
       else:
         if targetPath.is_symlink() or hasOption('-f'):
-          if targetPath.is_dir():
+          if targetPath.is_dir() and not targetPath.is_symlink():
             shutil.rmtree(targetPath)
           else:
             targetPath.unlink()
