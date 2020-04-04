@@ -3,6 +3,8 @@
 同时记录一些配置和技巧，以及app  
 
 ## 配置清单
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)
+sh -c "$(curl -fsSL https://github.com/TaumuLu/mac-config/init.sh)"
 
 ## 技巧
 - 如果当前shell为zsh，则不会加载bash相关文件，如需要加载，在.zshrc中写入source引用bahs配置
