@@ -87,11 +87,11 @@ for arg in "$@"; do
 done
 
 # 所有已安装的应用
-appList=("")
+appList=()
 # brew安装的应用
-brewInstallList=("")
+brewInstallList=()
 # brew cask已安装的应用
-brewCaskInstallList=("")
+brewCaskInstallList=()
 
 function init_folder() {
   for path in ${dirList[@]}; do
@@ -173,13 +173,13 @@ function diff_arr() {
 }
 
 function brew_install() {
-  local bil=(`diff_arr "${brewList[*]}" "${brewInstallList[*]}"`)
+  local bil=(`diff_arr "${brewList[*]}" "${brewInstallList[*]-}"`)
   if [ ! ${#bil[@]} -eq 0 ];then
     echo "brew install ${bil[@]}"
     brew install ${bil[@]}
   fi
 
-  local bcil=(`diff_arr "${brewCaskList[*]}" "${brewCaskInstallList[*]}"`)
+  local bcil=(`diff_arr "${brewCaskList[*]}" "${brewCaskInstallList[*]-}"`)
   if [ ! ${#bcil[@]} -eq 0 ];then
     echo "brew cask install ${bcil[@]}"
     brew cask install ${bcil[@]}
