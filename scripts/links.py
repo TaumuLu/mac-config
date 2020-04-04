@@ -16,8 +16,8 @@ files = (
   '.zshrc'
 )
 
-HOME = os.environ.get('HOME')
-PROJECTROOT = sys.path[0]
+HOME = Path.home()
+PROJECTROOT = Path.cwd()
 
 opts, args = getopt.getopt(sys.argv[1:], 'if')
 
@@ -50,7 +50,7 @@ def links(data, basePath):
         targetPath.symlink_to(sourcePath)
         pass
       elif targetPath.samefile(sourcePath) and not hasOption('-i'):
-        print('链接已创建，无需重复创建: %s' % targetPath)
+        print('The link has been created, no need to create it again: %s' % targetPath)
         pass
       else:
         if targetPath.is_symlink() or hasOption('-f'):
@@ -60,7 +60,7 @@ def links(data, basePath):
             targetPath.unlink()
             targetPath.symlink_to(sourcePath)
         else:
-          print('存在同名文件，无法创建链接: %s' % targetPath)
+          print('There is a file with the same name and the link cannot be created: %s' % targetPath)
 
 links(folder, 'configs')
 links(files, 'dotfilts')

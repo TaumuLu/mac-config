@@ -276,7 +276,7 @@ function post_install() {
     mkdir -p $configDir
     git clone https://github.com/TaumuLu/mac-config.git $configDir --depth=1
     cd $configDir
-    python3 ./links.py -f
+    ./install.sh
   fi
 
   echo '-------------------'

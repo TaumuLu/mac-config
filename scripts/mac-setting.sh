@@ -23,7 +23,7 @@ defaults write com.apple.dock ResetLaunchPad -bool true
 # 显示Safari调试菜单
 defaults write com.apple.safari IncludeDebugMenu -bool true
 # 显示Xcode每一次build的所用时间
-default write com.apple.dt.Xcode ShowBuildOperationDuration -bool true
+defaults write com.apple.dt.Xcode ShowBuildOperationDuration -bool true
 # 隐藏DashBoard
 defaults write com.apple.dashboard mcx-disabled -bool true
 # 更改截图位置
@@ -60,7 +60,7 @@ defaults write org.openemu.OpenEmu HUDBarShowAudioOutput -bool YES
 # defaults write -g NSRequiresAquaSystemAppearance -bool true
 
 # 重启命令
-killall Dock
-killall Finder
-killall Safari
-killall cfprefsd
+# killall Dock
+# killall Finder
+# killall Safari
+# killall cfprefsd
