@@ -14,6 +14,13 @@ function install_flutter() {
   flutter doctor
 }
 
+function install_depot_tools() {
+  if [ ! -d $DEPOT_TOOLS_HOME ]; then
+    git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME --depth=1
+  fi
+
+}
+
 function source_file() {
   source ./scripts/base.sh
   echo 'source mac-setting'
@@ -31,11 +38,12 @@ function exec_python() {
 }
 
 function main() {
-  source_file
+  # source_file
 
   exec_python
 
   install_flutter
+  install_depot_tools
 }
 
 main

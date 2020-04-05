@@ -105,6 +105,10 @@ export PATH="$PATH:$FLUTTER_HOME/bin"
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
+# depot_tools
+export DEPOT_TOOLS_HOME="$HOME/Library/depot_tools"
+export PATH=$PATH:$DEPOT_TOOLS_HOME
+
 # python
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
 # export PATH="/usr/local/opt/python/libexec/bin:$PATH"
