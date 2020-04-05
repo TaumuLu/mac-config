@@ -110,8 +110,8 @@ export PATH="$HOME/bin:/usr/local/bin:$PATH"
 # export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 #jenv
-eval "$(jenv init -)"
-export PATH="$HOME/.jenv/bin:$PATH"
+# eval "$(jenv init -)"
+# export PATH="$HOME/.jenv/bin:$PATH"
 
 # alias
 alias shs='cat ~/.zsh_history | ag '
