@@ -46,7 +46,8 @@ def links(data, basePath):
         parent = Path(targetPath.parent)
         if not parent.exists():
           os.makedirs(parent)
-        targetPath.unlink()
+        if targetPath.is_symlink():
+          targetPath.unlink()
         targetPath.symlink_to(sourcePath)
         pass
       elif targetPath.samefile(sourcePath) and not hasOption('-i'):

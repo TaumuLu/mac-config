@@ -12,13 +12,14 @@ brewList=(
   git-flow
   nvm
   python
-  mysql
-  redis
-  maven
   tree
   watchman
   the_silver_searcher
   highlight
+
+  mysql
+  redis
+  maven
   # wget
   # go
   # wrk
@@ -40,16 +41,17 @@ brewCaskList=(
   quicklook-json
 
   hammerspoon
-  scroll-reverser
-  app-cleaner
-  the-unarchiver
+  appcleaner
   switchhosts
   reactotron
   google-chrome
   karabiner-elements
-  sublime-text
   visual-studio-code
+  sublime-text
   android-studio
+
+  scroll-reverser
+  # the-unarchiver
 
   # docker
   # sourcetree

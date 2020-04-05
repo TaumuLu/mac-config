@@ -47,6 +47,38 @@ defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool 
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
 # openemu获得音频设备
 defaults write org.openemu.OpenEmu HUDBarShowAudioOutput -bool YES
+# 默认保存到磁盘，不保存到iCloud
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+# 关闭确定要打开应用弹框
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+# 关闭自动大写
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+# 所有控件启用完全的键盘访问
+defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+# 30分钟显示器休眠
+# sudo pmset -a displaysleep 15
+# 按名称排序，文件夹在最前面
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+# 搜索时默认搜索当前文件夹
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+# 关闭更改扩展名警告
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+# 视图查看模式
+defaults write com.apple.finder FXPreferredViewStyle -string "icnv"
+# 电池电量显示百分比
+defaults write com.apple.menuextra.battery ShowPercent -bool true
+
+
+###############################################################################
+# init mac                                            #
+###############################################################################
+
+# # 取消4位数密码限制
+# pwpolicy -clearaccountpolicies
+# # 修改密码
+# passwd
+# # 清除dock所有应用程序的图标
+# defaults write com.apple.dock persistent-apps -array
 
 
 # reocrd
@@ -60,7 +92,8 @@ defaults write org.openemu.OpenEmu HUDBarShowAudioOutput -bool YES
 # defaults write -g NSRequiresAquaSystemAppearance -bool true
 
 # 重启命令
-# killall Dock
-# killall Finder
+killall Dock
+killall Finder
+# killall SystemUIServer
 # killall Safari
 # killall cfprefsd

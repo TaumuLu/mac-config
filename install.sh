@@ -31,11 +31,11 @@ function exec_python() {
 }
 
 function main() {
-  # source_file
+  source_file
 
   exec_python
 
-  # install_flutter
+  install_flutter
 }
 
 main
