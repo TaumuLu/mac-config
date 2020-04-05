@@ -69,8 +69,12 @@ defaults write com.apple.finder FXPreferredViewStyle -string "icnv"
 defaults write com.apple.menuextra.battery ShowPercent -bool true
 
 
+# 打开chrome左右滑动前进后退
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool true
+
+
 ###############################################################################
-# init mac                                            #
+# init mac                                                                    #
 ###############################################################################
 
 # # 取消4位数密码限制

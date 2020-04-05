@@ -123,6 +123,8 @@ alias google-chrome=$_chromePath
 alias chromex="chrome --disable-web-security"
 alias pc='proxychains4'
 
+alias gbr='git branch -r --sort=-committerdate --format "%(creatordate:relative);%(committerdate:short);%(committername);%(refname:lstrip=-2)" | grep -v ";HEAD$" | column -s ";" -t'
+
 # exec
 # history
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.

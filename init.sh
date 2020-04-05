@@ -30,6 +30,7 @@ brewList=(
   # blueutil
   # openssl
   # vim
+  # jenv
 )
 
 brewCaskList=(
@@ -180,6 +181,11 @@ function brew_install() {
     echo "brew install ${bil[@]}"
     brew install ${bil[@]}
   fi
+
+  # fzf
+  $(brew --prefix)/opt/fzf/install
+  # nvm
+  nvm install --lts
 
   local bcil=(`diff_arr "${brewCaskList[*]}" "${brewCaskInstallList[*]-}"`)
   if [ ! ${#bcil[@]} -eq 0 ];then
