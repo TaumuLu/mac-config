@@ -16,6 +16,7 @@ brewList=(
   watchman
   the_silver_searcher
   highlight
+  duti
 
   mysql
   redis
@@ -192,6 +193,11 @@ function brew_install() {
     echo "brew cask install ${bcil[@]}"
     brew cask install ${bcil[@]}
   fi
+
+  # duti
+  duti ./configs/duti/sublime.txt
+  duti ./configs/duti/vscode.txt
+
   brew cleanup
 }
 

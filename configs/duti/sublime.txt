@@ -1,0 +1,4 @@
+com.sublimetext.3  public.rtf                   editor
+com.sublimetext.3  public.plain-text            editor
+com.sublimetext.3  public.json                  editor
+com.sublimetext.3  public.unix-executable       editor
