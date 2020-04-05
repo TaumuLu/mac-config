@@ -35,8 +35,8 @@ brewList=(
 )
 
 brewCaskList=(
+  # java
   iterm2
-  java
   qlcolorcode
   qlimagesize
   qlmarkdown
@@ -185,8 +185,10 @@ function brew_install() {
 
   # fzf
   $(brew --prefix)/opt/fzf/install
-  # nvm
-  nvm install --lts
+  if ! command_exists 'node'; then
+    # nvm
+    nvm install --lts
+  fi
 
   local bcil=(`diff_arr "${brewCaskList[*]}" "${brewCaskInstallList[*]-}"`)
   if [ ! ${#bcil[@]} -eq 0 ];then
@@ -197,6 +199,12 @@ function brew_install() {
   # duti
   duti ./configs/duti/sublime.txt
   duti ./configs/duti/vscode.txt
+
+  # java8
+  brew tap adoptopenjdk/openjdk
+  brew cask install adoptopenjdk8 adoptopenjdk11
+  # 查看所有已安装java版本的信息
+  /usr/libexec/java_home -V
 
   brew cleanup
 }

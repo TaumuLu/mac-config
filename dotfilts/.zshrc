@@ -109,9 +109,18 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
 # export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
+# java
 #jenv
 # eval "$(jenv init -)"
 # export PATH="$HOME/.jenv/bin:$PATH"
+export JAVA_8_HOME='/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home'
+export JAVA_11_HOME='/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home'
+# 默认 jdk11
+export JAVA_HOME=$JAVA_8_HOME
+
+# 动态切换版本
+alias jdk8="export JAVA_HOME=$JAVA_8_HOME"
+alias jdk11="export JAVA_HOME=$JAVA_11_HOME"
 
 # alias
 alias shs='cat ~/.zsh_history | ag '
