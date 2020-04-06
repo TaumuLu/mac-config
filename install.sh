@@ -11,6 +11,7 @@ function install_flutter() {
   if [ ! -d $FLUTTER_HOME ]; then
     git clone https://github.com/flutter/flutter.git $FLUTTER_HOME -b stable --depth=1
   fi
+  echo 'flutter doctor'
   flutter doctor
 }
 
@@ -19,6 +20,13 @@ function install_depot_tools() {
     git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME --depth=1
   fi
 
+}
+
+function install_vundle() {
+  local VUNDLE_HOME="$HOME/.vim/bundle/Vundle.vim"
+  if [ ! -d $VUNDLE_HOME ]; then
+    git clone https://github.com/VundleVim/Vundle.vim.git $VUNDLE_HOME --depth=1
+  fi
 }
 
 function source_file() {
@@ -44,6 +52,7 @@ function main() {
 
   install_flutter
   install_depot_tools
+  install_vundle
 }
 
 main

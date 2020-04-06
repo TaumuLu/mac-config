@@ -202,7 +202,8 @@ function brew_install() {
 
   # java8
   brew tap adoptopenjdk/openjdk
-  brew cask install adoptopenjdk8 adoptopenjdk11
+  brew cask install adoptopenjdk8
+  brew cask install adoptopenjdk11
   # 查看所有已安装java版本的信息
   /usr/libexec/java_home -V
 
