@@ -29,6 +29,10 @@ function install_vundle() {
   fi
 }
 
+function install_spf13-vim() {
+  curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
+}
+
 function source_file() {
   source ./scripts/base.sh
   echo 'source mac-setting'

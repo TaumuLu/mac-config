@@ -12,8 +12,8 @@ files = (
   '.bashrc',
   '.gitconfig',
   '.npmrc',
-  '.vimrc',
   '.zshrc'
+  # '.vimrc',
 )
 
 HOME = Path.home()
