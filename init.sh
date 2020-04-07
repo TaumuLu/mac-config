@@ -53,6 +53,7 @@ brewCaskList=(
   android-studio
 
   scroll-reverser
+  omnidisksweeper
   # the-unarchiver
 
   # docker
