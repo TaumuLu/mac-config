@@ -1,4 +1,5 @@
 require 'plugins.autoReload'
+require 'plugins.autoBluetooth'
 require 'plugins.posMouse'
 require 'plugins.yuquePaste'
 
