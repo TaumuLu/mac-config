@@ -17,6 +17,7 @@ brewList=(
   the_silver_searcher
   highlight
   duti
+  blueutil
 
   mysql
   redis
@@ -28,7 +29,6 @@ brewList=(
   # tmux
   # stow
   # fish
-  # blueutil
   # openssl
   # vim
   # jenv

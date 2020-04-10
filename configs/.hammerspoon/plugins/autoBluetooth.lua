@@ -1,6 +1,7 @@
 function bluetoothSwitch(state)
-  cmd = "/usr/local/bin/blueutil --power "..(state)
-  result = hs.osascript.applescript(string.format('do shell script "%s"', cmd))
+  execCmd = "/usr/local/bin/blueutil"
+  cmd = "[ -x "..execCmd.." ] && "..execCmd.." --power "..(state)
+  result = hs.execute(cmd)
 end
 
 function caffeinateCallback(eventType)
