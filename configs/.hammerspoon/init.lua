@@ -2,6 +2,7 @@ require 'plugins.autoReload'
 require 'plugins.autoBluetooth'
 require 'plugins.posMouse'
 require 'plugins.yuquePaste'
+require 'plugins.stateCheck'
 
 -- 调试代码
 hs.hotkey.bind({'cmd', 'option', 'shift'}, 'h', function()
