@@ -20,8 +20,8 @@ local app = 'com.apple.Safari'
 local htmlUti = "public.html"
 local textUti = "public.utf8-plain-text"
 
-function setPlainText()
-    local text = hs.pasteboard.readString()
+function setPlainText(value)
+    local text = value or hs.pasteboard.getContents()
     if text ~= nui then
         local content = string.gsub(text, "%s*[\n]+%s*", "\n")
         hs.pasteboard.setContents(content)
@@ -48,16 +48,24 @@ end
 --     -- hs.eventtap.keyStroke({'cmd','option','shift'}, 'v')
 -- end)
 
+local prevValue
 function applicationWatcher(appName, eventType, appObject)
     if (eventType == hs.application.watcher.activated) then
         local bundleID = appObject:bundleID()
         if bundleID == app then
+            local value = hs.pasteboard.getContents()
+            if prevValue == value then
+                return
+            end
+            prevValue = value
+            -- hs.alert(prevValue)
+            -- hs.alert(value)
             -- hs.alert(bundleID)
             -- k:enable()
             local contentTypes = hs.pasteboard.contentTypes()
             local utiType = contentTypes[1]
             if utiType == textUti then
-                setPlainText()
+                setPlainText(value)
             elseif utiType == htmlUti then
                 local data = hs.pasteboard.readAllData()
                 local html = data[htmlUti]
@@ -72,11 +80,10 @@ function applicationWatcher(appName, eventType, appObject)
                     url = w
                 end
                 local urlText = string.gsub(html, "<[^<>]*>", "")
-                local text = hs.pasteboard.readString()
-                if url ~= nui and urlText == text then
-                    setUrlHtml(url, text)
+                if url ~= nui and urlText == value then
+                    setUrlHtml(url, value)
                 else
-                    setPlainText()
+                    setPlainText(value)
                 end
             else
             end
