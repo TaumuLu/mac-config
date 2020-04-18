@@ -48,11 +48,23 @@ end
 --     -- hs.eventtap.keyStroke({'cmd','option','shift'}, 'v')
 -- end)
 
+local isSkip = false
+local hyper = {'alt', 'ctrl'}
+hs.hotkey.bind(hyper, 'p', function()
+    hs.alert('skip next paste')
+    isSkip = true
+end)
+
 local prevValue
 function applicationWatcher(appName, eventType, appObject)
     if (eventType == hs.application.watcher.activated) then
         local bundleID = appObject:bundleID()
         if bundleID == app then
+            if isSkip == true then
+                prevValue = nil
+                isSkip = false
+                return
+            end
             local value = hs.pasteboard.getContents()
             if prevValue == value then
                 return
@@ -93,7 +105,7 @@ function applicationWatcher(appName, eventType, appObject)
             --     end
             -- end
             -- print(hs.inspect.inspect(utiType))
-        else
+        -- else
             -- k:disable()
         end
     end
