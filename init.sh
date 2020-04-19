@@ -35,6 +35,7 @@ brewList=(
 )
 
 brewCaskList=(
+  v2rayx
   # java
   iterm2
   qlcolorcode
