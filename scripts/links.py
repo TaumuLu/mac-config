@@ -5,14 +5,16 @@ from pathlib import Path
 folder = (
   ('karabiner', '.config'),
   '.hammerspoon',
+  '.SwitchHosts',
 )
 
 files = (
+  ('proxychains.conf', '/usr/local/etc'),
   '.bash_profile',
   '.bashrc',
   '.gitconfig',
   '.npmrc',
-  '.zshrc'
+  '.zshrc',
   # '.vimrc',
 )
 
@@ -35,12 +37,16 @@ def links(data, basePath):
     if isinstance(value, tuple):
       s, t = value
       source.append(s)
-      target.extend([t, s])
+      if t.startswith('/'):
+        target = [t, s]
+      else:
+        target.extend([t, s])
     else:
       source.append(value)
       target.append(value)
     sourcePath = Path(*source)
     targetPath = Path(*target)
+
     if sourcePath.exists():
       if not targetPath.exists():
         parent = Path(targetPath.parent)
@@ -51,7 +57,7 @@ def links(data, basePath):
         targetPath.symlink_to(sourcePath)
         pass
       elif targetPath.samefile(sourcePath) and not hasOption('-i'):
-        print('The link has been created, no need to create it again: %s' % targetPath)
+        print('Has been created: %s' % targetPath)
         pass
       else:
         if targetPath.is_symlink() or hasOption('-f'):
@@ -61,7 +67,10 @@ def links(data, basePath):
             targetPath.unlink()
             targetPath.symlink_to(sourcePath)
         else:
-          print('There is a file with the same name and the link cannot be created: %s' % targetPath)
+          print('\033[0;33;40mFile with the same name: %s\033[0m' % targetPath)
+    else:
+      print('\033[0;31;40mNot find file: %s\033[0m' % sourcePath)
+      pass
 
 links(folder, 'configs')
 links(files, 'dotfilts')
