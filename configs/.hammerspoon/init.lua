@@ -1,7 +1,7 @@
 require 'plugins.autoReload'
 require 'plugins.autoBluetooth'
 require 'plugins.posMouse'
-require 'plugins.yuquePaste'
+require 'plugins.safariScript'
 require 'plugins.stateCheck'
 
 -- 调试代码
