@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         主题切换
 // @namespace    http://tampermonkey.net/
-// @version      0.1.8
+// @version      0.1.9
 // @description  网站@media (prefers-color-scheme: dark|light)主题样式切换，深色模式和浅色模式的切换
 // @author       taumu
 // @license      MIT
@@ -14,6 +14,7 @@
 // @grant        GM_setValue
 // @grant        GM_getValue
 // @grant        GM_xmlhttpRequest
+// @grant        unsafeWindow
 // @namespace    https://greasyfork.org/users/445432
 // ==/UserScript==
 
@@ -23,12 +24,27 @@
 
   const mediaName = 'prefers-color-scheme'
   const { matches: isDark } = matchMedia(`(${mediaName}: dark)`)
-  const { host } = window.location
+  const { host, origin } = window.location
   const saveName = `${mediaName}:${host}`
 
   function getValue(name, defaultVal = true) {
     // eslint-disable-next-line no-undef
     return GM_getValue(name, defaultVal)
+  }
+
+  unsafeWindow.matchMedia = (mediaText, ...other) => {
+    const result = matchMedia(mediaText, ...other)
+    if (mediaText.includes(mediaName)) {
+      const value = getValue(saveName)
+      const matches = mediaText.includes('dark') ? value : !value
+
+      return {
+        ...result,
+        matches,
+        addListener: () => {}
+      }
+    }
+    return result
   }
 
   function registerMenu(title, name) {
@@ -92,6 +108,9 @@
     GM_xmlhttpRequest({
       method: 'GET',
       url: href,
+      headers: {
+        referer: origin
+      },
       onload: res => {
         const { responseText } = res
         const style = document.createElement('style')
