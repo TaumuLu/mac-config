@@ -148,7 +148,7 @@ function applicationWatcher(appName, eventType, appObject)
             switchTabLeft:enable()
             switchTabRight:enable()
         else
-            switchTabLeft:enable()
+            switchTabLeft:disable()
             switchTabRight:disable()
         end
     end
