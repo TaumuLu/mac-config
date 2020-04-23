@@ -32,19 +32,23 @@ dotfilts可以统一管理软件配置，基于需要自己写了脚本用来同
 - .npmrc
 - .vimrc
 - .zshrc
+- proxychains.conf
 
 ### folder
 - .hammerspoon
 - karabiner
+- .SwitchHosts
 
 ## 脚本文件
 
 ### links.py
-需要python3环境，软链接dotfilts文件脚本，根目录下执即可，需要链接的地址可以自定义修改链接地址
+需要python3环境，软链接dotfilts文件脚本，根目录下执即可，需要链接的地址可以自定义修改链接地址  
+参数-i忽略已创建相同的链接文件  
+参数-f强制创建链接覆盖目标文件/文件夹  
 
 ### mac-setting.sh
+[defaults-write](https://www.defaults-write.com)  
 defaults命令可以访问和修改Mac系统的默认设置  
-- [defaults-write](https://www.defaults-write.com)
 
 ### open-url.sh
 无法通过brew安装的软件，直接打开浏览器地址手动下载  
@@ -65,9 +69,11 @@ defaults命令可以访问和修改Mac系统的默认设置
   + alt+`切换鼠标到下一显示器，并且定位在其屏幕中间，且触发点击聚焦屏幕
 - stateCheck
   + 检查hammerspoon状态，提供快捷键显示/隐藏dock图标，方便调试
-- yuquePaste
-  + 为safari中的语雀提供的脚本
-  + 目的是粘贴文本时不带样式，同时保留统一url类型的粘贴样式
+- safariScript
+  + yuquePaste
+    - 为safari中的语雀提供的脚本
+    - 目的是粘贴文本时不带样式，同时保留统一url类型的粘贴样式
+  + 同chrome的快捷键切换标签
 
 ### karabiner
 键盘改键软件，有多种方案配置，目前主要为将caps lock按键改为点按为esc，长按为control
