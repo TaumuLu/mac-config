@@ -201,6 +201,7 @@ function brew_install() {
   # duti
   duti ./configs/duti/sublime.txt
   duti ./configs/duti/vscode.txt
+  duti ./configs/duti/iterm2.txt
 
   # java8
   brew tap adoptopenjdk/openjdk
