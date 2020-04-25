@@ -144,17 +144,21 @@ alias jdk11="export JAVA_HOME=$JAVA_11_HOME"
 # alias
 alias shs='cat ~/.zsh_history | ag '
 alias ip='curl ip.cn'
+alias pc='proxychains4'
+
 # chrome
 _chromePath='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 alias chrome=$_chromePath
 alias google-chrome=$_chromePath
 alias chromex="chrome --disable-web-security"
-alias pc='proxychains4'
 
+# git
 alias gbr='git branch -r --sort=-committerdate --format "%(creatordate:relative);%(committerdate:short);%(committername);%(refname:lstrip=-2)" | grep -v ";HEAD$" | column -s ";" -t'
+alias gdr='git diff @{1}..'
 
 # exec
 # history
+export HISTCONTROL=ignoreboth:erasedups
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 # setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 # setopt SHARE_HISTORY             # Share history between all sessions.

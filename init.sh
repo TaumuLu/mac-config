@@ -53,8 +53,11 @@ brewCaskList=(
   sublime-text
   android-studio
 
-  scroll-reverser
-  omnidisksweeper
+  # scroll-reverser
+  # omnidisksweeper
+  # keycastr
+  # dash
+
   # the-unarchiver
 
   # docker
