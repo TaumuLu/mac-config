@@ -19,9 +19,9 @@ brewList=(
   duti
   blueutil
 
-  mysql
-  redis
-  maven
+  # mysql
+  # redis
+  # maven
   # wget
   # go
   # wrk
@@ -36,7 +36,6 @@ brewList=(
 
 brewCaskList=(
   v2rayx
-  # java
   iterm2
   qlcolorcode
   qlimagesize
@@ -45,13 +44,15 @@ brewCaskList=(
 
   hammerspoon
   appcleaner
-  switchhosts
-  reactotron
   google-chrome
   karabiner-elements
   visual-studio-code
-  sublime-text
-  android-studio
+
+  # switchhosts
+  # reactotron
+  # sublime-text
+  # android-studio
+  # java
 
   # scroll-reverser
   # omnidisksweeper
