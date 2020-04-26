@@ -114,33 +114,32 @@ function init_folder() {
 function get_app() {
   appList=()
   local i=0
-  while read app; do
-    appList[$i]=${app%.app}
+  for item in `ls /Applications | grep .app$`; do
+    appList[$i]=${item%.app}
     let i+=1
-  done < <(ls /Applications | grep .app$)
-  return 0
+  done;
 }
 
 function get_brew_list() {
   brewInstallList=()
   local i=0
-  while read item; do
+  for item in `brew list`; do
     brewInstallList[$i]=$item
     let i+=1
-  done < <(brew list)
+  done;
 }
 
 function get_brew_cask_list() {
   brewCaskInstallList=()
   local i=0
-  while read item; do
+  for item in `brew cask list`; do
     brewCaskInstallList[$i]=$item
     let i+=1
-  done < <(brew cask list)
+  done;
 }
 
 function command_exists() {
-	command -v "$@" >/dev/null 2>&1
+  command -v "$@" >/dev/null 2>&1
 }
 
 function check_file() {
