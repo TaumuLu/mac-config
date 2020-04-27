@@ -72,6 +72,11 @@ defaults write com.apple.menuextra.battery ShowPercent -bool true
 # 打开chrome左右滑动前进后退
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool true
 
+# 关闭黑暗模式
+defaults write com.tencent.qq NSRequiresAquaSystemAppearance -bool true
+defaults write com.irradiatedsoftware.SizeUp NSRequiresAquaSystemAppearance -bool true
+defaults write com.fiplab.batteryairpods NSRequiresAquaSystemAppearance -bool true
+defaults write com.tencent.xinWeChat NSRequiresAquaSystemAppearance -bool true
 
 ###############################################################################
 # init mac                                                                    #
@@ -84,9 +89,11 @@ defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool true
 # # 清除dock所有应用程序的图标
 # defaults write com.apple.dock persistent-apps -array
 
+###############################################################################
+# record                                                                      #
+###############################################################################
 
-# reocrd
-# 桌面只显示一个应用
+# # 桌面只显示一个应用
 # defaults write com.apple.dock single-app -bool true
 # # 更改截屏文件存储格式
 # defaults write com.apple.screencapture type png
@@ -101,3 +108,7 @@ killall Finder
 # killall SystemUIServer
 # killall Safari
 # killall cfprefsd
+
+
+# 息屏时间
+# 音量蓝牙等图标展示

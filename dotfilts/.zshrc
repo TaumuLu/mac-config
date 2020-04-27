@@ -155,6 +155,7 @@ alias chromex="chrome --disable-web-security"
 # git
 alias gbr='git branch -r --sort=-committerdate --format "%(creatordate:relative);%(committerdate:short);%(committername);%(refname:lstrip=-2)" | grep -v ";HEAD$" | column -s ";" -t'
 alias gdr='git diff @{1}..'
+alias gc1='git clone --depth=1'
 
 # exec
 # history

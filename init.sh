@@ -19,9 +19,9 @@ brewList=(
   duti
   blueutil
 
-  # mysql
-  # redis
-  # maven
+  mysql
+  redis
+  maven
   # wget
   # go
   # wrk
@@ -48,9 +48,10 @@ brewCaskList=(
   karabiner-elements
   visual-studio-code
 
-  # switchhosts
-  # reactotron
-  # sublime-text
+  switchhosts
+  reactotron
+  sublime-text
+  # tunnelblick
   # android-studio
   # java
 
@@ -190,10 +191,10 @@ function brew_install() {
 
   # fzf
   $(brew --prefix)/opt/fzf/install
-  if ! command_exists 'node'; then
-    # nvm
-    nvm install --lts
-  fi
+  # if ! command_exists 'node'; then
+  #   # nvm
+  #   nvm install --lts
+  # fi
 
   local bcil=(`diff_arr "${brewCaskList[*]}" "${brewCaskInstallList[*]-}"`)
   if [ ! ${#bcil[@]} -eq 0 ];then
