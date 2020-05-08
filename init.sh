@@ -122,7 +122,7 @@ function install() {
   install_brew
   install_oh_my_zsh
 
-  # post_install
+  post_install
 }
 
 function post_install() {

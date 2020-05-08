@@ -52,9 +52,9 @@ function source_install() {
 function main() {
   source_install
 
-  # exec_python
+  exec_python
 
-  # source_file
+  source_file
 }
 
 main
