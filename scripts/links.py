@@ -2,6 +2,9 @@
 import os, sys, getopt, shutil
 from pathlib import Path
 
+HOME = Path.home()
+PROJECTROOT = Path.cwd()
+
 folder = (
   ('karabiner', '.config'),
   '.hammerspoon',
@@ -18,8 +21,15 @@ files = (
   # '.vimrc',
 )
 
-HOME = Path.home()
-PROJECTROOT = Path.cwd()
+documentsPath = HOME.joinpath('Documents/Preferences')
+libraryPath = HOME.joinpath('Library/Preferences')
+documents = ()
+
+for file in os.listdir(documentsPath):
+  source = documentsPath.joinpath(file)
+  if source.is_file():
+    pathTup = (file,)
+    documents += pathTup
 
 opts, args = getopt.getopt(sys.argv[1:], 'if')
 
@@ -29,21 +39,28 @@ def hasOption(option):
       return True
   return False
 
-def links(data, basePath):
+def links(data, sBase=[PROJECTROOT], tBase=[HOME]):
   for value in data:
-    source = [PROJECTROOT, basePath]
-    target = [HOME]
+    source = sBase.copy()
+    target = tBase.copy()
     # target = [PROJE`CTROOT, 'test']
     if isinstance(value, tuple):
       s, t = value
-      source.append(s)
+      if s.startswith('/'):
+        source = [s]
+      else:
+        source.append(s)
       if t.startswith('/'):
         target = [t, s]
       else:
         target.extend([t, s])
     else:
-      source.append(value)
-      target.append(value)
+      if value.startswith('/'):
+        source = [value]
+        target = [value]
+      else:
+        source.append(value)
+        target.append(value)
     sourcePath = Path(*source)
     targetPath = Path(*target)
 
@@ -72,5 +89,7 @@ def links(data, basePath):
       print('\033[0;31;40mNot find file: %s\033[0m' % sourcePath)
       pass
 
-links(folder, 'configs')
-links(files, 'dotfilts')
+links(folder, [PROJECTROOT, 'configs'])
+links(files, [PROJECTROOT, 'dotfilts'])
+
+links(documents, [documentsPath], [libraryPath])

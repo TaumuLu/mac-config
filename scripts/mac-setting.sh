@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+###############################################################################
+# init mac                                                                    #
+###############################################################################
+isInit=`defaults read com.apple.finder AppleShowAllFiles`
+if [ $isInit -eq 0 ]; then
+  # 取消4位数密码限制
+  pwpolicy -clearaccountpolicies
+  # 修改密码
+  passwd
+  # 清除dock所有应用程序的图标
+  defaults write com.apple.dock persistent-apps -array
+fi
+
 # 设置命令
 # 安全设置显示任何来源选项
 sudo spctl --master-disable
@@ -79,17 +92,6 @@ defaults write com.fiplab.batteryairpods NSRequiresAquaSystemAppearance -bool tr
 defaults write com.tencent.xinWeChat NSRequiresAquaSystemAppearance -bool true
 
 ###############################################################################
-# init mac                                                                    #
-###############################################################################
-
-# # 取消4位数密码限制
-# pwpolicy -clearaccountpolicies
-# # 修改密码
-# passwd
-# # 清除dock所有应用程序的图标
-# defaults write com.apple.dock persistent-apps -array
-
-###############################################################################
 # record                                                                      #
 ###############################################################################
 
@@ -105,10 +107,9 @@ defaults write com.tencent.xinWeChat NSRequiresAquaSystemAppearance -bool true
 # 重启命令
 killall Dock
 killall Finder
-# killall SystemUIServer
+killall SystemUIServer
 # killall Safari
 # killall cfprefsd
-
 
 # 息屏时间
 # 音量蓝牙等图标展示

@@ -108,6 +108,11 @@ function pre_install() {
     mkdir -p $configDir
     git clone https://github.com/TaumuLu/mac-config.git $configDir --depth=1
   fi
+
+  local V2RayX=$HOME/Documents/App/V2RayX.app.zip
+  if [ -f $V2RayX ]; then
+    unzip $V2RayX -d /Applications
+  fi
 }
 
 function install() {
