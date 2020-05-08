@@ -7,21 +7,6 @@ function command_exists() {
 	command -v "$@" >/dev/null 2>&1
 }
 
-function install_flutter() {
-  if [ ! -d $FLUTTER_HOME ]; then
-    git clone https://github.com/flutter/flutter.git $FLUTTER_HOME -b stable --depth=1
-  fi
-  echo 'flutter doctor'
-  flutter doctor
-}
-
-function install_depot_tools() {
-  if [ ! -d $DEPOT_TOOLS_HOME ]; then
-    git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME --depth=1
-  fi
-
-}
-
 function install_vundle() {
   local VUNDLE_HOME="$HOME/.vim/bundle/Vundle.vim"
   if [ ! -d $VUNDLE_HOME ]; then
@@ -29,8 +14,11 @@ function install_vundle() {
   fi
 }
 
-function install_spf13-vim() {
-  curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
+function install_spf13_vim() {
+  local spf13VimPath=$HOME/.spf13-vim-3
+  if [ ! -d $spf13VimPath ]; then
+    curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
+  fi
 }
 
 function source_file() {
@@ -42,21 +30,31 @@ function source_file() {
 }
 
 function exec_python() {
+  echo 'link config'
   if command_exists 'python3'; then
-    python3 ./scripts/links.py -f
+    python3 ./scripts/links.py -fi
   else
-    python ./scripts/links.py -f
+    python ./scripts/links.py -fi
   fi
 }
 
+function source_install() {
+  cd ./install
+  echo 'brew install...'
+  source ./brew.sh
+  echo 'flutter install...'
+  source ./flutter.sh
+  echo 'vim install...'
+  source ./vim.sh
+  cd ../
+}
+
 function main() {
+  source_install
+
+  # exec_python
+
   # source_file
-
-  exec_python
-
-  install_flutter
-  install_depot_tools
-  install_vundle
 }
 
 main
