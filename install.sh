@@ -103,6 +103,17 @@ function main() {
   source_install
 
   exec_python
+
+  post_install
+}
+
+function post_install() {
+  # switchHosts data.json
+  if [ ! -f ./configs/.SwitchHosts/data.json ]; then
+    cp ./data/data.json ./configs/.SwitchHosts
+  fi
+
+  chmod -R 700 ~/.ssh/*
 }
 
 main

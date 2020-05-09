@@ -24,6 +24,8 @@ files = (
 configPath = Path(HOME).joinpath('Documents/Config')
 documents = (
   '.ssh',
+  '.zsh_history',
+  '.bash_history',
 )
 
 # for file in os.listdir(documentsPath):
@@ -51,7 +53,6 @@ def links(data, sBase=[PROJECTROOT], tBase=[HOME], isJoin=True):
   for value in data:
     source = sBase.copy()
     target = tBase.copy()
-    # target = [PROJE`CTROOT, 'test']
     if isinstance(value, tuple):
       s, t = value
       source = getPath(s, source)
