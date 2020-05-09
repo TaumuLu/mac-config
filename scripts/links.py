@@ -25,11 +25,11 @@ documentsPath = HOME.joinpath('Documents/Preferences')
 libraryPath = HOME.joinpath('Library/Preferences')
 documents = ()
 
-for file in os.listdir(documentsPath):
-  source = documentsPath.joinpath(file)
-  if source.is_file():
-    pathTup = (file,)
-    documents += pathTup
+# for file in os.listdir(documentsPath):
+#   source = documentsPath.joinpath(file)
+#   if source.is_file():
+#     pathTup = (file,)
+#     documents += pathTup
 
 opts, args = getopt.getopt(sys.argv[1:], 'if')
 
@@ -92,4 +92,4 @@ def links(data, sBase=[PROJECTROOT], tBase=[HOME]):
 links(folder, [PROJECTROOT, 'configs'])
 links(files, [PROJECTROOT, 'dotfilts'])
 
-links(documents, [documentsPath], [libraryPath])
+# links(documents, [documentsPath], [libraryPath])

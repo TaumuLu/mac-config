@@ -15,6 +15,11 @@ function install_spf13_vim() {
   if [ ! -d $spf13VimPath ]; then
     curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
   fi
+
+  installPath=`get_pwd`/spf13-vim.sh
+  if [ -f $installPath ]; then
+    rm $installPath
+  fi
 }
 
 function main() {

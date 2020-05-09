@@ -107,7 +107,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # node
 _nodePath=`which node`
-export NODE_PATH=${temp/%bin\/node/lib\/node_modules}
+export NODE_PATH=${_nodePath/%bin\/node/lib\/node_modules}
 
 # android
 export ANDROID_HOME="$HOME/Library/Android/sdk"

@@ -45,7 +45,7 @@ brewCaskList=(
   hammerspoon
   appcleaner
   google-chrome
-  google-chrome-canary
+  # google-chrome-canary
   karabiner-elements
   visual-studio-code
 
@@ -114,43 +114,10 @@ function get_brew_cask_list() {
   done;
 }
 
-function command_exists() {
-	command -v "$@" >/dev/null 2>&1
-}
-
-function app_exists() {
-  local name="id of app \"$@\""
-  osascript -e "$name" >/dev/null 2>&1
-}
-
-function diff_arr() {
-  local arr=$1
-  local arr2=$2
-  local list=()
-  local i=0
-  for x in ${arr[@]}; do
-    local isInstall=true
-    for y in ${arr2[@]}; do
-      if [ $x == $y ]; then
-        isInstall=false
-      fi
-    done
-    if [ $isInstall = true ]; then
-      list[i]=$x
-      let i+=1
-    fi
-  done
-  echo ${list[@]-}
-}
-
 function brew_post_install() {
   # fzf
   if [ ! -f $HOME/.fzf.zsh ]; then
     $(brew --prefix)/opt/fzf/install
-  fi
-  # node
-  if ! command_exists 'node'; then
-    nvm install --lts
   fi
   # duti
   duti ../configs/duti/sublime.txt
@@ -193,13 +160,13 @@ function brew_install() {
   echo 'java versions'
   /usr/libexec/java_home -V
 
-  # brew cleanup
+  brew cleanup
 }
 
 function brew_services() {
   local serverList=`brew services list | awk 'NR == 1 {next} {print $1}'`
   for i in ${startList[@]}; do
-    [[! command_exists $i ]] && continue
+    # [[ ! command_exists $i ]] && continue
 
     local isStart=true
     for j in ${serverList[@]}; do
@@ -224,7 +191,7 @@ function install_brew {
   fi
 
   brew_install
-  # brew_services
+  brew_services
 }
 
 function pre_install() {
