@@ -21,9 +21,10 @@ files = (
   # '.vimrc',
 )
 
-documentsPath = HOME.joinpath('Documents/Preferences')
-libraryPath = HOME.joinpath('Library/Preferences')
-documents = ()
+configPath = Path(HOME).joinpath('Documents/Config')
+documents = (
+  '.ssh',
+)
 
 # for file in os.listdir(documentsPath):
 #   source = documentsPath.joinpath(file)
@@ -39,28 +40,27 @@ def hasOption(option):
       return True
   return False
 
-def links(data, sBase=[PROJECTROOT], tBase=[HOME]):
+def getPath(pValue, pList):
+  if pValue.startswith('/'):
+    return [pValue]
+  else:
+    pList.append(pValue)
+    return pList
+
+def links(data, sBase=[PROJECTROOT], tBase=[HOME], isJoin=True):
   for value in data:
     source = sBase.copy()
     target = tBase.copy()
     # target = [PROJE`CTROOT, 'test']
     if isinstance(value, tuple):
       s, t = value
-      if s.startswith('/'):
-        source = [s]
-      else:
-        source.append(s)
-      if t.startswith('/'):
-        target = [t, s]
-      else:
-        target.extend([t, s])
+      source = getPath(s, source)
+      target = getPath(t, target)
+      if not s.startswith('/') and isJoin:
+        target.append(s)
     else:
-      if value.startswith('/'):
-        source = [value]
-        target = [value]
-      else:
-        source.append(value)
-        target.append(value)
+      source = getPath(value, source)
+      target = getPath(value, target)
     sourcePath = Path(*source)
     targetPath = Path(*target)
 
@@ -92,4 +92,4 @@ def links(data, sBase=[PROJECTROOT], tBase=[HOME]):
 links(folder, [PROJECTROOT, 'configs'])
 links(files, [PROJECTROOT, 'dotfilts'])
 
-# links(documents, [documentsPath], [libraryPath])
+links(documents, [configPath])
