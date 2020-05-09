@@ -54,7 +54,8 @@ brewCaskList=(
   sublime-text
   adoptopenjdk8
   adoptopenjdk11
-  # tunnelblick
+  docker
+  tunnelblick
   # android-studio
   # java
 
@@ -65,7 +66,6 @@ brewCaskList=(
 
   # the-unarchiver
 
-  # docker
   # sourcetree
   # typora
 
