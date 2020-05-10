@@ -120,9 +120,9 @@ function brew_post_install() {
     $(brew --prefix)/opt/fzf/install
   fi
   # duti
-  duti ../configs/duti/sublime.txt
-  duti ../configs/duti/vscode.txt
-  duti ../configs/duti/iterm2.txt
+  duti ../data/duti/sublime.txt
+  duti ../data/duti/vscode.txt
+  duti ../data/duti/iterm2.txt
 }
 
 function brew_install() {
