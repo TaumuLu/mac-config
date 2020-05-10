@@ -128,8 +128,11 @@ function brew_post_install() {
 function brew_install() {
   local bil=(`diff_arr "${brewList[*]}" "${brewInstallList[*]-}"`)
   if [ ! ${#bil[@]} -eq 0 ]; then
-    echo "brew install ${bil[@]}"
+    cyan "brew install ${bil[@]}"
     brew install ${bil[@]}
+    get_brew_list
+
+    brew cleanup
   fi
 
   brew_post_install
@@ -151,16 +154,18 @@ function brew_install() {
       fi
     done
     if [ ! ${#caskList[@]} -eq 0 ]; then
-      echo "brew cask install ${caskList[@]}"
+      cyan "brew cask install ${caskList[@]}"
       brew cask install ${caskList[@]}
+      get_brew_cask_list
+
+      brew cleanup
     fi
   fi
 
   # 查看所有已安装java版本的信息
-  echo 'java versions'
+  cyan 'all java versions'
   /usr/libexec/java_home -V
 
-  brew cleanup
 }
 
 function brew_services() {
@@ -172,21 +177,27 @@ function brew_services() {
     for j in ${serverList[@]}; do
       if [ $i == $j ]; then
         isStart=false
+        break
       fi
     done
     if [ $isStart = true ]; then
-      brew services start $i
+      for k in ${brewInstallList[@]}; do
+        if [ $i == $k ]; then
+          brew services start $i
+          break
+        fi
+      done
     fi
   done
 
-  echo 'brew started services:'
-  echo $serverList
+  cyan 'brew started services:'
+  white $serverList
 }
 
 function install_brew {
   # Homebrew
   if ! command_exists 'brew'; then
-    echo "install Homebrew..."
+    cyan "install Homebrew..."
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 

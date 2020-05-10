@@ -6,6 +6,7 @@ set -euo pipefail
 npmList=(
   yarn
   npm-check-updates
+  genfe-cli
 )
 
 # node
@@ -18,9 +19,11 @@ function install_node() {
 
 # npm
 function npm_install() {
-  if command_exists 'npm'; then
-    echo "npm install -g ${npmList[@]}"
-    npm install -g ${npmList[@]}
+  local installList=`npm list -g --depth=0 | awk 'NR == 1 {next} {print $2}' | awk -F @ '{print $1}'`
+  local nil=(`diff_arr "${npmList[*]}" "${installList[*]-}"`)
+  if [ ! ${#nil[@]} -eq 0 ] && command_exists 'npm';then
+    cyan "npm install -g ${nil[@]}"
+    npm install -g ${nil[@]}
   fi
 }
 

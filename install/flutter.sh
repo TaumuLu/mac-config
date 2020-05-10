@@ -6,7 +6,7 @@ set -euo pipefail
 function install_flutter() {
   if [ ! -d $FLUTTER_HOME ]; then
     git clone https://github.com/flutter/flutter.git $FLUTTER_HOME -b stable --depth=1
-    echo 'flutter doctor'
+    cyan 'flutter doctor'
     flutter doctor
   fi
 }

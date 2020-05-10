@@ -8,7 +8,7 @@ source ./scripts/common.sh
 function install_rvm {
   # rvm
   if ! command_exists 'rvm'; then
-    echo "install rvm..."
+    cyan "install rvm..."
     \curl -sSL https://get.rvm.io | bash -s stable
   fi
 
@@ -27,7 +27,7 @@ function install_oh_my_zsh() {
   # oh-my-zsh
   local zshPath=${ZSH:-$HOME/.oh-my-zsh}
   if [ ! -d $zshPath ]; then
-    echo "install oh-my-zsh..."
+    cyan "install oh-my-zsh..."
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     compaudit | xargs chmod g-w,o-w
     zsh
@@ -56,25 +56,29 @@ function pre_install() {
 }
 
 function exec_python() {
-  echo 'link config'
   if command_exists 'python3'; then
+    green "link config..."
     python3 ./scripts/links.py -fi
+    blue 'link config done'
   fi
 
-  echo 'copy exec "source ~/.zshrc"'
+  cyan 'copy exec "source ~/.zshrc"'
 }
 
 function source_script() {
   cd ./scripts
 
-  echo 'source links'
+  green 'source links...'
   source ./links.sh
-  # echo 'source base'
+  blue 'source links done'
+  # green 'source base'
   # source ./base.sh
-  echo 'source mac-setting'
-  source ./mac-setting.sh
-  echo 'source open-url'
-  source ./open-url.sh
+  if ! command_exists 'brew'; then
+    green 'source mac-setting'
+    source ./mac-setting.sh
+    green 'source open-url'
+    source ./open-url.sh
+  fi
 
   cd ../
 }
@@ -82,14 +86,21 @@ function source_script() {
 function source_install() {
   cd ./install
 
-  echo 'brew install...'
+  green 'brew install...'
   source ./brew.sh
-  echo 'node install...'
+  blue 'brew install done'
+
+  green 'node install...'
   source ./node.sh
-  echo 'flutter install...'
+  blue 'node install done'
+
+  green 'flutter install...'
   source ./flutter.sh
-  echo 'vim install...'
+  blue 'flutter install done'
+
+  green 'vim install...'
   source ./vim.sh
+  blue 'vim install done'
 
   cd ../
 }

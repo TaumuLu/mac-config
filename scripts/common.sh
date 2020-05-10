@@ -60,3 +60,43 @@ function diff_arr() {
   done
   echo ${list[@]-}
 }
+
+## success
+function blue() {
+  echo -e "\033[34m$*\033[0m"
+}
+
+## exec
+function green() {
+  echo -e "\033[32m$*\033[0m"
+}
+
+## prompt
+function cyan() {
+  echo -e "\033[36m$*\033[0m"
+}
+
+## Error
+function red() {
+  echo -e "\033[31m\033[01m$*\033[0m"
+}
+
+## warning
+function yellow() {
+  echo -e "\033[33m\033[01m$*\033[0m"
+}
+
+## none
+function white() {
+  echo -e "\033[37m$*\033[0m"
+}
+
+# ## Error to warning with blink
+# function bred() {
+#     echo -e "\033[31m\033[01m\033[05m[ $1 ]\033[0m"
+# }
+
+# ## Error to warning with blink
+# function byellow() {
+#     echo -e "\033[33m\033[01m\033[05m[ $1 ]\033[0m"
+# }
