@@ -51,6 +51,8 @@ function pre_install() {
     local V2RayX=$HOME/Documents/App/V2RayX.app.zip
     if [ -f $V2RayX ]; then
       unzip $V2RayX -d /Applications
+      red 'please subscribe V2RayX config'
+      exit
     fi
   fi
 }
