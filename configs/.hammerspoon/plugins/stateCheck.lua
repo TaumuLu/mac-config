@@ -1,4 +1,3 @@
-
 function checkAutoLaunch()
   local isLaunch = hs.autoLaunch()
   if (isLaunch == false) then
@@ -13,7 +12,6 @@ function toggleConsole()
     hs.dockIcon(not state)
   end)
 end
-
 
 checkAutoLaunch()
 toggleConsole()

@@ -8,9 +8,8 @@ end
 
 function runAutoScripts()
   for key, cmd in ipairs(cmdArr) do
-      shell(cmd)
+    shell(cmd)
   end
 end
-
 
 hs.timer.doEvery(3600, runAutoScripts)
