@@ -23,18 +23,14 @@ end
 local switchTabLeft = hs.hotkey.new({'alt', 'cmd'}, 'left', postKeyEvent(true))
 local switchTabRight = hs.hotkey.new({'alt', 'cmd'}, 'right', postKeyEvent(false))
 
-function applicationWatcher(appName, eventType, appObject)
-  if (eventType == hs.application.watcher.activated) then
-    local bundleID = appObject:bundleID()
-    if bundleID == appId then
-      switchTabLeft:enable()
-      switchTabRight:enable()
-    else
-      switchTabLeft:disable()
-      switchTabRight:disable()
-    end
+return {
+  id = appId,
+  enable = function()
+    switchTabLeft:enable()
+    switchTabRight:enable()
+  end,
+  disable = function()
+    switchTabLeft:disable()
+    switchTabRight:disable()
   end
-end
-
-appWatcher = hs.application.watcher.new(applicationWatcher)
-appWatcher:start()
+}

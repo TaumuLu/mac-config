@@ -1,9 +1,8 @@
 require 'plugins.autoReload'
 require 'plugins.autoBluetooth'
 require 'plugins.posMouse'
-require 'plugins.safariScript'
 require 'plugins.stateCheck'
-require 'plugins.finderScript'
+require 'plugins.appWatcher'
 
 -- 调试代码
 hs.hotkey.bind({'cmd', 'option', 'shift'}, 'h', function()

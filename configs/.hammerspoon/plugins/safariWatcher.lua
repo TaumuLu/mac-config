@@ -119,20 +119,15 @@ function yuquePaste()
 end
 
 -- watch app script
-
-function applicationWatcher(appName, eventType, appObject)
-  if (eventType == hs.application.watcher.activated) then
-    local bundleID = appObject:bundleID()
-    if bundleID == appId then
-      yuquePaste()
-      switchTabLeft:enable()
-      switchTabRight:enable()
-    else
-      switchTabLeft:disable()
-      switchTabRight:disable()
-    end
+return {
+  id = appId,
+  enable = function()
+    yuquePaste()
+    switchTabLeft:enable()
+    switchTabRight:enable()
+  end,
+  disable = function()
+    switchTabLeft:disable()
+    switchTabRight:disable()
   end
-end
-
-appWatcher = hs.application.watcher.new(applicationWatcher)
-appWatcher:start()
+}
