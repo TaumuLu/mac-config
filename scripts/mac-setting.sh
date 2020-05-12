@@ -25,14 +25,11 @@ sudo spctl --master-disable
 # 取消开机音效
 # sudo nvram BootAudio=%00
 
-
 # defaults
 # 显示隐藏文件
 defaults write com.apple.finder AppleShowAllFiles -bool true
 # 显示文件扩展名
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-# 重置launchpod
-defaults write com.apple.dock ResetLaunchPad -bool true
 # 显示Safari调试菜单
 defaults write com.apple.safari IncludeDebugMenu -bool true
 # 显示Xcode每一次build的所用时间
@@ -81,6 +78,20 @@ defaults write com.apple.finder FXPreferredViewStyle -string "icnv"
 # 电池电量显示百分比
 defaults write com.apple.menuextra.battery ShowPercent -bool true
 
+# 重置launchpod
+defaults write com.apple.dock ResetLaunchPad -bool true
+
+# 状态栏菜单展示图标
+defaults write com.apple.systemuiserver menuExtras -array\
+  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"\
+  "/System/Library/CoreServices/Menu Extras/AirPort.menu"\
+  "/System/Library/CoreServices/Menu Extras/Battery.menu"\
+  "/System/Library/CoreServices/Menu Extras/Clock.menu"\
+  "/System/Library/CoreServices/Menu Extras/Volume.menu"\
+  # "/System/Library/CoreServices/Menu Extras/RemoteDesktop.menu"\
+  # "/System/Library/CoreServices/Menu Extras/Script Menu.menu"\
+  # "/System/Library/CoreServices/Menu Extras/TextInput.menu"\
+  # "/System/Library/CoreServices/Menu Extras/TimeMachine.menu"\
 
 # 打开chrome左右滑动前进后退
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool true
