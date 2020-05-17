@@ -59,6 +59,8 @@ brewCaskList=(
   # android-studio
   # java
 
+  # dotnet-sdk
+
   # scroll-reverser
   # omnidisksweeper
   # keycastr
