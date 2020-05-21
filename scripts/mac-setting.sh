@@ -95,6 +95,7 @@ defaults write com.apple.systemuiserver menuExtras -array\
 
 # 打开chrome左右滑动前进后退
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool true
+defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool true
 
 # 关闭黑暗模式
 defaults write com.tencent.qq NSRequiresAquaSystemAppearance -bool true

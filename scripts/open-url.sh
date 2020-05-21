@@ -11,6 +11,7 @@ urls=(
   'https://xclient.info/s/alfred.html'
   'https://xclient.info/s/sizeup.html'
   'https://xclient.info/s/istat-menus-for-mac.html'
+  'https://pinyin.sogou.com/mac'
   # 'https://xclient.info/s/pdf-expert-for-mac.html'
 )
 
