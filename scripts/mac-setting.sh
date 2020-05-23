@@ -26,8 +26,6 @@ sudo spctl --master-disable
 # sudo nvram BootAudio=%00
 
 # defaults
-# 显示隐藏文件
-defaults write com.apple.finder AppleShowAllFiles -bool true
 # 显示文件扩展名
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 # 显示Safari调试菜单
@@ -42,15 +40,11 @@ defaults write com.apple.screencapture location ~/Downloads
 defaults write com.apple.dock show-recents -bool false
 # 禁止自动拼写纠正
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
-# Finder 显示状态栏
-defaults write com.apple.finder ShowStatusBar -bool true
-# Finder 显示地址栏
-defaults write com.apple.finder ShowPathbar -bool true
+
 # 禁止在网络驱动器上生成 .DS_Store 文件
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # 电池显示是百分百
 defaults write com.apple.menuextra.battery -bool true
-# 谷歌禁止双指左右滑动
 # 鼠标
 defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
 # 触控板
@@ -67,6 +61,9 @@ defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 # 30分钟显示器休眠
 # sudo pmset -a displaysleep 15
+
+# 显示隐藏文件
+defaults write com.apple.finder AppleShowAllFiles -bool true
 # 按名称排序，文件夹在最前面
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
 # 搜索时默认搜索当前文件夹
@@ -75,6 +72,12 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 # 视图查看模式
 defaults write com.apple.finder FXPreferredViewStyle -string "icnv"
+# Finder 显示状态栏
+defaults write com.apple.finder ShowStatusBar -bool true
+# Finder 显示地址栏
+defaults write com.apple.finder ShowPathbar -bool true
+# defaults write com.apple.finder NSQuitAlwaysKeepsWindows -bool true
+
 # 电池电量显示百分比
 defaults write com.apple.menuextra.battery ShowPercent -bool true
 
@@ -93,6 +96,7 @@ defaults write com.apple.systemuiserver menuExtras -array\
   # "/System/Library/CoreServices/Menu Extras/TextInput.menu"\
   # "/System/Library/CoreServices/Menu Extras/TimeMachine.menu"\
 
+# 谷歌禁止双指左右滑动
 # 打开chrome左右滑动前进后退
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool true
 defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool true
