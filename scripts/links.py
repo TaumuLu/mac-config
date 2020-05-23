@@ -16,6 +16,7 @@ files = (
   '.bash_profile',
   '.bashrc',
   '.gitconfig',
+  '.gitignore',
   '.npmrc',
   '.zshrc',
   # '.vimrc',

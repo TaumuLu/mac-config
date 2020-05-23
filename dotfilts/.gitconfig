@@ -6,6 +6,7 @@
 	ignorecase = false
 	longpaths = true
 	editor = vim
+	excludesfile = ~/.gitignore
 [credential]
 	helper = store
 [color]
