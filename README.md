@@ -170,3 +170,9 @@ sudo launchctl unload -w /Library/LaunchDaemons/*.plist
 # 修改执行权限
 sudo chown root:wheel /Library/LaunchDaemons/*.plist
 ```
+
+### 其他人的配置
+- https://github.com/mdo/config
+- https://github.com/mzdr/macOS
+- https://github.com/boochtek/mac_config
+- https://github.com/bkuhlmann/mac_os-config
