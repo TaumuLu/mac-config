@@ -176,3 +176,4 @@ sudo chown root:wheel /Library/LaunchDaemons/*.plist
 - https://github.com/mzdr/macOS
 - https://github.com/boochtek/mac_config
 - https://github.com/bkuhlmann/mac_os-config
+- https://github.com/kevinSuttle/macOS-Defaults

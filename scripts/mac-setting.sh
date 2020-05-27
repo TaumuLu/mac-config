@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# 预先要求管理员密码
+sudo -v
+
 ###############################################################################
 # init mac                                                                    #
 ###############################################################################
@@ -123,6 +126,9 @@ defaults write com.irradiatedsoftware.SizeUp NSRequiresAquaSystemAppearance -boo
 defaults write com.fiplab.batteryairpods NSRequiresAquaSystemAppearance -bool true
 defaults write com.tencent.xinWeChat NSRequiresAquaSystemAppearance -bool true
 
+# Terminal使用UTF-8
+defaults write com.apple.terminal StringEncodings -array 4
+
 ###############################################################################
 # record                                                                      #
 ###############################################################################
@@ -142,6 +148,27 @@ killall Finder
 killall SystemUIServer
 # killall Safari
 # killall cfprefsd
+
+# appList=(
+#   "Activity Monitor"
+#   "Address Book"
+#   "Calendar"
+#   "Contacts"
+#   "cfprefsd"
+#   "Dock"
+#   "Finder"
+#   "Mail"
+#   "Messages"
+#   "Safari"
+#   "SystemUIServer"
+#   "Terminal"
+#   "iCal"
+# )
+# IFS=""
+
+# for app in ${appList[*]}; do
+#   killall "${app}" > /dev/null 2>&1
+# done
 
 # 息屏时间
 # 音量蓝牙等图标展示
