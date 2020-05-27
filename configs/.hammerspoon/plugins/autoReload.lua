@@ -17,10 +17,3 @@ end
 configFileWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig)
 configFileWatcher:start()
 hs.alert.show("Config loaded")
-
-local function reloadApp(paths)
-  hs.alert.show("app change")
-end
-
-appWatcher = hs.pathwatcher.new("/Applications", reloadApp)
-appWatcher:start()
