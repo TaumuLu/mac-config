@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         主题切换
 // @namespace    http://tampermonkey.net/
-// @version      0.1.9
+// @version      0.1.10
 // @description  网站@media (prefers-color-scheme: dark|light)主题样式切换，深色模式和浅色模式的切换
 // @author       taumu
 // @license      MIT
 // @include      *://*.weixin.*
+// @include      *://*.microsoft.*
 // @include      *://sspai.*
 // @run-at       document-start
 // @require      https://unpkg.com/style-media-toggle
@@ -26,6 +27,7 @@
   const { matches: isDark } = matchMedia(`(${mediaName}: dark)`)
   const { host, origin } = window.location
   const saveName = `${mediaName}:${host}`
+  let isCallMatchMedia = false
 
   function getValue(name, defaultVal = true) {
     // eslint-disable-next-line no-undef
@@ -35,6 +37,7 @@
   unsafeWindow.matchMedia = (mediaText, ...other) => {
     const result = matchMedia(mediaText, ...other)
     if (mediaText.includes(mediaName)) {
+      isCallMatchMedia = true;
       const value = getValue(saveName)
       const matches = mediaText.includes('dark') ? value : !value
 
@@ -157,17 +160,13 @@
 
     themeMap.forEach((theme, k) => {
       const { menuId, title, isDefault } = theme
-      if (keys.length) {
+      if (keys.length || isCallMatchMedia) {
         if (isDefault) {
           const key = keys.find(item => item.includes(k))
           const media = key && mediaMap.get(key)
           const value = getValue(saveName)
-          const params = []
           if (media) {
-            params.push(title, saveName)
             media.toggle(!value)
-          } else {
-            params.push('无可切换主题')
           }
           // eslint-disable-next-line no-param-reassign
           if (!menuId) theme.menuId = registerMenu(title, saveName)
