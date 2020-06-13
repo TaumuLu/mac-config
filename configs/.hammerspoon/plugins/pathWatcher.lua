@@ -9,7 +9,7 @@ local function reloadApp(paths)
 
     local isApp = file:sub(-4) == ".app"
     if count == 2 and isApp then
-      hs.alert.show(file)
+      -- hs.alert.show(file)
       isChange = true
       break
     end
