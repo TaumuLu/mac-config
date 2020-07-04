@@ -160,6 +160,12 @@ alias gdc='git diff --cached'
 
 alias gc1='git clone --depth=1'
 
+alias gdl='f() { \
+  git filter-branch --force --index-filter \
+    "git rm --cached --ignore-unmatch $1" \
+    --prune-empty --tag-name-filter cat -- --all
+}; f'
+
 # exec
 # history
 export HISTCONTROL=ignoreboth:erasedups
