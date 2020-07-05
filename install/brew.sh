@@ -56,6 +56,8 @@ brewCaskList=(
   adoptopenjdk11
   docker
   tunnelblick
+
+  # visual-studio
   # android-studio
   # java
 

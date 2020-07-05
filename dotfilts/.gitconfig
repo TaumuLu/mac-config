@@ -13,3 +13,4 @@
 	ui = true
 [alias]
 	cu = "!f() { git config user.name $1 && git config user.email $2; }; f"
+	ignored = !git ls-files -v | grep "^[SM]"
