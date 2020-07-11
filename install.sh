@@ -73,8 +73,7 @@ function source_script() {
   green 'source links...'
   source ./links.sh
   blue 'source links done'
-  # green 'source base'
-  # source ./base.sh
+
   if ! command_exists 'brew'; then
     green 'source mac-setting'
     source ./mac-setting.sh
@@ -120,13 +119,26 @@ function main() {
   post_install
 }
 
+function genSSH() {
+  local ssh="${HOME}/.ssh"
+  if [ -d $ssh ]; then
+    chmod -R 700 ~/.ssh/*
+  else
+    echo "Generating ssh key..."
+    echo "Please enter the email you want to associate with your ssh key: \c"
+    read email
+    ssh-keygen -t rsa -C "$email"
+    genSSH
+  fi
+}
+
 function post_install() {
   # switchHosts data.json
   if [ ! -f ./configs/.SwitchHosts/data.json ]; then
     cp ./data/data.json ./configs/.SwitchHosts
   fi
 
-  chmod -R 700 ~/.ssh/*
+  genSSH
 }
 
 main
