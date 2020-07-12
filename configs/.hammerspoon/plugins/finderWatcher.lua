@@ -1,10 +1,10 @@
 local appId = 'com.apple.finder'
 
-local keyList = {
-  hs.keycodes.map.shift,
-  hs.keycodes.map.ctrl,
-  hs.keycodes.map.tab
-}
+-- local keyList = {
+--   hs.keycodes.map.shift,
+--   hs.keycodes.map.ctrl,
+--   hs.keycodes.map.tab
+-- }
 
 -- function postKeyEvent(...)
 --   local args={...}
@@ -23,21 +23,21 @@ local keyList = {
 -- local switchTabLeft = hs.hotkey.new({'alt', 'cmd'}, 'left', postKeyEvent(true))
 -- local switchTabRight = hs.hotkey.new({'alt', 'cmd'}, 'right', postKeyEvent(false))
 
-local switchTabLeft = hs.hotkey.new({'alt', 'cmd'}, 'left', function()
-  hs.eventtap.keyStroke({'cmd','shift'}, '[')
-end)
-local switchTabRight = hs.hotkey.new({'alt', 'cmd'}, 'right', function()
-  hs.eventtap.keyStroke({'cmd','shift'}, ']')
-end)
+-- local switchTabLeft = hs.hotkey.new({'alt', 'cmd'}, 'left', function()
+--   hs.eventtap.keyStroke({'cmd','shift'}, '[')
+-- end)
+-- local switchTabRight = hs.hotkey.new({'alt', 'cmd'}, 'right', function()
+--   hs.eventtap.keyStroke({'cmd','shift'}, ']')
+-- end)
 
 return {
   id = appId,
-  enable = function()
-    switchTabLeft:enable()
-    switchTabRight:enable()
-  end,
-  disable = function()
-    switchTabLeft:disable()
-    switchTabRight:disable()
-  end
+  -- enable = function()
+  --   switchTabLeft:enable()
+  --   switchTabRight:enable()
+  -- end,
+  -- disable = function()
+  --   switchTabLeft:disable()
+  --   switchTabRight:disable()
+  -- end
 }

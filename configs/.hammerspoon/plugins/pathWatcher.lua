@@ -1,9 +1,9 @@
 local function reloadApp(paths)
   local isChange = false
-  for _,file in pairs(paths) do
+  for _, file in pairs(paths) do
     local count = 0
 
-    for w in file:gmatch("/") do
+    for _ in file:gmatch("/") do
       count = count + 1
     end
 
@@ -25,7 +25,7 @@ local function reloadApp(paths)
 end
 
 local timer = nil
-appChangeWatcher = hs.pathwatcher.new("/Applications", function (paths)
+local appChangeWatcher = hs.pathwatcher.new("/Applications", function (paths)
   if timer then
     timer:stop()
     timer = nil

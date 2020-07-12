@@ -1,4 +1,4 @@
-function checkAutoLaunch()
+local function checkAutoLaunch()
   local isLaunch = hs.autoLaunch()
   if (isLaunch == false) then
     hs.autoLaunch(true)
@@ -6,7 +6,7 @@ function checkAutoLaunch()
   end
 end
 
-function toggleConsole()
+local function toggleConsole()
   hs.hotkey.bind({'cmd', 'option', 'shift'}, 'c', function()
     local state = hs.dockIcon()
     hs.dockIcon(not state)

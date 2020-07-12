@@ -24,19 +24,19 @@
 
 local appId = 'com.apple.Safari'
 
-local switchTabLeft = hs.hotkey.new({'alt', 'cmd'}, 'left', function()
-  hs.eventtap.keyStroke({'cmd','shift'}, '[')
-end)
-local switchTabRight = hs.hotkey.new({'alt', 'cmd'}, 'right', function()
-  hs.eventtap.keyStroke({'cmd','shift'}, ']')
-end)
+-- local switchTabLeft = hs.hotkey.new({'alt', 'cmd'}, 'left', function()
+--   hs.eventtap.keyStroke({'cmd','shift'}, '[')
+-- end)
+-- local switchTabRight = hs.hotkey.new({'alt', 'cmd'}, 'right', function()
+--   hs.eventtap.keyStroke({'cmd','shift'}, ']')
+-- end)
 
 -- yuquePaste script
 
 local htmlUti = "public.html"
 local textUti = "public.utf8-plain-text"
 
-function setPlainText(value)
+local function setPlainText(value)
   local text = value or hs.pasteboard.getContents()
   if text ~= nil then
     local content = string.gsub(text, "%s*[\n]+%s*", "\n")
@@ -44,7 +44,7 @@ function setPlainText(value)
   end
 end
 
-function setUrlHtml(url, text)
+local function setUrlHtml(url, text)
   local table = {}
   local html = string.format([[
   <meta charset="utf-8" />
@@ -67,7 +67,7 @@ end)
 
 local prevValue
 
-function yuquePaste()
+local function yuquePaste()
   if isSkip == true then
     prevValue = nil
     isSkip = false
@@ -123,11 +123,5 @@ return {
   id = appId,
   enable = function()
     yuquePaste()
-    switchTabLeft:enable()
-    switchTabRight:enable()
   end,
-  disable = function()
-    switchTabLeft:disable()
-    switchTabRight:disable()
-  end
 }

@@ -4,6 +4,7 @@ require 'plugins.posMouse'
 require 'plugins.stateCheck'
 require 'plugins.appWatcher'
 require 'plugins.pathWatcher'
+require 'plugins.killApp'
 
 -- 调试代码
 hs.hotkey.bind({'cmd', 'option', 'shift'}, 'h', function()
