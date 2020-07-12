@@ -28,7 +28,6 @@ local watcher = {
   switchApps
 }
 
-
 local function trigger(object, name)
   if object[name] ~= nil then
     object[name]()
@@ -67,5 +66,5 @@ local function applicationWatcher(appName, eventType, appObject)
   end
 end
 
-local appWatcher = hs.application.watcher.new(applicationWatcher)
-appWatcher:start()
+AppWatcher = hs.application.watcher.new(applicationWatcher)
+AppWatcher:start()

@@ -67,8 +67,8 @@ local function caffeinateCallback(eventType)
   end
 end
 
-local caffeinateWatcher = hs.caffeinate.watcher.new(caffeinateCallback)
-caffeinateWatcher:start()
+CaffeinateWatcher = hs.caffeinate.watcher.new(caffeinateCallback)
+CaffeinateWatcher:start()
 
 local hyper = {'alt'}
 hs.hotkey.bind(hyper, 'l', connectDevice)

@@ -14,6 +14,6 @@ local function reloadConfig(paths)
   hs.reload()
 end
 
-local configFileWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig)
-configFileWatcher:start()
+ConfigFileWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig)
+ConfigFileWatcher:start()
 hs.alert.show("Config loaded")

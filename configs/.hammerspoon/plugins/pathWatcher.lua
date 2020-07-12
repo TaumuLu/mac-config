@@ -25,7 +25,7 @@ local function reloadApp(paths)
 end
 
 local timer = nil
-local appChangeWatcher = hs.pathwatcher.new("/Applications", function (paths)
+AppChangeWatcher = hs.pathwatcher.new("/Applications", function (paths)
   if timer then
     timer:stop()
     timer = nil
@@ -34,4 +34,4 @@ local appChangeWatcher = hs.pathwatcher.new("/Applications", function (paths)
     reloadApp(paths)
   end)
 end)
-appChangeWatcher:start()
+AppChangeWatcher:start()
