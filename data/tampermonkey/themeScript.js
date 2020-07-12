@@ -71,14 +71,15 @@
   function getUrl(src, path) {
     if (['http', 'https'].some(head => path.startsWith(head))) return path
 
+    const fixPath = path.replace(/["']/g, '')
     const sList = src.split('/')
-    const pList = path.split('/')
+    const pList = fixPath.split('/')
     const hostPath = sList
       .slice(0, 3)
       .filter(v => !!v)
       .join('//')
     let absPath
-    if (path.startsWith('/')) {
+    if (fixPath.startsWith('/')) {
       absPath = pList.slice(1)
     } else {
       const lastIndex = pList.lastIndexOf('..')
