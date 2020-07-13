@@ -46,16 +46,17 @@ end
 local connectDevice = handleDevice()
 local disconnectDevice = handleDevice(false)
 
-local function caffeinateCallback(eventType)
-  if (eventType == hs.caffeinate.watcher.screensDidSleep) then
-    print("screensDidSleep")
-  elseif (eventType == hs.caffeinate.watcher.screensDidWake) then
-    print("screensDidWake")
-  elseif (eventType == hs.caffeinate.watcher.screensDidLock) then
-    print("screensDidLock")
+local hyper = {'alt'}
+hs.hotkey.bind(hyper, 'l', connectDevice)
+
+local hyper = {'alt', 'shift'}
+hs.hotkey.bind(hyper, 'l', disconnectDevice)
+
+return {
+  screensDidLock = function ()
     bluetoothSwitch(0)
-  elseif (eventType == hs.caffeinate.watcher.screensDidUnlock) then
-    print("screensDidUnlock")
+  end,
+  screensDidUnlock = function ()
     bluetoothSwitch(1)
     local timer
     timer = hs.timer.doEvery(1, function ()
@@ -65,13 +66,4 @@ local function caffeinateCallback(eventType)
       end
     end)
   end
-end
-
-CaffeinateWatcher = hs.caffeinate.watcher.new(caffeinateCallback)
-CaffeinateWatcher:start()
-
-local hyper = {'alt'}
-hs.hotkey.bind(hyper, 'l', connectDevice)
-
-local hyper = {'alt', 'shift'}
-hs.hotkey.bind(hyper, 'l', disconnectDevice)
+}

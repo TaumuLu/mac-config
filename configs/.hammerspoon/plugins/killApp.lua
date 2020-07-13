@@ -9,18 +9,8 @@ local function killApp(appId)
   print("kill "..appId)
 end
 
-local function caffeinateCallback(eventType)
-  if (eventType == hs.caffeinate.watcher.screensDidSleep) then
-    print("screensDidSleep")
+return {
+  screensDidSleep = function ()
     killApp("com.apple.iphonesimulator")
-  elseif (eventType == hs.caffeinate.watcher.screensDidWake) then
-    print("screensDidWake")
-  elseif (eventType == hs.caffeinate.watcher.screensDidLock) then
-    print("screensDidLock")
-  elseif (eventType == hs.caffeinate.watcher.screensDidUnlock) then
-    print("screensDidUnlock")
   end
-end
-
-CaffeinateWatcher = hs.caffeinate.watcher.new(caffeinateCallback)
-CaffeinateWatcher:start()
+}

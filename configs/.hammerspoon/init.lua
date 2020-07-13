@@ -1,10 +1,9 @@
 require 'plugins.autoReload'
-require 'plugins.autoBluetooth'
+require 'plugins.appWatcher'
+require 'plugins.caffeinateWatcher'
 require 'plugins.posMouse'
 require 'plugins.stateCheck'
-require 'plugins.appWatcher'
-require 'plugins.pathWatcher'
-require 'plugins.killApp'
+require 'plugins.resetLaunch'
 
 -- 调试代码
 hs.hotkey.bind({'cmd', 'option', 'shift'}, 'h', function()
