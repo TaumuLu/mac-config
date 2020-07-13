@@ -1,5 +1,5 @@
-local autoBluetooth = require 'plugins.autoBluetooth'
-local killApp = require 'plugins.killApp'
+local autoBluetooth = require 'autoBluetooth'
+local killApp = require 'killApp'
 
 local watcher = {
   autoBluetooth,
