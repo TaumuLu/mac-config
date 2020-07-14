@@ -1,5 +1,5 @@
-local safari = require 'safariWatcher'
-local finder = require 'finderWatcher'
+local safari = require 'plugins.safariWatcher'
+local finder = require 'plugins.finderWatcher'
 
 local switchTabLeft = hs.hotkey.new({'alt', 'cmd'}, 'left', function()
   hs.eventtap.keyStroke({'cmd','shift'}, '[')

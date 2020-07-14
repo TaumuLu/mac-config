@@ -1,5 +1,4 @@
-package.path = package.path..";plugins/?.lua"
-
+-- package.path = package.path..";plugins/?.lua"
 require 'plugins.autoReload'
 require 'plugins.appWatcher'
 require 'plugins.caffeinateWatcher'
