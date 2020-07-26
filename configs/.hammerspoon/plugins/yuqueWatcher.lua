@@ -22,8 +22,6 @@
 --     -- hs.eventtap.keyStroke({'cmd','option','shift'}, 'v')
 -- end)
 
-local appId = 'com.apple.Safari'
-
 -- local switchTabLeft = hs.hotkey.new({'alt', 'cmd'}, 'left', function()
 --   hs.eventtap.keyStroke({'cmd','shift'}, '[')
 -- end)
@@ -120,7 +118,10 @@ end
 
 -- watch app script
 return {
-  id = appId,
+  id = {
+    -- 'com.apple.Safari',
+    'com.google.Chrome.canary'
+  },
   enable = function()
     yuquePaste()
   end,

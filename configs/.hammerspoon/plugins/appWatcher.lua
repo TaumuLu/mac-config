@@ -1,4 +1,4 @@
-local safari = require 'plugins.safariWatcher'
+local yuque = require 'plugins.yuqueWatcher'
 local finder = require 'plugins.finderWatcher'
 
 local switchTabLeft = hs.hotkey.new({'alt', 'cmd'}, 'left', function()
@@ -10,7 +10,7 @@ end)
 
 local switchApps = {
   id = {
-    safari.id,
+    'com.apple.Safari',
     finder.id
   },
   enable= function()
@@ -24,7 +24,7 @@ local switchApps = {
 }
 
 local watcher = {
-  safari,
+  yuque,
   switchApps
 }
 
