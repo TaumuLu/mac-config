@@ -5,13 +5,14 @@ set -euo pipefail
 
 MASTER="${HOME}/Master"
 dirList=(
+  "App"
   "Code"
   "Document"
   "Project"
+  "Config"
   "Github"
   "Temp"
   "Test"
-  "Config"
 )
 
 configDir=$MASTER/Config/mac-config

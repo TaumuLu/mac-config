@@ -45,7 +45,7 @@ brewCaskList=(
   hammerspoon
   appcleaner
   google-chrome
-  # google-chrome-canary
+  google-chrome-canary
   karabiner-elements
   visual-studio-code
 

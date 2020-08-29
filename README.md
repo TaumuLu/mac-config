@@ -86,12 +86,12 @@
   + alt+` 切换鼠标到下一显示器，并且定位在其屏幕中间，且触发点击聚焦屏幕
 - stateCheck
   + 检查 hammerspoon 状态，提供快捷键显示/隐藏 dock 图标，方便调试
-- safariScript
-  + yuquePaste
-    - 为 safari 中的语雀提供的脚本
-    - 目的是粘贴文本时不带样式，同时保留统一 url 类型的粘贴样式
-  + 同chrome的快捷键切换标签
-- pathWatcher
+- yuqueWatcher
+  - 为浏览器的语雀提供的脚本
+  - 目的是粘贴文本时不带样式，同时保留统一 url 类型的粘贴样式
+- appWatcher
+  + 切换到相应 app 为其绑定快捷键，finder 和 safari 同 chrome 的快捷键切换标签
+- resetLaunch
    + 检测 app 路径是否有改动，有改动会重置 launch 并重开 Dock 进程
 
 #### karabiner
