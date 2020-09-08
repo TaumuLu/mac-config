@@ -145,6 +145,7 @@ alias jdk11="export JAVA_HOME=$JAVA_11_HOME"
 alias shs='cat ~/.zsh_history | ag '
 alias ip='curl ip.cn'
 alias pc='proxychains4'
+alias karabiner_cli="'/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli'"
 
 # chrome
 _chromePath='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
