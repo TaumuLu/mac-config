@@ -52,10 +52,11 @@ brewCaskList=(
   switchhosts
   reactotron
   sublime-text
-  adoptopenjdk8
+  # adoptopenjdk8
+  adoptopenjdk/openjdk/adoptopenjdk8
   adoptopenjdk11
-  docker
-  tunnelblick
+  # docker
+  # tunnelblick
 
   # visual-studio
   # android-studio
@@ -143,6 +144,7 @@ function brew_install() {
 
   local bcil=(`diff_arr "${brewCaskList[*]}" "${brewCaskInstallList[*]-}"`)
   # java8
+  brew tap homebrew/cask-versions
   brew tap adoptopenjdk/openjdk
   if [ ! ${#bcil[@]} -eq 0 ]; then
     local caskList=()

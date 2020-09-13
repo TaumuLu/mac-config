@@ -6,7 +6,7 @@ sudo -v
 ###############################################################################
 # init mac                                                                    #
 ###############################################################################
-isInit=`defaults read com.apple.finder AppleShowAllFiles`
+isInit=`defaults read com.apple.finder AppleShowAllFiles || echo 0`
 if [ $isInit -eq 0 ]; then
   # 取消4位数密码限制
   pwpolicy -clearaccountpolicies
