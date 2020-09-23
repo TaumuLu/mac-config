@@ -1,31 +1,9 @@
-local yuque = require 'plugins.yuqueWatcher'
-local finder = require 'plugins.finderWatcher'
-
-local switchTabLeft = hs.hotkey.new({'alt', 'cmd'}, 'left', function()
-  hs.eventtap.keyStroke({'cmd','shift'}, '[')
-end)
-local switchTabRight = hs.hotkey.new({'alt', 'cmd'}, 'right', function()
-  hs.eventtap.keyStroke({'cmd','shift'}, ']')
-end)
-
-local switchApps = {
-  id = {
-    'com.apple.Safari',
-    finder.id
-  },
-  enable= function()
-    switchTabLeft:enable()
-    switchTabRight:enable()
-  end,
-  disable = function()
-    switchTabLeft:disable()
-    switchTabRight:disable()
-  end
-}
+local yuqueWeb = require 'plugins.appWatch.yuqueWeb'
+local switchTab = require 'plugins.appWatch.switchTab'
 
 local watcher = {
-  yuque,
-  switchApps
+  yuqueWeb,
+  switchTab
 }
 
 local function trigger(object, name)

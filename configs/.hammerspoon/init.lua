@@ -1,10 +1,11 @@
 -- package.path = package.path..";plugins/?.lua"
 require 'plugins.autoReload'
-require 'plugins.appWatcher'
-require 'plugins.caffeinateWatcher'
 require 'plugins.posMouse'
 require 'plugins.stateCheck'
 require 'plugins.resetLaunch'
+
+require 'plugins.appWatch.index'
+require 'plugins.caffWatch.index'
 
 -- 调试代码
 hs.hotkey.bind({'cmd', 'option', 'shift'}, 'h', function()

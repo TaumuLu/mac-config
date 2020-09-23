@@ -1,9 +1,11 @@
-local autoBluetooth = require 'plugins.autoBluetooth'
-local killApp = require 'plugins.killApp'
+local connectAirPods = require 'plugins.caffWatch.connectAirPods'
+local killApp = require 'plugins.caffWatch.killApp'
+local setVolume = require 'plugins.caffWatch.setVolume'
 
 local watcher = {
-  autoBluetooth,
-  killApp
+  connectAirPods,
+  killApp,
+  setVolume
 }
 
 local function findKey(eventType)

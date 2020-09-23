@@ -2,7 +2,7 @@ local function trim(text)
   return string.gsub(text, "[\t\n\r]+", "")
 end
 
-local function getExecBlueutilCmd(params, isExec)
+function getExecBlueutilCmd(params, isExec)
   local execCmd = "/usr/local/bin/blueutil "
   local cmd = "[ -x "..execCmd.." ] && "..execCmd..(params)
   if (isExec ~= nil) then
@@ -11,12 +11,16 @@ local function getExecBlueutilCmd(params, isExec)
   return cmd
 end
 
+function findDeviceId(keyword)
+  return getExecBlueutilCmd("--recent | grep '"..keyword.."' | awk '{print $2}' | cut -d ',' -f 1", true)
+end
+
 local function bluetoothSwitch(state)
   getExecBlueutilCmd("--power "..(state), true)
 end
 
 local function searchDevice(callback, value, deviceName)
-  local id = getExecBlueutilCmd("--recent | grep '"..deviceName.."' | awk '{print $2}' | cut -d ',' -f 1", true)
+  local id = findDeviceId(deviceName)
   if (string.len(id) > 0) then
     local isConnected = getExecBlueutilCmd("--is-connected "..id, true)
     if (isConnected == value) then
