@@ -21,6 +21,9 @@ local function triggerVolume()
 end
 
 return {
+  screensDidWake = function ()
+    triggerVolume()
+  end,
   screensDidUnlock = function ()
     triggerVolume()
   end
