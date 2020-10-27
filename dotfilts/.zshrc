@@ -189,6 +189,37 @@ bindkey \^U backward-kill-line
 bindkey '^[^[[D' emacs-backward-word   # Alt-Left
 bindkey '^[^[[C' emacs-forward-word    # Alt-Right
 
+# custom function
+gssl() {
+  if [ ! -n "$1" ];then
+    echo 'Parameter 1 is file name'
+    return
+  fi
+  if  [ ! -n "$2" ]; then
+    echo 'Parameter 2 is domain name'
+    return
+  fi
+
+  local SSL_PATH="${HOME}/ssl"
+  if [ ! -d $SSL_PATH ]; then
+    mkdir -p $SSL_PATH
+  fi
+  openssl req \
+    -newkey rsa:2048 \
+    -x509 \
+    -nodes \
+    -keyout "$SSL_PATH/$1.key" \
+    -new \
+    -out "$SSL_PATH/$1.crt" \
+    -subj /CN=$2 \
+    -reqexts SAN \
+    -extensions SAN \
+    -config <(cat /System/Library/OpenSSL/openssl.cnf \
+        <(printf "[SAN]\nsubjectAltName=DNS:$2")) \
+    -sha256 \
+    -days 3650
+  open $SSL_PATH
+}
 
 source ~/.bash_profile
 
