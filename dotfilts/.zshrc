@@ -204,13 +204,16 @@ gssl() {
   if [ ! -d $SSL_PATH ]; then
     mkdir -p $SSL_PATH
   fi
+
+  local key="$SSL_PATH/$1.key"
+  local crt="$SSL_PATH/$1.crt"
   openssl req \
     -newkey rsa:2048 \
     -x509 \
     -nodes \
-    -keyout "$SSL_PATH/$1.key" \
+    -keyout $key \
     -new \
-    -out "$SSL_PATH/$1.crt" \
+    -out $crt \
     -subj /CN=$2 \
     -reqexts SAN \
     -extensions SAN \
@@ -218,6 +221,8 @@ gssl() {
         <(printf "[SAN]\nsubjectAltName=DNS:$2")) \
     -sha256 \
     -days 3650
+  echo -e "\nssl_certificate \"$crt\";"
+  echo -e "ssl_certificate_key \"$key\";"
   open $SSL_PATH
 }
 
