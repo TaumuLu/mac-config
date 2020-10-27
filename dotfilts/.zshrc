@@ -221,8 +221,20 @@ gssl() {
         <(printf "[SAN]\nsubjectAltName=DNS:$2")) \
     -sha256 \
     -days 3650
-  echo -e "\nssl_certificate \"$crt\";"
-  echo -e "ssl_certificate_key \"$key\";"
+  echo -e "
+listen 443 ssl;
+
+ssl_certificate $crt;
+ssl_certificate_key $key;
+
+ssl_session_cache shared:SSL:1m;
+ssl_session_timeout 10m;
+
+ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+ssl_prefer_server_ciphers on;
+
+-----"
   open $SSL_PATH
 }
 
