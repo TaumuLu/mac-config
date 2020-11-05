@@ -30,14 +30,22 @@ local appId = 'com.apple.finder'
 --   hs.eventtap.keyStroke({'cmd','shift'}, ']')
 -- end)
 
+-- print(hs.inspect.inspect(hs.keycodes.map))
+
+local deleteAction = hs.hotkey.new({'cmd'}, 'd', function ()
+  hs.eventtap.keyStroke({'cmd'}, 'delete')
+end)
+
 return {
   id = appId,
-  -- enable = function()
-  --   switchTabLeft:enable()
-  --   switchTabRight:enable()
-  -- end,
-  -- disable = function()
-  --   switchTabLeft:disable()
-  --   switchTabRight:disable()
-  -- end
+  enable = function()
+    deleteAction:enable()
+    -- switchTabLeft:enable()
+    -- switchTabRight:enable()
+  end,
+  disable = function()
+    deleteAction:disable()
+    -- switchTabLeft:disable()
+    -- switchTabRight:disable()
+  end
 }

@@ -1,7 +1,9 @@
 local yuqueWeb = require 'plugins.appWatch.yuqueWeb'
 local switchTab = require 'plugins.appWatch.switchTab'
+local finder = require 'plugins.appWatch.finderApp'
 
 local watcher = {
+  finder,
   yuqueWeb,
   switchTab
 }
