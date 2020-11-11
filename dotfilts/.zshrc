@@ -128,6 +128,9 @@ export PATH=$PATH:$DEPOT_TOOLS_HOME
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
 # export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
+# dotnet
+export PATH="$PATH:$HOME/.dotnet/tools"
+
 # java
 #jenv
 # eval "$(jenv init -)"
