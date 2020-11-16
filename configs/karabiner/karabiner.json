@@ -54,7 +54,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.microsoft\\.rdc\\.mac"
+                                            "com\\.microsoft\\.rdc\\.mac",
+                                            "com\\.teamviewer\\.TeamViewer"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -78,7 +79,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.microsoft\\.rdc\\.mac"
+                                            "com\\.microsoft\\.rdc\\.mac",
+                                            "com\\.teamviewer\\.TeamViewer"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -102,7 +104,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.microsoft\\.rdc\\.mac"
+                                            "com\\.microsoft\\.rdc\\.mac",
+                                            "com\\.teamviewer\\.TeamViewer"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -126,7 +129,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com\\.microsoft\\.rdc\\.mac"
+                                            "com\\.microsoft\\.rdc\\.mac",
+                                            "com\\.teamviewer\\.TeamViewer"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
