@@ -241,6 +241,35 @@ ssl_prefer_server_ciphers on;
   open $SSL_PATH
 }
 
+gicns() {
+  if [ ! -n "$1" ];then
+    echo 'Parameter 1 is png file name'
+    return
+  fi
+
+  local tmpIconDir="./.pngpic.iconset"
+  if [ -d $tmpIconDir ]; then
+    rm -rf $tmpIconDir
+  fi
+  mkdir -p $tmpIconDir
+
+  sips -z 32 32 $1 --out $tmpIconDir/icon_16x16@2x.png
+  sips -z 32 32 $1 --out $tmpIconDir/icon_32x32.png
+  sips -z 64 64 $1 --out $tmpIconDir/icon_32x32@2x.png
+  sips -z 128 128 $1 --out $tmpIconDir/icon_128x128.png
+  sips -z 256 256 $1 --out $tmpIconDir/icon_128x128@2x.png
+  sips -z 256 256 $1 --out $tmpIconDir/icon_256x256.png
+  sips -z 512 512 $1 --out $tmpIconDir/icon_256x256@2x.png
+  sips -z 512 512 $1 --out $tmpIconDir/icon_512x512.png
+  sips -z 1024 1024 $1 --out $tmpIconDir/icon_512x512@2x.png
+
+  local outName=${1%.png*}.icns
+  iconutil -c icns $tmpIconDir -o $outName
+  rm -rf $tmpIconDir
+  echo '----------------------------------------'
+  echo "create icns success, file name: $outName"
+}
+
 source ~/.bash_profile
 
 # other
