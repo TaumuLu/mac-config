@@ -37,10 +37,7 @@ brewList=(
 brewCaskList=(
   v2rayx
   iterm2
-  qlcolorcode
-  qlimagesize
-  qlmarkdown
-  quicklook-json
+  snipaste
 
   hammerspoon
   appcleaner
@@ -48,6 +45,11 @@ brewCaskList=(
   google-chrome-canary
   karabiner-elements
   visual-studio-code
+
+  qlcolorcode
+  qlimagesize
+  qlmarkdown
+  quicklook-json
 
   switchhosts
   reactotron
