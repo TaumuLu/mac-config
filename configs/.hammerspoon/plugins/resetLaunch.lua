@@ -1,4 +1,12 @@
-local function reloadApp(paths)
+local watchPath = "/Applications"
+
+function checkFileExist(path)
+  local file = io.open(path, "rb")
+  if file then file:close() end
+  return file ~= nil
+end
+
+local function reloadApp(paths, flagTables)
   local isChange = false
   for _, file in pairs(paths) do
     local count = 0
@@ -9,7 +17,8 @@ local function reloadApp(paths)
 
     local isApp = file:sub(-4) == ".app"
     if count == 2 and isApp then
-      -- hs.alert.show(file)
+      local text = checkFileExist(file) and '安装' or '卸载'
+      hs.alert.show(text..": "..file)
       isChange = true
       break
     end
@@ -25,13 +34,13 @@ local function reloadApp(paths)
 end
 
 local timer = nil
-AppChangeWatcher = hs.pathwatcher.new("/Applications", function (paths)
+AppChangeWatcher = hs.pathwatcher.new(watchPath, function (paths, flagTables)
   if timer then
     timer:stop()
     timer = nil
   end
   timer = hs.timer.doAfter(5, function()
-    reloadApp(paths)
+    reloadApp(paths, flagTables)
   end)
 end)
 AppChangeWatcher:start()
