@@ -5,14 +5,16 @@ from pathlib import Path
 HOME = Path.home()
 PROJECTROOT = Path.cwd()
 
-folder = (
-  ('karabiner', '.config'),
+# 需要同步的文件夹
+folder = [
+  ['karabiner', '.config'],
   '.hammerspoon',
   '.SwitchHosts',
-)
+]
 
-files = (
-  ('proxychains.conf', '/usr/local/etc'),
+# 需要同步的文件
+files = [
+  ['proxychains.conf', '/usr/local/etc'],
   '.bash_profile',
   '.bashrc',
   '.gitconfig',
@@ -20,14 +22,16 @@ files = (
   '.npmrc',
   '.zshrc',
   # '.vimrc',
-)
+]
 
+# 需要同步的 iCloud 文件及目录
 configPath = Path(HOME).joinpath('Documents/Config')
-documents = (
+documents = [
   '.ssh',
   '.zsh_history',
   '.bash_history',
-)
+  ['Nginx/servers', '/usr/local/etc/nginx/servers', False]
+]
 
 # for file in os.listdir(documentsPath):
 #   source = documentsPath.joinpath(file)
@@ -50,12 +54,13 @@ def getPath(pValue, pList):
     pList.append(pValue)
     return pList
 
-def links(data, sBase=[PROJECTROOT], tBase=[HOME], isJoin=True):
+def links(data, sBase=[PROJECTROOT], tBase=[HOME]):
   for value in data:
     source = sBase.copy()
     target = tBase.copy()
-    if isinstance(value, tuple):
-      s, t = value
+    if isinstance(value, list):
+      if len(value) == 2: value.append(True)
+      s, t, isJoin = value
       source = getPath(s, source)
       target = getPath(t, target)
       if not s.startswith('/') and isJoin:
@@ -67,6 +72,7 @@ def links(data, sBase=[PROJECTROOT], tBase=[HOME], isJoin=True):
     targetPath = Path(*target)
 
     if sourcePath.exists():
+      # 判断是已否存在文件
       if not targetPath.exists():
         parent = Path(targetPath.parent)
         if not parent.exists():
@@ -75,6 +81,7 @@ def links(data, sBase=[PROJECTROOT], tBase=[HOME], isJoin=True):
           targetPath.unlink()
         targetPath.symlink_to(sourcePath)
         pass
+      # 判断是否相同
       elif targetPath.samefile(sourcePath) and not hasOption('-i'):
         print('Has been created: %s' % targetPath)
         pass
