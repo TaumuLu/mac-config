@@ -22,8 +22,16 @@ function install_spf13_vim() {
   fi
 }
 
+function install_vimrc() {
+  local vimrcPath=$HOME/.vim_runtime
+  if [ ! -d $vimrcPath ]; then
+    git clone https://github.com/amix/vimrc.git $vimrcPath --depth=1
+  fi
+  $vimrcPath/install_basic_vimrc.sh
+}
+
 function main() {
-  install_spf13_vim
+  install_vimrc
 }
 
 main

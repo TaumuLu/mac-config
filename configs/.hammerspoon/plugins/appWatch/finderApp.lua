@@ -36,15 +36,39 @@ local deleteAction = hs.hotkey.new({'cmd'}, 'd', function ()
   hs.eventtap.keyStroke({'cmd'}, 'delete')
 end)
 
+-- command + x -> command + v
+local isCut = false
+local cutAction = hs.hotkey.new({'cmd'}, 'x', function ()
+  isCut = true
+  hs.alert('已剪切文件')
+  hs.eventtap.keyStroke({'cmd'}, 'c')
+end)
+
+pasteAction = hs.hotkey.new({'cmd'}, 'v', function ()
+  local modifiers = {'cmd'}
+  if isCut == true then
+    table.insert(modifiers, 'option')
+    isCut = false
+  end
+  -- 先禁用，触发相同快捷键后再重启用
+  pasteAction:disable()
+  hs.eventtap.keyStroke(modifiers, 'v')
+  pasteAction:enable()
+end)
+
 return {
   id = appId,
   enable = function()
     deleteAction:enable()
+    cutAction:enable()
+    pasteAction:enable()
     -- switchTabLeft:enable()
     -- switchTabRight:enable()
   end,
   disable = function()
     deleteAction:disable()
+    cutAction:disable()
+    pasteAction:disable()
     -- switchTabLeft:disable()
     -- switchTabRight:disable()
   end

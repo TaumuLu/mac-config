@@ -49,7 +49,7 @@ function diff_arr() {
   for x in ${arr[@]}; do
     local isInstall=true
     for y in ${arr2[@]}; do
-      if [ $x == $y ]; then
+      if [[ $x == $y* || $y == $x* ]]; then
         isInstall=false
       fi
     done

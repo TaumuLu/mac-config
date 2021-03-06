@@ -109,7 +109,7 @@ function source_install() {
 function main() {
   source_script
 
-  pre_install
+  # pre_install
   # install_rvm
   install_oh_my_zsh
   source_install

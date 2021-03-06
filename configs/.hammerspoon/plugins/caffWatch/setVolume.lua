@@ -25,7 +25,7 @@ local function triggerVolume()
     end
   else
     hs.execute('osascript -e "set volume output muted 0"')
-    hs.execute('osascript -e "set volume 3"')
+    hs.execute('osascript -e "set volume output volume 30"')
   end
 end
 

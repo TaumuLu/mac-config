@@ -15,6 +15,7 @@ folder = [
 # 需要同步的文件
 files = [
   ['proxychains.conf', '/usr/local/etc'],
+  ['config.ini', '.snipaste'],
   '.bash_profile',
   '.bashrc',
   '.gitconfig',
