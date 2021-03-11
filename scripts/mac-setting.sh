@@ -20,6 +20,9 @@ fi
 # 设置命令
 # 安全设置显示任何来源选项
 sudo spctl --master-disable
+# 关闭确定要打开应用弹框
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+
 # 取消开盖启动
 # sudo nvram AutoBoot=%00
 # 恢复开盖启动
@@ -68,9 +71,6 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 # openemu获得音频设备
 defaults write org.openemu.OpenEmu HUDBarShowAudioOutput -bool YES
-
-# 关闭确定要打开应用弹框
-defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # 30分钟显示器休眠
 # sudo pmset -a displaysleep 15
@@ -125,6 +125,11 @@ defaults write com.tencent.qq NSRequiresAquaSystemAppearance -bool true
 defaults write com.irradiatedsoftware.SizeUp NSRequiresAquaSystemAppearance -bool true
 defaults write com.fiplab.batteryairpods NSRequiresAquaSystemAppearance -bool true
 defaults write com.tencent.xinWeChat NSRequiresAquaSystemAppearance -bool true
+
+# 关闭镜像验证
+defaults write com.apple.frameworks.diskimages skip-verify -bool true
+defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
+defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
 # Terminal使用UTF-8
 defaults write com.apple.terminal StringEncodings -array 4
