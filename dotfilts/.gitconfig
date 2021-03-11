@@ -14,6 +14,6 @@
 [alias]
 	cu = "!f() { git config user.name $1 && git config user.email $2; }; f"
 	reignore = 'git rm -r --cached . && git add .'
-	ignored = !git ls-files -v | grep "^[SM]"
+	ignored = !git ls-files -v | grep "^[SMh]"
 [http]
 	postBuffer = 524288000
