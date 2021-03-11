@@ -35,12 +35,13 @@ brewList=(
 )
 
 brewCaskList=(
-  v2rayx
+  # v2rayx
   iterm2
   snipaste
 
   hammerspoon
   appcleaner
+  chromium
   google-chrome
   google-chrome-canary
   karabiner-elements
@@ -115,7 +116,7 @@ function get_brew_list() {
 function get_brew_cask_list() {
   brewCaskInstallList=()
   local i=0
-  for item in `brew cask list`; do
+  for item in `brew list --cask`; do
     brewCaskInstallList[$i]=$item
     let i+=1
   done;
@@ -162,8 +163,8 @@ function brew_install() {
       fi
     done
     if [ ! ${#caskList[@]} -eq 0 ]; then
-      cyan "brew cask install ${caskList[@]}"
-      brew cask install ${caskList[@]}
+      cyan "brew install --cask ${caskList[@]}"
+      brew install --cask ${caskList[@]}
       get_brew_cask_list
 
       brew cleanup
