@@ -7,7 +7,10 @@ require 'plugins.caffWatch.connectAirPods'
 -- end
 -- hs.execute('osascript -e "set volume 10"')
 
-local function setVolume(isMute)
+local function setVolume(isMute, volume)
+  if volume == nil then
+    volume = 40
+  end
   if isMute then
     local id = findDeviceId('connected ')
     if (string.len(id) == 0) then
@@ -15,7 +18,7 @@ local function setVolume(isMute)
     end
   else
     hs.execute('osascript -e "set volume output muted 0"')
-    hs.execute('osascript -e "set volume output volume 40"')
+    hs.execute('osascript -e "set volume output volume "'..volume)
   end
 end
 
