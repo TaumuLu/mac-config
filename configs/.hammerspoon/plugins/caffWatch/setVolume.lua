@@ -7,11 +7,25 @@ require 'plugins.caffWatch.connectAirPods'
 -- end
 -- hs.execute('osascript -e "set volume 10"')
 
-local function triggerVolume()
+local function setVolume(isMute)
+  if isMute then
+    local id = findDeviceId('connected ')
+    if (string.len(id) == 0) then
+      hs.execute('osascript -e "set volume output muted 1"')
+    end
+  else
+    hs.execute('osascript -e "set volume output muted 0"')
+    hs.execute('osascript -e "set volume output volume 40"')
+  end
+end
+
+-- 根据时间判断是否静音
+local function timeTrigger()
   local date = os.date("*t")
   local hour = date.hour
   local min = date.min
   local wday = date.wday
+  local isMute = false
 
   if (
     wday > 1 and
@@ -19,21 +33,37 @@ local function triggerVolume()
     hour >= 9 and
     hour < 19
   ) then
-    local id = findDeviceId('connected ')
-    if (string.len(id) == 0) then
-      hs.execute('osascript -e "set volume output muted 1"')
-    end
-  else
-    hs.execute('osascript -e "set volume output muted 0"')
-    hs.execute('osascript -e "set volume output volume 30"')
+    isMute = true
   end
+
+  setVolume(isMute)
+end
+
+local muteWifi = {
+  "bytedance"
+}
+
+-- 根据 wifi 名判断是否静音
+local function nameTrigger()
+  local ssid = hs.wifi.currentNetwork()
+  local isMute = false
+  if ssid then
+    for _, value in pairs(muteWifi) do
+      if string.find(ssid:lower(), value:lower()) then
+        isMute = true
+        break
+      end
+    end
+  end
+
+  setVolume(isMute)
 end
 
 return {
   screensDidWake = function ()
-    triggerVolume()
+    nameTrigger()
   end,
   screensDidUnlock = function ()
-    triggerVolume()
+    nameTrigger()
   end
 }

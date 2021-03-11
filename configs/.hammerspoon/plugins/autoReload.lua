@@ -16,4 +16,4 @@ end
 
 ConfigFileWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig)
 ConfigFileWatcher:start()
-hs.alert.show("Config loaded")
+hs.alert.show("Hammerspoon Config loaded")
