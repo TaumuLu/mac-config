@@ -7,6 +7,7 @@ npmList=(
   yarn
   npm-check-updates
   genfe-cli
+  nrm
 )
 
 # node
