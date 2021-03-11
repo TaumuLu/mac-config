@@ -270,6 +270,15 @@ gicns() {
   echo "create icns success, file name: $outName"
 }
 
+bswhich() {
+  if `type $1 | grep -q 'is a shell function'`; then
+    type $1
+    which $1
+  elif `type $1 | grep -q 'is an alias'`; then
+    PS4='+%x:%I>' zsh -i -x -c '' |& grep '>alias ' | grep "${1}="
+  fi
+}
+
 source ~/.bash_profile
 
 # other
