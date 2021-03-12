@@ -44,16 +44,17 @@ local cutAction = hs.hotkey.new({'cmd'}, 'x', function ()
   hs.eventtap.keyStroke({'cmd'}, 'c')
 end)
 
-pasteAction = hs.hotkey.new({'cmd'}, 'v', function ()
+-- 这里必须设置为全局的函数，否则函数内无法引用到
+ PasteAction = hs.hotkey.new({'cmd'}, 'v', function ()
   local modifiers = {'cmd'}
   if isCut == true then
     table.insert(modifiers, 'option')
     isCut = false
   end
   -- 先禁用，触发相同快捷键后再重启用
-  pasteAction:disable()
+  PasteAction:disable()
   hs.eventtap.keyStroke(modifiers, 'v')
-  pasteAction:enable()
+  PasteAction:enable()
 end)
 
 return {
@@ -61,14 +62,14 @@ return {
   enable = function()
     deleteAction:enable()
     cutAction:enable()
-    pasteAction:enable()
+    PasteAction:enable()
     -- switchTabLeft:enable()
     -- switchTabRight:enable()
   end,
   disable = function()
     deleteAction:disable()
     cutAction:disable()
-    pasteAction:disable()
+    PasteAction:disable()
     -- switchTabLeft:disable()
     -- switchTabRight:disable()
   end
