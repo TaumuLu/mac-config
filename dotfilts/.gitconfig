@@ -17,3 +17,5 @@
 	ignored = !git ls-files -v | grep "^[SMh]"
 [http]
 	postBuffer = 524288000
+[pull]
+	rebase = false
