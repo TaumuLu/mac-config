@@ -1,6 +1,5 @@
 # mac
 .DS_Store
-.vscode
 
 configs/.SwitchHosts/data.json
 configs/.SwitchHosts/tmp.txt
