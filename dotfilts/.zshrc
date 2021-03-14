@@ -326,3 +326,56 @@ source ~/.bash_profile
 # alias subl='/Applications/SublimeText.app/Contents/SharedSupport/bin/subl'
 # alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 
+# 引入用户自定义配置变量，防止泄露信息
+# git 账号信息格式为
+# ```
+# declare -A GIT_DOMAIN_USER
+# GIT_DOMAIN_USER=(["domain"]="user email")
+# ```
+userConfig="$HOME/Documents/Config/.bash_config"
+if [ -f $userConfig ]; then
+  source $userConfig
+
+  local ogit=`which git`
+
+  gcu() {
+    local domain=""
+    local folder=""
+    for value in "$@"
+    do
+      if [[ $value == git* ]]; then
+        domain=${value#*@}
+        domain=${domain%:*}
+        folder=${value##*/}
+        folder=${folder%\.*}
+      elif [[ $value == http* ]]; then
+        domain=${value##*//}
+        domain=${domain%%/*}
+        folder=${value##*/}
+        folder=${folder%\.*}
+      fi
+    done
+    local userInfo=""
+    if [[ -n $domain ]]; then
+      userInfo=${GIT_DOMAIN_USER[$domain]}
+    fi
+    folder="$(pwd)/${folder}"
+    $ogit clone "$@"
+    if [[ -n $userInfo && -d ${folder} ]]; then
+      cd ${folder}
+      eval "git cu $userInfo"
+      # git config --replace-all user.name "${list[0]}"
+      # git config --replace-all user.email "${list[1]}"
+    fi
+  }
+
+  # 重写 git 命令
+  function git {
+    if [[ "$1" == "clone" && "$@" != *"--help"* ]]; then
+      shift 1
+      gcu "$@"
+    else
+      command git "$@"
+    fi
+  }
+fi
