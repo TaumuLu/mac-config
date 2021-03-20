@@ -43,7 +43,8 @@ local function timeTrigger()
 end
 
 local muteWifi = {
-  "bytedance"
+  "bytedance",
+  "Nanshan"
 }
 
 -- 根据 wifi 名判断是否静音
