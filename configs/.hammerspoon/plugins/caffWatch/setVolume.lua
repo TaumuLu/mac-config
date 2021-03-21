@@ -44,7 +44,8 @@ end
 
 local muteWifi = {
   "bytedance",
-  "Nanshan"
+  "Nanshan",
+  "WIFI-"
 }
 
 -- 根据 wifi 名判断是否静音
