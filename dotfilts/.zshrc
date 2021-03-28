@@ -326,6 +326,12 @@ source ~/.bash_profile
 # alias subl='/Applications/SublimeText.app/Contents/SharedSupport/bin/subl'
 # alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 
+# 设置历史文件地址
+historyFile="$HOME/Documents/Config/.history"
+if [ -f $userConfig ]; then
+  export HISTFILE=$historyFile
+fi
+
 # 引入用户自定义配置变量，防止泄露信息
 # git 账号信息格式为
 # ```
