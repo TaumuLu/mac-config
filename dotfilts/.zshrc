@@ -363,9 +363,10 @@ if [ -f $userConfig ]; then
     $ogit clone "$@"
     if [[ -n $userInfo && -d ${folder} ]]; then
       cd ${folder}
-      eval "git cu $userInfo"
-      # git config --replace-all user.name "${list[0]}"
-      # git config --replace-all user.email "${list[1]}"
+      # eval "git cu $userInfo"
+      IFS=' ' read -A list <<< $userInfo
+      git config --replace-all user.name "${list[1]}"
+      git config --replace-all user.email "${list[2]}"
     fi
   }
 
