@@ -34,6 +34,7 @@ documents = [
   ['Nginx/servers', '/usr/local/etc/nginx/servers', False],
   ['trojan-qt5/config.ini', '.config'],
   ['trojan-qt5/config.json', '.config'],
+  ['.SwitchHosts/data.json', '.SwitchHosts/data.json', False]
 ]
 
 # for file in os.listdir(documentsPath):
