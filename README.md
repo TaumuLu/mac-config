@@ -1,23 +1,23 @@
 # mac-config
-在这组织我的 mac 配置，定义一些脚本方便快速重装、迁移、同步配置  
-同时记录一些配置和技巧  
+- 在这组织我的 mac 配置，定义一些脚本方便快速重装、迁移、同步配置
+- 同时记录一些配置和技巧
 
 ## 使用
-直接执行 init.sh 脚本即可，install.sh 脚本也可单独执行  
+- 直接执行 init.sh 脚本即可，install.sh 脚本也可单独执行
 
 ### 执行脚本
 - init.sh
 - install.sh
 
 #### init.sh
-初始化脚本，建立文件夹，克隆 mac-config 项目到指定目录，执行 install.sh 脚本  
-无依赖直接使用方式  
-`sh -c "$(curl -fsSL https://raw.githubusercontent.com/TaumuLu/mac-config/master/init.sh)"`
+- 初始化脚本，建立文件夹，克隆 mac-config 项目到指定目录，执行 install.sh 脚本
+- 无依赖直接使用方式
+- `sh -c "$(curl -fsSL https://raw.githubusercontent.com/TaumuLu/mac-config/master/init.sh)"`
 
 #### install.sh
-安装执行脚本，安装 rvm、zsh，引入公共库并 source install 和 script 目录下的脚本  
-执行 init.sh 时会自动执行，也可进入项目目录下执行  
-`./install.sh`
+- 安装执行脚本，安装 rvm、zsh，引入公共库并 source install 和 script 目录下的脚本
+- 执行 init.sh 时会自动执行，也可进入项目目录下执行
+- `./install.sh`
 
 ## 脚本目录
 
@@ -25,35 +25,35 @@
 目录下的脚本依赖 install.sh 脚本调用，无法单独执行
 
 - brew
-  + 脚本中的变量 brewList、brewCaskList 定义了安装软件的列表
-  + 安装所有 brew 及 cask 列表中的软件，会跳过已安装过的软件
-  + 安装完成后执行 brew services 注册服务
-  + 运行 duti 命令关联文件打开方式
-  + 初始化操作，安装 fzf 等
+  - 脚本中的变量 brewList、brewCaskList 定义了安装软件的列表
+  - 安装所有 brew 及 cask 列表中的软件，会跳过已安装过的软件
+  - 安装完成后执行 brew services 注册服务
+  - 运行 duti 命令关联文件打开方式
+  - 初始化操作，安装 fzf 等
 - flutter
-  + 安装 flutter
+  - 安装 flutter
 - node
-  + 安装 node
-  + npm install 列表里的全局包
+  - 安装 node
+  - npm install 列表里的全局包
 - vim
-  + 安装 spf13_vim
+  - 安装 spf13_vim
 
 ### script
 一些脚本处理，包括 bash 公共工具库
 
 - links.py
-  + 需要 python3 环境，软链接 dotfilts 文件脚本，根目录下执即可，需要链接的地址可以自定义修改链接地址
-  + 参数 -i 忽略已创建相同的链接文件
-  + 参数 -f 强制创建链接覆盖目标文件/文件夹
+  - 需要 python3 环境，软链接 dotfilts 文件脚本，根目录下执即可，需要链接的地址可以自定义修改链接地址
+  - 参数 -i 忽略已创建相同的链接文件
+  - 参数 -f 强制创建链接覆盖目标文件/文件夹
 - links.sh
-  + 无依赖 link 脚本，简单的先 link 必要文件配置
+  - 无依赖 link 脚本，简单的先 link 必要文件配置
 - mac-setting
-  + [defaults-write](https://www.defaults-write.com)
-  + defaults 命令可以访问和修改 Mac 系统的默认设置
+  - [defaults-write](https://www.defaults-write.com)
+  - defaults 命令可以访问和修改 Mac 系统的默认设置
 - open-url
-  + 无法通过 brew 安装的软件，直接打开浏览器地址手动下载
+  - 无法通过 brew 安装的软件，直接打开浏览器地址手动下载
 - common
-  + 公共函数库
+  - 公共函数库
 
 ## 配置目录
 通过软链统一管理软件配置，链接了以下文件/文件夹
@@ -120,7 +120,7 @@
 通过 duti 命令修改文件的默认打开方式，目前定义了 sublime 和 vscode
 
 ## data目录
-存储相关的脚本数据  
+存储相关的脚本数据
 
 - data.js
   + SwitchHosts 初始数据
@@ -160,11 +160,11 @@ find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\se
 - 打开 iTerm2
 
 ### QuickLook
-[quick-look-plugins](https://github.com/sindresorhus/quick-look-plugins)
+- [quick-look-plugins](https://github.com/sindresorhus/quick-look-plugins)
 
 ### 模拟慢速网络
-xcode 工具[Network Link Conditioner](https://www.jianshu.com/p/343aa3a65c5c)  
-在 Additional tools for Xcode 目录下载  
+- xcode 工具[Network Link Conditioner](https://www.jianshu.com/p/343aa3a65c5c)
+- 在 Additional tools for Xcode 目录下载
 
 ### 快捷键
 - control+shift+power 息屏，程序继续运行
@@ -173,8 +173,8 @@ xcode 工具[Network Link Conditioner](https://www.jianshu.com/p/343aa3a65c5c)
 - command+control+power 重新启动
 
 ### 设置开机自启
-利用 Launchctl 来设置，通过写在 /Library/LaunchDaemons/ 下的 .plist 文件  
-通过 brew 安装的软件去 /usr/local/opt 下找到对应的 .plist文件  
+- 利用 Launchctl 来设置，通过写在 /Library/LaunchDaemons/ 下的 .plist 文件
+- 通过 brew 安装的软件去 /usr/local/opt 下找到对应的 .plist文件
 
 ```bash
 sudo cp /usr/local/opt/nginx/*.plist /Library/LaunchDaemons
