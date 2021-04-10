@@ -119,6 +119,22 @@ function main() {
   post_install
 }
 
+function copyApp() {
+  local appFolder=$HOME/Documents/App/.app
+  for file in `ls $appFolder`
+  do
+    local appName=${file%.*}
+    local appDir="/Applications"
+    if [ ! -d "$appDir/${file}" ]; then
+      local appPath="$appFolder/$file"
+      cp -R $appPath $appDir
+      cyan "copy app: $file"
+    else
+      yellow "$file already installed"
+    fi
+  done
+}
+
 function genSSH() {
   local ssh="${HOME}/.ssh"
   if [ -d $ssh ]; then
@@ -133,6 +149,8 @@ function genSSH() {
 }
 
 function post_install() {
+  copyApp
+
   # switchHosts data.json
   if [ ! -f ./configs/.SwitchHosts/data.json ]; then
     cp ./data/data.json ./configs/.SwitchHosts
