@@ -1,4 +1,5 @@
 local finder = require 'plugins.appWatch.finderApp'
+local safari = require 'plugins.appWatch.safariApp'
 
 local switchTabLeft = hs.hotkey.new({'alt', 'cmd'}, 'left', function()
   hs.eventtap.keyStroke({'cmd','shift'}, '[')
@@ -9,7 +10,7 @@ end)
 
 return {
   id = {
-    'com.apple.Safari',
+    safari.id,
     finder.id
   },
   enable= function()
