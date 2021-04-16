@@ -1,22 +1,11 @@
-local function trim(text)
-  return string.gsub(text, "[\t\n\r]+", "")
-end
-
-function ExecBlueutilCmd(params, noExec)
-  local execCmd = "/usr/local/bin/blueutil "
-  local cmd = "[ -x "..execCmd.." ] && "..execCmd..(params)
-  if (noExec ~= nil) then
-    return cmd
-  end
-  return trim(hs.execute(cmd))
-end
-
-function FindDeviceId(keyword)
-  return ExecBlueutilCmd("--recent | grep '"..keyword.."' | awk '{print $2}' | cut -d ',' -f 1")
-end
+require 'plugins.common.index'
 
 local function bluetoothSwitch(state)
-  ExecBlueutilCmd("--power "..(state))
+  local paramStr = "--power "
+  local value = ExecBlueutilCmd(paramStr)
+  if value ~= tostring(state) then
+    ExecBlueutilCmd(paramStr..state)
+  end
 end
 
 local function searchDevice(callback, value, deviceName)
@@ -28,7 +17,6 @@ local function searchDevice(callback, value, deviceName)
     end
   end
 end
-
 
 local name = "Taumu的AirPods"
 
@@ -61,7 +49,10 @@ hs.hotkey.bind(hyper, 'l', disconnectDevice)
 
 return {
   screensDidLock = function ()
-    bluetoothSwitch(0)
+    local isWorkEnv = IsWorkEnv()
+    if isWorkEnv then
+      bluetoothSwitch(0)
+    end
   end,
   screensDidUnlock = function ()
     bluetoothSwitch(1)

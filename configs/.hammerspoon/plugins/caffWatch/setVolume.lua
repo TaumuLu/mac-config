@@ -1,4 +1,4 @@
-require 'plugins.caffWatch.connectAirPods'
+require 'plugins.common.index'
 
 -- local date = os.date("*t")
 -- hs.alert(os.date("%Y-%m-%d %H:%M:%S", os.time()))
@@ -42,26 +42,10 @@ local function timeTrigger()
   setVolume(isMute)
 end
 
-local muteWifi = {
-  "bytedance",
-  "Nanshan",
-  "WIFI-"
-}
-
 -- 根据 wifi 名判断是否静音
 local function nameTrigger()
-  local ssid = hs.wifi.currentNetwork()
-  local isMute = false
-  if ssid then
-    for _, value in pairs(muteWifi) do
-      if string.find(ssid:lower(), value:lower()) then
-        isMute = true
-        break
-      end
-    end
-  end
-
-  setVolume(isMute)
+  local isWorkEnv = IsWorkEnv()
+  setVolume(isWorkEnv)
 end
 
 return {
