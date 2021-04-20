@@ -49,10 +49,12 @@ hs.hotkey.bind(hyper, 'l', disconnectDevice)
 
 return {
   screensDidLock = function ()
-    -- local isWorkEnv = IsWorkEnv()
-    -- if isWorkEnv then
-    --   bluetoothSwitch(0)
-    -- end
+    if (not hs.battery.isCharged()) then
+      local isWorkEnv = IsWorkEnv()
+      if isWorkEnv then
+        bluetoothSwitch(0)
+      end
+    end
   end,
   screensDidUnlock = function ()
     bluetoothSwitch(1)
