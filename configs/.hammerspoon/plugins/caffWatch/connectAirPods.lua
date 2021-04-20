@@ -49,10 +49,10 @@ hs.hotkey.bind(hyper, 'l', disconnectDevice)
 
 return {
   screensDidLock = function ()
-    local isWorkEnv = IsWorkEnv()
-    if isWorkEnv then
-      bluetoothSwitch(0)
-    end
+    -- local isWorkEnv = IsWorkEnv()
+    -- if isWorkEnv then
+    --   bluetoothSwitch(0)
+    -- end
   end,
   screensDidUnlock = function ()
     bluetoothSwitch(1)
