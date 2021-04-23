@@ -49,7 +49,8 @@ hs.hotkey.bind(hyper, 'l', disconnectDevice)
 
 return {
   screensDidLock = function ()
-    if (not hs.battery.isCharged()) then
+    -- hs.battery.isCharged 不可靠，会返回 nil
+    if (not string.find(Execute('pmset -g batt | head -n 1'), 'AC Power')) then
       local isWorkEnv = IsWorkEnv()
       if isWorkEnv then
         bluetoothSwitch(0)

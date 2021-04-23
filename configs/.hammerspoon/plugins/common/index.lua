@@ -2,13 +2,17 @@ function Trim(text)
   return string.gsub(text, "[\t\n\r]+", "")
 end
 
+function Execute(cmd)
+  return Trim(hs.execute(cmd))
+end
+
 function ExecBlueutilCmd(params, noExec)
   local execCmd = "/usr/local/bin/blueutil "
   local cmd = "[ -x "..execCmd.." ] && "..execCmd..(params)
   if (noExec ~= nil) then
     return cmd
   end
-  return Trim(hs.execute(cmd))
+  return Execute(cmd)
 end
 
 function FindDeviceId(keyword)
