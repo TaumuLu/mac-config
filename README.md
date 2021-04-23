@@ -74,9 +74,14 @@
 - .SwitchHosts
 - karabiner
 
-#### hammerspoon
-自动化工具，可以通过写 lua 脚本去实现想要的功能，目前写了以下脚本
+#### karabiner
+键盘改键软件，有多种方案配置，目前主要为将 caps lock 按键改为点按为 esc，长按为 control
 
+
+## hammerspoon
+- 自动化工具，可以通过写 lua 脚本去实现想要的功能，目前写了以下脚本
+
+### 目录结构
 - appWatch 监听切换 app 进入/离开时执行一些操作，index.lua 为入口文件
   - finderApp
     - 绑定快捷键 cmd+d 删除操作
@@ -113,12 +118,6 @@
   - 目前有 cmd+l 对齐 win 的锁屏快捷键
   - 目前有 cmd+h 隐藏当前 app 快捷键
 
-#### karabiner
-键盘改键软件，有多种方案配置，目前主要为将 caps lock 按键改为点按为 esc，长按为 control
-
-#### duti
-通过 duti 命令修改文件的默认打开方式，目前定义了 sublime 和 vscode
-
 ## data目录
 存储相关的脚本数据
 
@@ -127,29 +126,32 @@
 - duti
   + duti 配置数据
 
-## 其他
-- 如果当前 shell 为 zsh，则不会加载 bash 相关文件，如需要加载，在 .zshrc 中写入 source 引用 bash 配置
-- 如果追求零配置 shell 推荐使用 fish
+### duti
+- 通过 duti 命令修改文件的默认打开方式，目前定义了 sublime 和 vscode
 
-### 命令片段
+## 命令片段
 
-#### 查看当前shell
+### 查看当前shell
 ```bash
 echo $SHELL
 ps -p $$
 ```
 
-#### 清除DNS缓存
+### 清除DNS缓存
 ```
 sudo killall -HUP mDNSResponder
 sudo killall mDNSResponderHelper
 sudo dscacheutil -flushcache
 ```
 
-#### 列出app store安装的应用
+### 列出app store安装的应用
 ```
 find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
 ```
+
+## 其他
+- 如果当前 shell 为 zsh，则不会加载 bash 相关文件，如需要加载，在 .zshrc 中写入 source 引用 bash 配置
+- 如果追求零配置 shell 推荐使用 fish
 
 ### 保存iterm2配置
 - 打开 iTerm2 时创建一个默认文件 com.googlecode.iterm2.plist
@@ -190,7 +192,7 @@ sudo launchctl unload -w /Library/LaunchDaemons/*.plist
 sudo chown root:wheel /Library/LaunchDaemons/*.plist
 ```
 
-### 其他人的配置
+## 可参考配置
 - https://github.com/mdo/config
 - https://github.com/mzdr/macOS
 - https://github.com/boochtek/mac_config
