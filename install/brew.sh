@@ -44,6 +44,7 @@ brewCaskList=(
   chromium
   google-chrome
   google-chrome-canary
+  microsoft-edge
   karabiner-elements
   visual-studio-code
 

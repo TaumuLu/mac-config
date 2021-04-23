@@ -1,20 +1,8 @@
-require 'plugins.common.index'
-
 local function bluetoothSwitch(state)
   local paramStr = "--power "
   local value = ExecBlueutilCmd(paramStr)
   if value ~= tostring(state) then
     ExecBlueutilCmd(paramStr..state)
-  end
-end
-
-local function searchDevice(callback, value, deviceName)
-  local id = FindDeviceId(deviceName)
-  if (string.len(id) > 0) then
-    local isConnected = ExecBlueutilCmd("--is-connected "..id)
-    if (isConnected == value) then
-      callback(id)
-    end
   end
 end
 
@@ -29,16 +17,25 @@ local function handleDevice(connect)
   end
 
   return function ()
-    searchDevice(function(id)
-      if connect == true then
-        hs.execute('osascript -e "set volume output muted 0"')
+    BlueutilIsConnected(name, function (isConnected, id)
+      if isConnected == value then
+        ExecBlueutilCmd(param.." "..id)
+
+        -- 连接/断开后发布消息
+        LoopWait(function ()
+          -- 直接修改，避免下面的回调多查询一次
+          isConnected = BlueutilIsConnected(name)
+          return isConnected ~= value
+        end, function ()
+          -- 连接返回 true 未连接返回 false
+          Event:emit(Event.keys[1], isConnected == '1')
+        end)
       end
-      ExecBlueutilCmd(param.." "..id)
-    end, value, name)
+    end)
   end
 end
 
-local connectDevice = handleDevice()
+local connectDevice = handleDevice(true)
 local disconnectDevice = handleDevice(false)
 
 local hyper = {'alt'}
@@ -59,12 +56,10 @@ return {
   end,
   screensDidUnlock = function ()
     bluetoothSwitch(1)
-    local timer
-    timer = hs.timer.doEvery(1, function ()
-      if ExecBlueutilCmd("--power") == "1" then
-        timer:stop()
-        connectDevice()
-      end
+    LoopWait(function ()
+      return ExecBlueutilCmd("--power") == "1"
+    end, function ()
+      connectDevice()
     end)
   end
 }

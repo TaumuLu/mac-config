@@ -1,5 +1,3 @@
-require 'plugins.common.index'
-
 -- local date = os.date("*t")
 -- hs.alert(os.date("%Y-%m-%d %H:%M:%S", os.time()))
 -- for k,v in pairs(date) do
@@ -12,7 +10,7 @@ local function setVolume(isMute, volume)
     volume = 30
   end
   if isMute then
-    local id = FindDeviceId('connected ')
+    local id = BlueutiRecentGrep('connected ')
     if (string.len(id) == 0) then
       hs.execute('osascript -e "set volume output muted 1"')
     end
@@ -47,6 +45,14 @@ local function nameTrigger()
   local isWorkEnv = IsWorkEnv()
   setVolume(isWorkEnv)
 end
+
+-- 监听蓝牙设备 airpods 的连接变化
+Event:on(Event.keys[1], function (isConnected)
+  hs.alert(isConnected)
+  if isConnected then
+    hs.execute('osascript -e "set volume output volume 50"')
+  end
+end)
 
 return {
   screensDidWake = function ()
