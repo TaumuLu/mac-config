@@ -48,7 +48,6 @@ end
 
 -- 监听蓝牙设备 airpods 的连接变化
 Event:on(Event.keys[1], function (isConnected)
-  hs.alert(isConnected)
   if isConnected then
     hs.execute('osascript -e "set volume output volume 50"')
   end
