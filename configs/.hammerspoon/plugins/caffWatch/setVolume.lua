@@ -5,18 +5,44 @@
 -- end
 -- hs.execute('osascript -e "set volume 10"')
 
-local function setVolume(isMute, volume)
-  if volume == nil then
-    volume = 30
+local function setVolumeOutput(value)
+  hs.execute('osascript -e "set volume output volume "'..value)
+end
+
+local function setVolumeMuted(value)
+  local muted = 1
+  if not value then
+    muted = 0
   end
+  hs.execute('osascript -e "set volume output muted "'..muted)
+end
+
+local function getVolume(isConnected, volume)
+  if volume == nil then
+    return volume
+  end
+  if not not isConnected then
+    return 50
+  end
+  return 30
+end
+
+local function hasConnected()
+  local id = BlueutiRecentGrep('connected ')
+  return string.len(id) ~= 0
+end
+
+local function setVolume(isMute, volume)
+  local isConnected = hasConnected()
+  volume = getVolume(isConnected, volume)
+
   if isMute then
-    local id = BlueutiRecentGrep('connected ')
-    if (string.len(id) == 0) then
-      hs.execute('osascript -e "set volume output muted 1"')
+    if not isConnected then
+      setVolumeMuted(true)
     end
   else
-    hs.execute('osascript -e "set volume output muted 0"')
-    hs.execute('osascript -e "set volume output volume "'..volume)
+    setVolumeMuted()
+    setVolumeOutput(volume)
   end
 end
 
@@ -48,9 +74,10 @@ end
 
 -- 监听蓝牙设备 airpods 的连接变化
 Event:on(Event.keys[1], function (isConnected)
-  if isConnected then
-    hs.execute('osascript -e "set volume output volume 50"')
-  end
+  hs.timer.doAfter(2, function()
+    local volume = getVolume(isConnected)
+    setVolumeOutput(volume)
+  end)
 end)
 
 return {
