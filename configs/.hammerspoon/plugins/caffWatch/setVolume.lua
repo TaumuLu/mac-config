@@ -18,7 +18,7 @@ local function setVolumeMuted(value)
 end
 
 local function getVolume(isConnected, volume)
-  if volume == nil then
+  if volume ~= nil then
     return volume
   end
   if not not isConnected then
@@ -38,12 +38,10 @@ local function setVolume(isMute, volume)
 
   if isMute then
     if not isConnected then
-      setVolumeMuted(true)
+      return setVolumeMuted(true)
     end
-  else
-    setVolumeMuted()
-    setVolumeOutput(volume)
   end
+  return setVolumeOutput(volume)
 end
 
 -- 根据时间判断是否静音
