@@ -1,7 +1,7 @@
 require 'plugins.common.event'
 
-function Trim(text)
-  return string.gsub(text, "[\t\n\r]+", "")
+function Trim(str)
+  return string.gsub(str, "[\t\n\r]+", "")
 end
 
 function Execute(cmd)
@@ -17,24 +17,24 @@ function ExecBlueutilCmd(params, noExec)
   return Execute(cmd)
 end
 
-function BlueutiRecentGrep(keyword)
+function FindDeviceId(keyword)
   return ExecBlueutilCmd("--recent | grep '"..keyword.."' | awk '{print $2}' | cut -d ',' -f 1")
 end
 
 -- 缓存设备 id 信息
 local deviceIdMap = {}
 
-function FindDeviceId(name)
+function FindDeviceIdByName(name)
   local id = deviceIdMap[name]
   if id == nil then
-    id = BlueutiRecentGrep(name)
+    id = FindDeviceId(name)
     deviceIdMap[name] = id
   end
   return id
 end
 
 function BlueutilIsConnected(name, callback)
-  local id = FindDeviceId(name)
+  local id = FindDeviceIdByName(name)
   local isConnected = '0'
   if string.len(id) > 0 then
     isConnected = ExecBlueutilCmd("--is-connected "..id)

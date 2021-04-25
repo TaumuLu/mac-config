@@ -28,8 +28,19 @@ local function getVolume(isConnected, volume)
 end
 
 local function hasConnected()
-  local id = BlueutiRecentGrep('connected ')
-  return string.len(id) ~= 0
+  local id = FindDeviceId('connected ')
+  if string.len(id) == 0 then
+    return false
+  end
+
+  -- 对比默认输出设备是否和蓝牙连接的设备相同
+  local uid = hs.audiodevice.defaultOutputDevice():uid()
+  local index = string.find(uid, ':')
+  if index ~= nil then
+    uid = string.sub(uid, 0, index - 1)
+  end
+
+  return id == uid
 end
 
 local function setVolume(isMute, volume)
