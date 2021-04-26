@@ -78,3 +78,8 @@ function LoopWait(condition, callback, time)
     end
   end)
 end
+
+function Concat(...)
+  local message = {...}
+  return table.concat(message)
+end

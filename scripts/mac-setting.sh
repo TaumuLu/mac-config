@@ -17,6 +17,24 @@ if [ $isInit -eq 0 ]; then
   defaults delete com.apple.dock persistent-others
 fi
 
+# dock 设置
+# 根据用户最近的使用自动重排
+defaults write com.apple.dock mru-spaces -bool true
+# 显示最近
+defaults write com.apple.dock show-recents -bool false
+# 弹跳打开程序图标
+defaults write com.apple.dock no-bouncing -bool true
+# 设置 dock 大小
+defaults write com.apple.dock tilesize -int 60
+# 放大
+defaults write com.apple.dock magnification -bool true
+# 设置放大尺寸大小
+defaults write com.apple.dock largesize -int 110
+# 锁定 dock
+defaults write com.apple.Dock size-immutable -bool yes
+# 自动隐藏
+defaults write com.apple.dock autohide -bool false
+
 # 设置命令
 # 安全设置显示任何来源选项
 sudo spctl --master-disable
