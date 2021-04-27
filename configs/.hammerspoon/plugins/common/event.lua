@@ -16,11 +16,10 @@ end
 function Event:emit(key, ...)
   local args = {...}
   for k, v in pairs(self.list) do
-    print(k, v)
     if k == key then
       return v(table.unpack(args))
     end
   end
-  print('not found key: '..key)
+  Log('not found key: '..key)
 end
 

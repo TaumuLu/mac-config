@@ -2,12 +2,12 @@ local function reloadConfig(paths)
   local doReload = false
   for _, file in pairs(paths) do
     if file:sub(-4) == ".lua" then
-      print("A lua config file changed, reload")
+      Log("A lua config file changed, reload")
       doReload = true
     end
   end
   if not doReload then
-    print("No lua file changed, skipping reload")
+    Log("No lua file changed, skipping reload")
     return
   end
 

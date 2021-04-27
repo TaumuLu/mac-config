@@ -21,12 +21,11 @@ end
 
 local function caffeinateCallback(eventType)
   local key = findKey(eventType)
-  print(key)
+  Log(key)
 
-  for eventName, value in pairs(watcher) do
+  for _, value in pairs(watcher) do
     local event = value[key]
     if event ~= nil then
-        print(eventName)
         event()
     end
   end

@@ -67,7 +67,7 @@ return {
         hour <= 7
       )
     ) then
-      print(Concat('夜间关闭蓝牙时间 ', hour, ':', min, ':', sec))
+      Log('夜间关闭蓝牙时间 ', hour, ':', min, ':', sec)
       bluetoothSwitch(0)
     end
   end,
