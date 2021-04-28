@@ -46,6 +46,9 @@ end
 local function setVolume(isMute, volume)
   local isConnected = hasConnected()
   volume = getVolume(isConnected, volume)
+  Log('isMute', isMute)
+  Log('isConnected', isConnected)
+  Log('volume', volume)
 
   if isMute then
     if not isConnected then

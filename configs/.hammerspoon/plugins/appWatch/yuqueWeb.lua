@@ -57,7 +57,7 @@ local function setUrlHtml(url, text)
 end
 
 local isSkip = false
-local hyper = {'alt', 'ctrl'}
+local hyper = {'cmd', 'option', 'shift'}
 hs.hotkey.bind(hyper, 'p', function()
   hs.alert('skip next paste')
   isSkip = true
@@ -123,6 +123,6 @@ return {
     'com.google.Chrome.canary'
   },
   enable = function()
-    yuquePaste()
+    -- yuquePaste()
   end,
 }

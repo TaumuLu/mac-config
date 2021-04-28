@@ -80,8 +80,12 @@ function LoopWait(condition, callback, time)
 end
 
 function Concat(...)
-  local message = {...}
-  return table.concat(message)
+  local origin = {...}
+  local message = ""
+  for _,v in pairs(origin) do
+     message = message..tostring(v).." "
+  end
+  return message
 end
 
 -- hs.console.consolePrintColor(hs.drawing.color.ansiTerminalColors.fgBlue)
@@ -97,11 +101,11 @@ end
 
 function Log(...)
   local args = {...}
-  local str = Concat('----------log----------\n', '=== ', table.unpack(args))
+  local str = Concat('----------log----------\n', '===', table.unpack(args))
   PrintStyledtext(str, 'blue')
 end
 
 function Inspect(tab)
-  local str = Concat('----------inspect----------\n', '=== ', hs.inspect(tab))
+  local str = Concat('----------inspect----------\n', '===', hs.inspect(tab))
   PrintStyledtext(str, 'red')
 end
