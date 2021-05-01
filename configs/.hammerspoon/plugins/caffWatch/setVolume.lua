@@ -79,7 +79,7 @@ local function timeTrigger()
 end
 
 -- 根据 wifi 名判断是否静音
-local function nameTrigger()
+local function setTrigger()
   local isWorkEnv = IsWorkEnv()
   setVolume(isWorkEnv)
 end
@@ -92,11 +92,14 @@ Event:on(Event.keys[1], function (isConnected)
   end)
 end)
 
+-- 默认加载时执行一次
+setTrigger()
+
 return {
   screensDidWake = function ()
-    nameTrigger()
+    setTrigger()
   end,
   screensDidUnlock = function ()
-    nameTrigger()
+    setTrigger()
   end
 }
