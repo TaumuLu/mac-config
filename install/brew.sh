@@ -47,6 +47,7 @@ brewCaskList=(
   microsoft-edge
   karabiner-elements
   visual-studio-code
+  visual-studio-code-insiders
 
   qlcolorcode
   qlimagesize
@@ -140,8 +141,6 @@ function brew_install() {
     cyan "brew install ${bil[@]}"
     brew install ${bil[@]}
     get_brew_list
-
-    brew cleanup
   fi
 
   brew_post_install
@@ -167,15 +166,15 @@ function brew_install() {
       cyan "brew install --cask ${caskList[@]}"
       brew install --cask ${caskList[@]}
       get_brew_cask_list
-
-      brew cleanup
     fi
   fi
+
+  brew upgrade
+  brew cleanup
 
   # 查看所有已安装java版本的信息
   cyan 'all java versions'
   /usr/libexec/java_home -V
-
 }
 
 function brew_services() {

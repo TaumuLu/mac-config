@@ -172,7 +172,6 @@ alias gdl='f() { \
 
 # exec
 # history
-export HISTCONTROL=ignoreboth:erasedups
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 # setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 # setopt SHARE_HISTORY             # Share history between all sessions.
@@ -184,6 +183,13 @@ setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+
+export HISTCONTROL=ignoreboth:erasedups
+
+# See https://superuser.com/questions/902241/how-to-make-zsh-not-store-failed-command
+zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
+
+export HISTORY_IGNORE="(ls|gst|gaa|gd|cd|cd ..|git commit*)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh   # zsh
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash # bash

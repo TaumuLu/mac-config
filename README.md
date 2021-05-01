@@ -128,6 +128,8 @@
 
 ### duti
 - 通过 duti 命令修改文件的默认打开方式，目前定义了 sublime 和 vscode
+- 文件类型可通过 mdls 命令查询
+  - `mdls <filePath>`
 
 ## 命令片段
 
