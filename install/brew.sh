@@ -22,6 +22,7 @@ brewList=(
   mysql
   redis
   maven
+  # pyenv
   # go
   # wget
   # wrk

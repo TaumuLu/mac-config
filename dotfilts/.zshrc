@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="${HOME}/.oh-my-zsh"
@@ -124,9 +124,8 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 export DEPOT_TOOLS_HOME="$HOME/Library/depot_tools"
 export PATH=$PATH:$DEPOT_TOOLS_HOME
 
-# python
-export PATH="$HOME/bin:/usr/local/bin:$PATH"
-# export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+# pyenv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
 # dotnet
 export PATH="$PATH:$HOME/.dotnet/tools"
@@ -189,7 +188,7 @@ export HISTCONTROL=ignoreboth:erasedups
 # See https://superuser.com/questions/902241/how-to-make-zsh-not-store-failed-command
 zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 
-export HISTORY_IGNORE="(ls|gst|gl|ggl|gp|ggp|gaa|gd|cd|cd ..|git commit*)"
+export HISTORY_IGNORE="(ls|gst|gl|ggl|gp|ggp|gaa|gd|cd|cd ..|gcam *|gcmsg *|git commit *)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh   # zsh
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash # bash
