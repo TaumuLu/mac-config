@@ -62,6 +62,7 @@ brewCaskList=(
   adoptopenjdk/openjdk/adoptopenjdk8
   adoptopenjdk11
   docker
+  sequel-pro
   # tunnelblick
 
   # visual-studio
