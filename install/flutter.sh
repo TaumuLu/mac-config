@@ -15,7 +15,6 @@ function install_depot_tools() {
   if [ ! -d $DEPOT_TOOLS_HOME ]; then
     git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME --depth=1
   fi
-
 }
 
 function main() {

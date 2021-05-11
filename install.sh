@@ -91,6 +91,10 @@ function source_install() {
   source ./brew.sh
   blue 'brew install done'
 
+  green 'hammerspoon install...'
+  source ./hammerspoon.sh
+  green 'hammerspoon install done'
+
   green 'node install...'
   source ./node.sh
   blue 'node install done'
