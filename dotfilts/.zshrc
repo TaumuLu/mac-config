@@ -28,6 +28,7 @@ plugins=(
   git-flow
   zsh-autosuggestions
   zsh-syntax-highlighting
+  osx
   # autojump
   # history-substring-search
   # zsh-navigation-tools
@@ -196,6 +197,9 @@ bindkey \^U backward-kill-line
 
 bindkey '^[^[[D' emacs-backward-word   # Alt-Left
 bindkey '^[^[[C' emacs-forward-word    # Alt-Right
+
+# "\e\e[C": forward-word
+# "\e\e[D": backward-word
 
 # custom function
 gssl() {
@@ -378,6 +382,8 @@ if [ -f $userConfig ]; then
       IFS=' ' read -A list <<< $userInfo
       git config --replace-all user.name "${list[1]}"
       git config --replace-all user.email "${list[2]}"
+      # # 设置完再退出来，避免造成正常的 clone 后操作路径产生问题
+      # cd ..
     fi
   }
 

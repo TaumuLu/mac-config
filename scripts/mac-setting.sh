@@ -17,6 +17,10 @@ if [ $isInit -eq 0 ]; then
   defaults delete com.apple.dock persistent-others
 fi
 
+# Enable apps at startup
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:true}' > /dev/null
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Karabiner-Elements.app", hidden:true}' > /dev/null
+
 # dock 设置
 # 根据用户最近的使用自动重排
 defaults write com.apple.dock mru-spaces -bool true
