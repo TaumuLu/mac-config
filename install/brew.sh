@@ -18,6 +18,7 @@ brewList=(
   highlight
   duti
   blueutil
+  # tmux
 
   mysql
   redis
@@ -27,7 +28,6 @@ brewList=(
   # wget
   # wrk
   # jenkins
-  # tmux
   # stow
   # fish
   # openssl

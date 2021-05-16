@@ -5,7 +5,7 @@ set -euo pipefail
 
 # npm
 function get_config() {
-  cd ..
+  cd ../
   local hsConfig="`get_pwd`/configs/.hammerspoon"
   cd ./install
   if [ ! -d $hsConfig ]; then

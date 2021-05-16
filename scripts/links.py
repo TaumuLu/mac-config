@@ -22,6 +22,8 @@ files = [
   '.gitignore',
   '.npmrc',
   '.zshrc',
+  # '.tmux.conf',
+  # '.tmux.conf.local',
   # '.vimrc',
 ]
 
