@@ -71,7 +71,7 @@ brewCaskList=(
 
   # dotnet-sdk
 
-  # scroll-reverser
+  scroll-reverser
   # omnidisksweeper
   # keycastr
   # dash
