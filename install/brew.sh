@@ -70,7 +70,7 @@ brewCaskList=(
   # java
 
   # dotnet-sdk
-
+  stats
   scroll-reverser
   # omnidisksweeper
   # keycastr
