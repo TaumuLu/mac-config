@@ -6,3 +6,5 @@ com.microsoft.VSCode  public.shell-script             editor
 com.microsoft.VSCode  com.apple.disk-image-dart       editor
 com.microsoft.VSCode  public.python-script            editor
 com.microsoft.VSCode  com.netscape.javascript-source  editor
+com.microsoft.VSCode  dyn.ah62d4rv4ge81q7pf           editor
+com.microsoft.VSCode  dyn.ah62d4rv4ge80k2pwsu         editor

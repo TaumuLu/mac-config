@@ -63,6 +63,7 @@ brewCaskList=(
   adoptopenjdk11
   docker
   sequel-pro
+  # background-music
   # tunnelblick
 
   # visual-studio
