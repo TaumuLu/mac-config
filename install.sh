@@ -99,9 +99,9 @@ function source_install() {
   source ./node.sh
   blue 'node install done'
 
-  green 'flutter install...'
-  source ./flutter.sh
-  blue 'flutter install done'
+  # green 'flutter install...'
+  # source ./flutter.sh
+  # blue 'flutter install done'
 
   green 'vim install...'
   source ./vim.sh

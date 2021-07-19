@@ -189,7 +189,7 @@ export HISTCONTROL=ignoreboth:erasedups
 # See https://superuser.com/questions/902241/how-to-make-zsh-not-store-failed-command
 zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 
-export HISTORY_IGNORE="(ls|gst|gl|ggl|gp|ggp|gaa|gd|cd|cd ..|gcam *|gcmsg *|git commit *)"
+export HISTORY_IGNORE="(ls|gst*|gl*|ggl*|gp*|ggp*|gaa*|gd|cd|cd ..|gcam *|gcmsg *|git commit *)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh   # zsh
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash # bash

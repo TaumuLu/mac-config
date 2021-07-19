@@ -6,7 +6,6 @@ set -euo pipefail
 # Homebrew
 brewList=(
   flow
-  nginx
   fzf
   git
   git-flow
@@ -20,9 +19,11 @@ brewList=(
   blueutil
   # tmux
 
-  mysql
-  redis
-  maven
+  # nginx
+  # mysql
+  # redis
+  # maven
+
   # pyenv
   # go
   # wget
@@ -38,41 +39,45 @@ brewList=(
 brewCaskList=(
   # v2rayx
   iterm2
-  snipaste
-
   hammerspoon
-  appcleaner
-  chromium
-  google-chrome
-  google-chrome-canary
-  microsoft-edge
+
   karabiner-elements
+  google-chrome
   visual-studio-code
-  visual-studio-code-insiders
+
+  stats
+  snipaste
+  sublime-text
 
   qlcolorcode
   qlimagesize
   qlmarkdown
   quicklook-json
 
-  switchhosts
-  reactotron
-  sublime-text
+  # chromium
+  # google-chrome-canary
+  # visual-studio-code-insiders
+  # microsoft-edge
+  # switchhosts
+  # reactotron
+  # scroll-reverser
+  # appcleaner
+
+  # java
   # adoptopenjdk8
-  adoptopenjdk/openjdk/adoptopenjdk8
-  adoptopenjdk11
-  docker
-  sequel-pro
+  # adoptopenjdk/openjdk/adoptopenjdk8
+  # adoptopenjdk11
+
+  # docker
+  # sequel-pro
+  # 独立控制音量
   # background-music
   # tunnelblick
 
   # visual-studio
   # android-studio
-  # java
 
   # dotnet-sdk
-  stats
-  scroll-reverser
   # omnidisksweeper
   # keycastr
   # dash
@@ -175,9 +180,11 @@ function brew_install() {
   brew upgrade
   brew cleanup
 
-  # 查看所有已安装java版本的信息
-  cyan 'all java versions'
-  /usr/libexec/java_home -V
+  if command_exists 'java'; then
+    # 查看所有已安装java版本的信息
+    cyan 'all java versions'
+    /usr/libexec/java_home -V || echo 'noinstall java'
+  fi
 }
 
 function brew_services() {

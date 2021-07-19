@@ -6,7 +6,7 @@ set -euo pipefail
 npmList=(
   yarn
   npm-check-updates
-  genfe-cli
+  # genfe-cli
   nrm
 )
 
