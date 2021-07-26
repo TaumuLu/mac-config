@@ -54,21 +54,23 @@ brewCaskList=(
   qlmarkdown
   quicklook-json
 
-  # chromium
-  # google-chrome-canary
-  # visual-studio-code-insiders
-  # microsoft-edge
-  # switchhosts
+  chromium
+  google-chrome-canary
+  microsoft-edge
+
+  docker
+  visual-studio-code-insiders
+  switchhosts
+  scroll-reverser
+  appcleaner
+
   # reactotron
-  # scroll-reverser
-  # appcleaner
 
   # java
   # adoptopenjdk8
   # adoptopenjdk/openjdk/adoptopenjdk8
   # adoptopenjdk11
 
-  # docker
   # sequel-pro
   # 独立控制音量
   # background-music

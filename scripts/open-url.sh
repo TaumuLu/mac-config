@@ -7,12 +7,12 @@ urls=(
 
   # 'https://gfycat.com/gifbrewery'
   # 'https://store.steampowered.com/about/'
+  # 'https://xclient.info/s/sizeup.html'
+  # 'https://xclient.info/s/istat-menus-for-mac.html'
+  # 'https://xclient.info/s/pdf-expert-for-mac.html'
 
   'https://xclient.info/s/alfred.html'
-  'https://xclient.info/s/sizeup.html'
-  'https://xclient.info/s/istat-menus-for-mac.html'
   'https://pinyin.sogou.com/mac'
-  # 'https://xclient.info/s/pdf-expert-for-mac.html'
 )
 
 for url in ${urls[@]}; do
