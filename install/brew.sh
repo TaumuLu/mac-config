@@ -54,15 +54,15 @@ brewCaskList=(
   qlmarkdown
   quicklook-json
 
-  chromium
-  google-chrome-canary
-  microsoft-edge
+  # chromium
+  # google-chrome-canary
+  # microsoft-edge
 
-  docker
-  visual-studio-code-insiders
-  switchhosts
-  scroll-reverser
-  appcleaner
+  # docker
+  # visual-studio-code-insiders
+  # switchhosts
+  # scroll-reverser
+  # appcleaner
 
   # reactotron
 
