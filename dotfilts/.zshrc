@@ -290,6 +290,16 @@ bswhich() {
 
 source ~/.bash_profile
 
+# source emscripten sdk
+export EMSDK_HOME="$HOME/Master/App/emsdk"
+if [ -d $EMSDK_HOME ]; then
+  local emsdk_env="$EMSDK_HOME/emsdk_env.sh"
+  if [ -f $emsdk_env ]; then
+    source $emsdk_env >/dev/null 2>&1;
+    echo "source emsdk_env.sh"
+  fi
+fi
+
 # other
 # show Mac info
 # archey

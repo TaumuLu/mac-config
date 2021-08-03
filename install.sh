@@ -103,6 +103,10 @@ function source_install() {
   # source ./flutter.sh
   # blue 'flutter install done'
 
+  # green 'emscripten install...'
+  # source ./emscripten.sh
+  # blue 'emscripten install done'
+
   green 'vim install...'
   source ./vim.sh
   blue 'vim install done'
