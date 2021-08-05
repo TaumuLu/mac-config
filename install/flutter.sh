@@ -17,7 +17,17 @@ function install_depot_tools() {
   fi
 }
 
+function install_pod() {
+  gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
+  gem sources -l
+
+  gem install cocoapods
+  pod setup
+}
+
 function main() {
+  install_pod
+
   install_flutter
   # install_depot_tools
 }

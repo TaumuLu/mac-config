@@ -144,6 +144,10 @@ export JAVA_HOME=$JAVA_8_HOME
 alias jdk8="export JAVA_HOME=$JAVA_8_HOME"
 alias jdk11="export JAVA_HOME=$JAVA_11_HOME"
 
+# gem
+export GEM_HOME=$HOME/.gem
+export PATH=$GEM_HOME/bin:$PATH
+
 # alias
 alias shs='cat ~/.zsh_history | ag '
 alias ip='curl ip.cn'
