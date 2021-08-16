@@ -161,6 +161,7 @@ alias google-chrome=$_chromePath
 alias chromex="chrome --disable-web-security"
 
 # git
+# export GIT_COMPLETION_CHECKOUT_NO_GUESS=1
 alias gbr='git branch -r --sort=-committerdate --format "%(creatordate:relative);%(committerdate:short);%(committername);%(refname:lstrip=-2)" | grep -v ";HEAD$" | column -s ";" -t'
 
 alias gdr='git diff @{1}..'
