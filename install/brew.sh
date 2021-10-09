@@ -78,6 +78,7 @@ brewCaskList=(
 
   # visual-studio
   # android-studio
+  # pycharm
 
   # dotnet-sdk
   # omnidisksweeper
