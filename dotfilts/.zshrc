@@ -28,7 +28,7 @@ plugins=(
   git-flow
   zsh-autosuggestions
   zsh-syntax-highlighting
-  osx
+  macos
   # autojump
   # history-substring-search
   # zsh-navigation-tools
