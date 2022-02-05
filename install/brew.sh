@@ -16,8 +16,8 @@ brewList=(
   the_silver_searcher
   highlight
   duti
-  BluetoothConnector
-  # blueutil
+  # BluetoothConnector
+  blueutil
   # tmux
 
   # nginx
