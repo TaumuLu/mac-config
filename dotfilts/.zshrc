@@ -293,6 +293,8 @@ bswhich() {
   fi
 }
 
+eval "$(pyenv init -)"
+
 source ~/.bash_profile
 
 # source emscripten sdk

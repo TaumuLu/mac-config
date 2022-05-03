@@ -25,7 +25,7 @@ brewList=(
   # redis
   # maven
 
-  # pyenv
+  pyenv
   # go
   # wget
   # wrk
