@@ -22,6 +22,7 @@ function install_node() {
 function npm_install() {
   local installList=`npm list -g --depth=0 | awk 'NR == 1 {next} {print $2}' | awk -F @ '{print $1}'`
   local nil=(`diff_arr "${npmList[*]}" "${installList[*]-}"`)
+
   if [ ! ${#nil[@]} -eq 0 ] && command_exists 'npm';then
     cyan "npm install -g ${nil[@]}"
     npm install -g ${nil[@]}

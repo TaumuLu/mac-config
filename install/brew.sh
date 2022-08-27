@@ -192,29 +192,30 @@ function brew_install() {
 }
 
 function brew_services() {
-  local serverList=`brew services list | awk 'NR == 1 {next} {print $1}'`
+  # local serverList=`brew services list | awk 'NR == 1 {next} {print $1}'`
   for i in ${startList[@]}; do
     # [[ ! command_exists $i ]] && continue
 
-    local isStart=true
-    for j in ${serverList[@]}; do
-      if [ $i == $j ]; then
-        isStart=false
-        break
-      fi
-    done
-    if [ $isStart = true ]; then
-      for k in ${brewInstallList[@]}; do
-        if [ $i == $k ]; then
-          brew services start $i
-          break
-        fi
-      done
-    fi
+    # local isStart=true
+    # for j in ${serverList[@]}; do
+    #   if [ $i == $j ]; then
+    #     isStart=false
+    #     break
+    #   fi
+    # done
+    # if [ $isStart = true ]; then
+    #   for k in ${brewInstallList[@]}; do
+    #     if [ $i == $k ]; then
+    #       echo $i
+    #       brew services start $i
+    #       break
+    #     fi
+    #   done
+    # fi
+    brew services restart $i
   done
 
-  cyan 'brew started services:'
-  white $serverList
+  cyan "brew started services: ${startList[@]}"
 }
 
 function install_brew {
@@ -241,3 +242,4 @@ function main() {
 }
 
 main
+
