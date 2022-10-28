@@ -60,7 +60,7 @@ function pre_install() {
 function exec_python() {
   if command_exists 'python3'; then
     green "link config..."
-    python3 ./scripts/links.py -fi
+    sudo python3 ./scripts/links.py -fi
     blue 'link config done'
   fi
 

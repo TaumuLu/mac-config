@@ -9,6 +9,7 @@ files=(
   .bash_profile
   .bashrc
   .zshrc
+  .zprofile
 )
 
 for file in ${files[@]}; do

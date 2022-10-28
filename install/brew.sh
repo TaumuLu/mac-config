@@ -12,9 +12,9 @@ brewList=(
   nvm
   python
   tree
-  watchman
+  # watchman
   the_silver_searcher
-  highlight
+  # highlight
   duti
   # BluetoothConnector
   blueutil
@@ -222,7 +222,7 @@ function install_brew {
   # Homebrew
   if ! command_exists 'brew'; then
     cyan "install Homebrew..."
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
 
   brew_install
