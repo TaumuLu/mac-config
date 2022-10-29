@@ -35,7 +35,8 @@ documents = [
   '.ssh',
   # '.zsh_history',
   # '.bash_history',
-  ['Nginx/servers', '/usr/local/etc/nginx/servers', False],
+  # ['Nginx/servers', '/usr/local/etc/nginx/servers', False],
+  ['Nginx/servers', '/opt/homebrew/etc/nginx/servers', False],
   ['trojan-qt5/config.ini', '.config'],
   ['trojan-qt5/config.json', '.config'],
   ['.SwitchHosts/data.json', '.SwitchHosts/data.json', False]
