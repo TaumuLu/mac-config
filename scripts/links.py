@@ -20,11 +20,10 @@ files = [
   '.bashrc',
   '.gitconfig',
   '.gitignore',
-  '.npmrc',
+  # '.npmrc',
   '.zshrc',
   '.huskyrc',
   '.zprofile',
-  '.npmrc'
   # '.tmux.conf',
   # '.tmux.conf.local',
   # '.vimrc',
@@ -34,6 +33,7 @@ files = [
 configPath = Path(HOME).joinpath('Documents/Config')
 documents = [
   '.ssh',
+  '.npmrc',
   # '.zsh_history',
   # '.bash_history',
   # ['Nginx/servers', '/usr/local/etc/nginx/servers', False],

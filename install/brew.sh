@@ -10,7 +10,7 @@ brewList=(
   git
   git-flow
   nvm
-  python
+  # python
   tree
   # watchman
   the_silver_searcher
@@ -72,7 +72,7 @@ brewCaskList=(
   # adoptopenjdk/openjdk/adoptopenjdk8
   # adoptopenjdk11
 
-  # sequel-pro
+  sequel-ace
   # 独立控制音量
   # background-music
   # tunnelblick
@@ -145,6 +145,15 @@ function brew_post_install() {
   duti ../data/duti/sublime.txt
   duti ../data/duti/vscode.txt
   duti ../data/duti/iterm2.txt
+
+  # pyenv
+  local version="2.7.18"
+  local name=`pyenv version-name`
+  if [ $name != $version ]; then
+    pyenv install $version
+    pyenv global $version
+    pyenv rehash
+  fi
 }
 
 function brew_install() {
