@@ -129,18 +129,19 @@ function main() {
 
 function copyApp() {
   local appFolder=$HOME/Documents/App/.app
-  for file in `ls $appFolder`
-  do
-    local appName=${file%.*}
-    local appDir="/Applications"
-    if [ ! -d "$appDir/${file}" ]; then
-      local appPath="$appFolder/$file"
-      cp -R $appPath $appDir
-      cyan "copy app: $file"
-    else
-      yellow "$file already installed"
-    fi
-  done
+  if [ -d $appFolder ]; then
+    for file in `ls $appFolder`; do
+      local appName=${file%.*}
+      local appDir="/Applications"
+      if [ ! -d "$appDir/${file}" ]; then
+        local appPath="$appFolder/$file"
+        cp -R $appPath $appDir
+        cyan "copy app: $file"
+      else
+        yellow "$file already installed"
+      fi
+    done
+  fi
 }
 
 function genSSH() {

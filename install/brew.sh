@@ -20,9 +20,9 @@ brewList=(
   blueutil
   # tmux
 
-  # nginx
-  # mysql
-  # redis
+  nginx
+  mysql
+  redis
   # maven
 
   pyenv
@@ -61,9 +61,9 @@ brewCaskList=(
 
   # docker
   # visual-studio-code-insiders
-  # switchhosts
-  # scroll-reverser
-  # appcleaner
+  switchhosts
+  scroll-reverser
+  appcleaner
 
   # reactotron
 
@@ -86,7 +86,7 @@ brewCaskList=(
   # keycastr
   # dash
 
-  # the-unarchiver
+  the-unarchiver
 
   # sourcetree
   # typora
