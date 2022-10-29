@@ -23,7 +23,8 @@ files = [
   '.npmrc',
   '.zshrc',
   '.huskyrc',
-  '.zprofile'
+  '.zprofile',
+  '.npmrc'
   # '.tmux.conf',
   # '.tmux.conf.local',
   # '.vimrc',
