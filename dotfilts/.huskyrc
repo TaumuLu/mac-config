@@ -1,6 +1,6 @@
 # First load nvm and provide access to the nvm command.
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvma
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 
 # Use the nvm ls command to detect the version being used.
 export NVM_DIR="$HOME/.nvm"
