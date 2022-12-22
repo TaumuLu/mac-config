@@ -10,7 +10,6 @@ dirList=(
   "Document"
   "Project"
   "Config"
-  "Github"
   "Temp"
   "Test"
 )
