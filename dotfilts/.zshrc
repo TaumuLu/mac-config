@@ -178,6 +178,9 @@ alias gdl='f() { \
     --prune-empty --tag-name-filter cat -- --all
 }; f'
 
+# other
+alias setting-storage='open x-apple.systempreferences:com.apple.settings.Storage'
+
 # exec
 # history
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
