@@ -111,6 +111,10 @@ function source_install() {
   source ./vim.sh
   blue 'vim install done'
 
+  green 'rvm install...'
+  source ./rvm.sh
+  blue 'rvm install done'
+
   cd ../
 }
 
