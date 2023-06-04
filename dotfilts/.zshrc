@@ -195,6 +195,8 @@ setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history 
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 
+setopt no_nomatch
+
 export HISTCONTROL=ignoreboth:erasedups
 
 # See https://superuser.com/questions/902241/how-to-make-zsh-not-store-failed-command
