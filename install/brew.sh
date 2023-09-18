@@ -68,10 +68,9 @@ brewCaskList=(
   # reactotron
 
   # java
-  # adoptopenjdk8
-  # adoptopenjdk/openjdk/adoptopenjdk8
-  # adoptopenjdk11
+  # openjdk@8
   # openjdk@11
+  # openjdk@17
 
   sequel-ace
   # 独立控制音量
