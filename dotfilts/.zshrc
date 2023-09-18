@@ -138,14 +138,27 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 #jenv
 # eval "$(jenv init -)"
 # export PATH="$HOME/.jenv/bin:$PATH"
-export JAVA_8_HOME='/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home'
-export JAVA_11_HOME='/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home'
-# 默认 jdk11
-export JAVA_HOME=$JAVA_8_HOME
 
-# 动态切换版本
-alias jdk8="export JAVA_HOME=$JAVA_8_HOME"
-alias jdk11="export JAVA_HOME=$JAVA_11_HOME"
+# export JAVA_8_HOME='/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home'
+# export JAVA_11_HOME='/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home'
+
+_Java8Path=$(brew --prefix)/opt/openjdk@8/libexec/openjdk.jdk
+_Java11Path=$(brew --prefix)/opt/openjdk@11/libexec/openjdk.jdk
+
+if [ -d $_Java11Path ]; then
+  JAVA_11_JDK='/Library/Java/JavaVirtualMachines/openjdk-11.jdk'
+
+  if [ ! -d $JAVA_11_JDK ]; then
+    sudo ln -sfn $_Java11Path $JAVA_11_JDK
+  fi
+  export JAVA_11_HOME="$JAVA_11_JDK/Contents/Home"
+
+  # 默认 jdk11
+  export JAVA_HOME=$JAVA_11_HOME
+
+  # 动态切换版本
+  alias jdk11="export JAVA_HOME=$JAVA_11_HOME"
+fi
 
 # gem
 export GEM_HOME=$HOME/.gem

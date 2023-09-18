@@ -71,6 +71,7 @@ brewCaskList=(
   # adoptopenjdk8
   # adoptopenjdk/openjdk/adoptopenjdk8
   # adoptopenjdk11
+  # openjdk@11
 
   sequel-ace
   # 独立控制音量
@@ -167,7 +168,7 @@ function brew_install() {
   brew_post_install
 
   local bcil=(`diff_arr "${brewCaskList[*]}" "${brewCaskInstallList[*]-}"`)
-  # java8
+  # java
   brew tap homebrew/cask-versions
   brew tap adoptopenjdk/openjdk
   if [ ! ${#bcil[@]} -eq 0 ]; then
