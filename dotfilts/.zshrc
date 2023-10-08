@@ -388,7 +388,8 @@ fi
 # git 账号信息格式为
 # ```
 # declare -A GIT_DOMAIN_USER
-# GIT_DOMAIN_USER=(["domain"]="user email")
+# GIT_DOMAIN_USER["domain"]="user email"
+# GIT_DOMAIN_USER["github.com"]="TaumuLu 972409545@qq.com"
 # ```
 userConfig="$HOME/Documents/Config/.bash_config"
 if [ -f $userConfig ]; then
