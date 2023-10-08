@@ -398,35 +398,49 @@ if [ -f $userConfig ]; then
   local ogit=`which git`
 
   gcu() {
+    local url=`git remote get-url origin`
     local domain=""
-    local folder=""
-    for value in "$@"
-    do
-      if [[ $value == git* ]]; then
-        domain=${value#*@}
-        domain=${domain%:*}
-        folder=${value##*/}
-        folder=${folder%\.*}
-      elif [[ $value == http* ]]; then
-        domain=${value##*//}
-        domain=${domain%%/*}
-        folder=${value##*/}
-        folder=${folder%\.*}
-      fi
-    done
+    if [[ $url == git* ]]; then
+      domain=${url#*@}
+      domain=${domain%:*}
+    elif [[ $url == http* ]]; then
+      domain=${url##*//}
+      domain=${domain%%/*}
+    fi
+
     local userInfo=""
     if [[ -n $domain ]]; then
       userInfo=${GIT_DOMAIN_USER["$domain"]}
     fi
-    folder="$(pwd)/${folder}"
-    $ogit clone "$@"
-    if [[ -n $userInfo && -d ${folder} ]]; then
-      cd ${folder}
+
+    if [[ -n $userInfo ]]; then
       # eval "git cu $userInfo"
       IFS=' ' read -A list <<< $userInfo
       git config --replace-all user.name "${list[1]}"
       git config --replace-all user.email "${list[2]}"
-      # 设置完再退出来，避免造成正常的 clone 后操作路径产生问题
+    fi
+
+    echo "user: `git config user.name`; email: `git config user.email`"
+  }
+
+  local gitClone() {
+    local folder=""
+    for value in "$@"
+    do
+      if [[ $value == git* || $value == http* ]]; then
+        folder=${value##*/}
+        folder=${folder%\.*}
+      elif ! [[ $value == -* ]]; then
+        folder=$value
+      fi
+    done
+
+    $ogit clone "$@"
+    local absPath=$(readlink -f $folder)
+
+    if [[ -n $absPath ]]; then
+      cd "$absPath"
+      gcu
       cd ../
     fi
   }
@@ -435,7 +449,7 @@ if [ -f $userConfig ]; then
   function git {
     if [[ "$1" == "clone" && "$@" != *"--help"* ]]; then
       shift 1
-      gcu "$@"
+      gitClone "$@"
     else
       command git "$@"
     fi
