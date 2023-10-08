@@ -416,7 +416,7 @@ if [ -f $userConfig ]; then
     done
     local userInfo=""
     if [[ -n $domain ]]; then
-      userInfo=${GIT_DOMAIN_USER[$domain]}
+      userInfo=${GIT_DOMAIN_USER["$domain"]}
     fi
     folder="$(pwd)/${folder}"
     $ogit clone "$@"
