@@ -105,10 +105,6 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# rvm
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
 # node
 _nodePath=`which node`
 export NODE_PATH=${_nodePath/%bin\/node/lib\/node_modules}
@@ -123,6 +119,7 @@ export FLUTTER_HOME="$HOME/Library/flutter"
 export PATH="$PATH:$FLUTTER_HOME/bin"
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+export NO_PROXY=localhost,::1,127.0.0.1,LOCALHOST
 
 # depot_tools
 export DEPOT_TOOLS_HOME="$HOME/Library/depot_tools"
@@ -130,6 +127,12 @@ export PATH=$PATH:$DEPOT_TOOLS_HOME
 
 # pyenv
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+eval "$(pyenv init -)"
+
+# rvm
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # dotnet
 export PATH="$PATH:$HOME/.dotnet/tools"
@@ -139,31 +142,48 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 # eval "$(jenv init -)"
 # export PATH="$HOME/.jenv/bin:$PATH"
 
-local JavaVersions=(8 11 17)
-for version in "${JavaVersions[@]}"; do
-    local javaPath=$(brew --prefix)/opt/openjdk@$version/libexec/openjdk.jdk
+# 切换 java 版本
+switchJdkVersion() {
+  local defaultJdk="${1:-11}"
 
-    if [ -d $javaPath ]; then
-      local javaJdk="/Library/Java/JavaVirtualMachines/openjdk-$version.jdk"
-
-      if [ ! -d $javaJdk ]; then
-        sudo ln -sfn $javaPath $javaJdk
-      fi
-
-      local varName="JAVA_${version}_HOME"
-      local javaHome="$javaJdk/Contents/Home"
-      export $varName=$javaHome
-
-      # 默认 jdk11
-      if [[ $version == "11" ]]; then
-        export JAVA_HOME=$javaHome
-        export PATH="$PATH:$JAVA_HOME/bin"
-      fi
-
-      # 动态切换版本
-      alias jdk${version}="export JAVA_HOME=$javaHome"
+    # 切换 javahome 环境变量
+  switchJavaHome() {
+    if [[ -n $1 ]]; then
+      export JAVA_HOME=$1
+      export PATH="$PATH:$JAVA_HOME/bin"
     fi
-done
+  }
+
+  # 列出要切换的 jdk 版本
+  local javaVersions=(8 11 17)
+
+  for version in "${javaVersions[@]}"; do
+      # 查找 homebrew 安装的 jdk 地址
+      local javaPath=$(brew --prefix)/opt/openjdk@$version/libexec/openjdk.jdk
+
+      if [ -d $javaPath ]; then
+        local javaJdk="/Library/Java/JavaVirtualMachines/openjdk-$version.jdk"
+
+        # 检查并软链接到默认的 java 安装地址
+        if [ ! -d $javaJdk ]; then
+          sudo ln -sfn $javaPath $javaJdk
+        fi
+
+        local varName="JAVA_${version}_HOME"
+        local javaHome="$javaJdk/Contents/Home"
+        # 声明不同 jdk 版本的环境变量
+        # eval `export "JAVA_${version}_HOME"=$javaHome`
+
+        alias jdk${version}="switchJavaHome $javaHome"
+        # 设置默认 jdk 版本
+        if [[ $version == $defaultJdk ]]; then
+          switchJavaHome $javaHome
+        fi
+      fi
+  done
+}
+
+switchJdkVersion 11
 
 # gem
 export GEM_HOME=$HOME/.gem
@@ -319,9 +339,7 @@ bswhich() {
   fi
 }
 
-eval "$(pyenv init -)"
-
-source ~/.bash_profile
+# source ~/.bash_profile
 
 # source emscripten sdk
 export EMSDK_HOME="$HOME/Master/App/emsdk"
