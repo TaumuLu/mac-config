@@ -25,7 +25,7 @@ brewList=(
   redis
   # maven
 
-  pyenv
+  # pyenv
   # go
   # wget
   # wrk
@@ -147,13 +147,13 @@ function brew_post_install() {
   duti ../data/duti/iterm2.txt
 
   # pyenv
-  local version="2.7.18"
-  local name=`pyenv version-name`
-  if [ $name != $version ]; then
-    pyenv install $version
-    pyenv global $version
-    pyenv rehash
-  fi
+  # local version="2.7.18"
+  # local name=`pyenv version-name`
+  # if [ $name != $version ]; then
+  #   pyenv install $version
+  #   pyenv global $version
+  #   pyenv rehash
+  # fi
 }
 
 function brew_install() {

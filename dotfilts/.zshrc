@@ -126,8 +126,8 @@ export DEPOT_TOOLS_HOME="$HOME/Library/depot_tools"
 export PATH=$PATH:$DEPOT_TOOLS_HOME
 
 # pyenv
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-eval "$(pyenv init -)"
+# if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+# eval "$(pyenv init -)"
 
 # rvm
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
@@ -136,6 +136,10 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # dotnet
 export PATH="$PATH:$HOME/.dotnet/tools"
+
+# gem
+export GEM_HOME=$HOME/.gem
+export PATH=$GEM_HOME/bin:$PATH
 
 # java
 #jenv
@@ -184,10 +188,6 @@ switchJdkVersion() {
 }
 
 switchJdkVersion 11
-
-# gem
-export GEM_HOME=$HOME/.gem
-export PATH=$GEM_HOME/bin:$PATH
 
 # alias
 alias shs='cat ~/.zsh_history | ag '
