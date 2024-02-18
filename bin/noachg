@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+path="${1:-./}"
+
+find $path -exec chflags nouchg,noschg {} \;
+
+echo '------done chflags nouchg,noschg------'
