@@ -125,6 +125,10 @@ export NO_PROXY=localhost,::1,127.0.0.1,LOCALHOST
 export DEPOT_TOOLS_HOME="$HOME/Library/depot_tools"
 export PATH=$PATH:$DEPOT_TOOLS_HOME
 
+# mac-config command
+export MY_CONFIG_HOME="$HOME/Master/Config/mac-config"
+export PATH="$PATH:$MY_CONFIG_HOME/bin"
+
 # pyenv
 # if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 # eval "$(pyenv init -)"
@@ -136,6 +140,11 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # dotnet
 export PATH="$PATH:$HOME/.dotnet/tools"
+# export PATH="$PATH:/usr/local/share/dotnet"
+# mkdir -p $HOME/dotnet && tar zxf dotnet-sdk-8.0.100-osx-arm64.pkg -C $HOME/dotnet
+export DOTNET_ROOT="$HOME/dotnet"
+export PATH="$PATH:$HOME/dotnet"
+# export PATH="$PATH:/usr/local/share/dotnet"
 
 # gem
 export GEM_HOME=$HOME/.gem
