@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+const { parse, stringify } = require("yaml")
+const fs = require('fs')
+
+const subUrl = process.env.CLASHX_SUB
+const myConfigPath = `${process.env.HOME}/Library/Mobile Documents/iCloud~com~west2online~ClashX/Documents/mt.yaml`
+
+if (!fs.existsSync(myConfigPath)) {
+  throw new Error(`not found myConfig: ${myConfigPath}`)
+}
+
+if (subUrl) {
+  fetch(subUrl).then((res) => res.text()).then((res) => {
+    const myConfigFile = fs.readFileSync(myConfigPath, 'utf8')
+    const myConfig = parse(myConfigFile)
+    const config = parse(res)
+
+    Object.keys(myConfig).forEach((key) => {
+      const myValue = myConfig[key]
+      const value = config[key]
+      switch (key) {
+        // 跳过配置
+        case 'rules':
+          break
+        case 'proxy-groups':
+          const nodeSelect = value.find((item) => item.name === '🔰 节点选择')
+          if (nodeSelect) {
+            myValue[0].proxies = nodeSelect.proxies
+          }
+          const autoSelect = value.find((item) => item.name === '♻️ 自动选择')
+          if(autoSelect) {
+            myValue[1].proxies = autoSelect.proxies
+          }
+          break;
+        default:
+          if(value) {
+            myConfig[key] = value
+          }
+          break;
+      }
+    })
+
+    // 写入原文件
+    const newConfig = stringify(myConfig)
+    fs.writeFileSync(myConfigPath, newConfig)
+  })
+} else {
+  throw new Error(`not found clashX config url: ${subUrl}`)
+}
