@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --no-warnings
 const { parse, stringify } = require("yaml")
 const fs = require('fs')
 
@@ -10,6 +10,8 @@ if (!fs.existsSync(myConfigPath)) {
 }
 
 if (subUrl) {
+  console.log('--------', `加载远程配置：\n${subUrl}`)
+
   fetch(subUrl).then((res) => res.text()).then((res) => {
     const myConfigFile = fs.readFileSync(myConfigPath, 'utf8')
     const myConfig = parse(myConfigFile)
@@ -25,15 +27,18 @@ if (subUrl) {
         case 'proxy-groups':
           const nodeSelect = value.find((item) => item.name === '🔰 节点选择')
           if (nodeSelect) {
+            console.log('--------', `同步：'🔰 节点选择'`)
             myValue[0].proxies = nodeSelect.proxies
           }
           const autoSelect = value.find((item) => item.name === '♻️ 自动选择')
-          if(autoSelect) {
+          if (autoSelect) {
+            console.log('--------', `同步：'♻️ 自动选择'`)
             myValue[1].proxies = autoSelect.proxies
           }
           break;
         default:
-          if(value) {
+          if (value) {
+            console.log('--------', `同步配置：${key}`)
             myConfig[key] = value
           }
           break;
@@ -43,6 +48,7 @@ if (subUrl) {
     // 写入原文件
     const newConfig = stringify(myConfig)
     fs.writeFileSync(myConfigPath, newConfig)
+    console.log('--------', `解析完成，请重新加载配置`)
   })
 } else {
   throw new Error(`not found clashX config url: ${subUrl}`)
