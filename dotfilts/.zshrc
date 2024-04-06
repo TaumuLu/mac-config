@@ -128,6 +128,7 @@ export PATH=$PATH:$DEPOT_TOOLS_HOME
 # mac-config command
 export MY_CONFIG_HOME="$HOME/Master/Config/mac-config"
 export PATH="$PATH:$MY_CONFIG_HOME/bin"
+chmod a+x "$MY_CONFIG_HOME/bin"
 
 # pyenv
 # if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
@@ -159,11 +160,29 @@ export PATH=$GEM_HOME/bin:$PATH
 switchJdkVersion() {
   local defaultJdk="${1:-11}"
 
-    # 切换 javahome 环境变量
-  switchJavaHome() {
+  _jdkVersionFilePath="$HOME/.java_version"
+  if [ -e "$_jdkVersionFilePath" ]; then
+    defaultJdk=$(cat $_jdkVersionFilePath)
+  fi
+
+  # 切换 javahome 环境变量
+  jdk() {
     if [[ -n $1 ]]; then
-      export JAVA_HOME=$1
-      export PATH="$PATH:$JAVA_HOME/bin"
+      local varName="JAVA_${1}_HOME"
+      # 获取 javahome 值设置为环境变量
+      local javaHome="$(eval "echo \$$varName")"
+
+      if [[ -n $javaHome && -d $javaHome ]]; then
+        export JAVA_HOME=$javaHome
+        export CLASSPATH="$JAVA_HOME/lib"
+        export PATH="$PATH:$JAVA_HOME/bin"
+
+        echo $1 > $_jdkVersionFilePath
+      fi
+    fi
+
+    if [[ -z $2 ]]; then
+      echo `java --version`
     fi
   }
 
@@ -172,30 +191,31 @@ switchJdkVersion() {
 
   for version in "${javaVersions[@]}"; do
       # 查找 homebrew 安装的 jdk 地址
-      local javaPath=$(brew --prefix)/opt/openjdk@$version/libexec/openjdk.jdk
+      local brewPath=$(brew --prefix)/opt/openjdk@$version/libexec/openjdk.jdk
 
-      if [ -d $javaPath ]; then
-        local javaJdk="/Library/Java/JavaVirtualMachines/openjdk-$version.jdk"
+      if [ -d $brewPath ]; then
+        local javaPath="/Library/Java/JavaVirtualMachines/openjdk-$version.jdk"
 
         # 检查并软链接到默认的 java 安装地址
-        if [ ! -d $javaJdk ]; then
-          sudo ln -sfn $javaPath $javaJdk
+        if [ ! -d $javaPath ]; then
+          sudo ln -sfn $brewPath $javaPath
         fi
 
         local varName="JAVA_${version}_HOME"
-        local javaHome="$javaJdk/Contents/Home"
-        # 声明不同 jdk 版本的环境变量
-        # eval `export "JAVA_${version}_HOME"=$javaHome`
+        local javaHome="$javaPath/Contents/Home"
+        # 声明不同 jdk 版本的环境变量方便读取
+        export $varName=$javaHome
 
-        alias jdk${version}="switchJavaHome $javaHome"
+        alias jdk${version}="jdk $version"
         # 设置默认 jdk 版本
         if [[ $version == $defaultJdk ]]; then
-          switchJavaHome $javaHome
+          jdk $version -q
         fi
       fi
   done
 }
 
+# 默认使用 11 版本
 switchJdkVersion 11
 
 # alias

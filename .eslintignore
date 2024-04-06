@@ -1,0 +1,12 @@
+lib
+backup
+dist
+public
+.vite
+
+!.lintstagedrc.cjs
+!.prettierrc.cjs
+
+backup
+
+scripts/mtp.cjs

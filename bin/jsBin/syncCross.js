@@ -1,33 +1,38 @@
-#!/usr/bin/env node
-
-const fs = require('fs')
-const { resolve, join } = require('path')
-const { exec } = require('child_process')
+import { exec } from 'child_process'
+import fs from 'fs'
+import { join, resolve } from 'path'
 
 const [pwaPath = './', rawPath = './raw', ...otherPath] = process.argv.slice(2)
 
 const isForce = otherPath.includes('-f')
 
-const getFileNames = (dirPath) => {
-  return fs.readdirSync(dirPath).filter((item) => {
-    const stat = fs.statSync(join(dirPath, item))
-    return stat.isFile()
-  }).map((item) => {
-    const [name] = item.split('.')
-    return name
-  })
+const getFileNames = dirPath => {
+  return fs
+    .readdirSync(dirPath)
+    .filter(item => {
+      const stat = fs.statSync(join(dirPath, item))
+      return stat.isFile()
+    })
+    .map(item => {
+      const [name] = item.split('.')
+      return name
+    })
 }
 
-const crossPathList = [pwaPath, rawPath].map((p) => resolve(p)).filter((p) => fs.existsSync(p))
+const crossPathList = [pwaPath, rawPath]
+  .map(p => resolve(p))
+  .filter(p => fs.existsSync(p))
 
-const crossFileNames = isForce ? crossPathList.reduce((p, c) => {
-  const names = getFileNames(c)
-  if (p.length  === 0) {
-    return names
-  } else {
-    return p.filter((name) => names.includes(name))
-  }
-}, []) : getFileNames(pwaPath)
+const crossFileNames = isForce
+  ? crossPathList.reduce((p, c) => {
+      const names = getFileNames(c)
+      if (p.length === 0) {
+        return names
+      } else {
+        return p.filter(name => names.includes(name))
+      }
+    }, [])
+  : getFileNames(pwaPath)
 
 console.log('--------', `同步交叉文件信息：`)
 console.log(`同步目录：`)
@@ -36,33 +41,32 @@ console.log(`交叉所有文件夹：${isForce}`)
 console.log(`交叉文件个数：${crossFileNames.length}`)
 console.log('--------')
 
-const trashDirectory = '~/.Trash';
+const trashDirectory = '~/.Trash'
 
-const trash = (filePath) => {
+const trash = filePath => {
   return new Promise((resolve, reject) => {
     exec(`mv "${filePath}" ${trashDirectory}`, (error, stdout, stderr) => {
       if (error) {
         reject(error)
-        return;
+        return
       }
       if (stderr) {
         reject(stderr)
-        return;
+        return
       }
       resolve()
-    });
+    })
   })
 }
 
-crossPathList.forEach((dirPath) => {
-  fs.readdirSync(dirPath).map((item) => {
+crossPathList.forEach(dirPath => {
+  fs.readdirSync(dirPath).map(item => {
     const filePath = resolve(dirPath, item)
     const stat = fs.statSync(filePath)
 
-    if(stat.isFile()) {
+    if (stat.isFile()) {
       const [name] = item.split('.')
       if (!crossFileNames.includes(name)) {
-
         console.log('--------', `删除文件：${filePath} 到回收站`)
         trash(filePath).then(() => {})
       }
