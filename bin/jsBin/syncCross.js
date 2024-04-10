@@ -1,6 +1,8 @@
-import { exec } from 'child_process'
+import chalk from 'chalk'
 import fs from 'fs'
 import { join, resolve } from 'path'
+
+import { toTrash } from './common.js'
 
 const [pwaPath = './', rawPath = './raw', ...otherPath] = process.argv.slice(2)
 
@@ -34,44 +36,32 @@ const crossFileNames = isForce
     }, [])
   : getFileNames(pwaPath)
 
-console.log('--------', `同步交叉文件信息：`)
-console.log(`同步目录：`)
-console.log(crossPathList.join('\n'))
-console.log(`交叉所有文件夹：${isForce}`)
-console.log(`交叉文件个数：${crossFileNames.length}`)
-console.log('--------')
+console.log(chalk.blue(`同步目录：`))
+console.log(chalk.blue(crossPathList.join('\n')))
 
-const trashDirectory = '~/.Trash'
+console.log(chalk.cyan(`是否交叉所有目录：${isForce}`))
+console.log(chalk.cyan(`交叉文件个数：${crossFileNames.length}`))
 
-const trash = filePath => {
-  return new Promise((resolve, reject) => {
-    exec(`mv "${filePath}" ${trashDirectory}`, (error, stdout, stderr) => {
-      if (error) {
-        reject(error)
-        return
-      }
-      if (stderr) {
-        reject(stderr)
-        return
-      }
-      resolve()
+let count = 0
+Promise.all(
+  crossPathList
+    .map(dirPath => {
+      return fs.readdirSync(dirPath).map(item => {
+        const filePath = resolve(dirPath, item)
+        const stat = fs.statSync(filePath)
+
+        if (stat.isFile()) {
+          const [name] = item.split('.')
+          if (!crossFileNames.includes(name)) {
+            return toTrash(filePath).then(() => {
+              count++
+              console.log(chalk.red(`删除文件：${filePath} 到回收站`))
+            })
+          }
+        }
+      })
     })
-  })
-}
-
-crossPathList.forEach(dirPath => {
-  fs.readdirSync(dirPath).map(item => {
-    const filePath = resolve(dirPath, item)
-    const stat = fs.statSync(filePath)
-
-    if (stat.isFile()) {
-      const [name] = item.split('.')
-      if (!crossFileNames.includes(name)) {
-        console.log('--------', `删除文件：${filePath} 到回收站`)
-        trash(filePath).then(() => {})
-      }
-    }
-  })
+    .flat(),
+).then(() => {
+  console.log(chalk.green(`同步交叉文件完成，删除${count}个文件`))
 })
-
-console.log('--------', `同步交叉文件完成`)

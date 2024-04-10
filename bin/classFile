@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+currentDir=$(dirname "$0")
+scriptName=$(basename "$0")
+jsPath="$currentDir/jsBin/$scriptName.js"
+node $jsPath

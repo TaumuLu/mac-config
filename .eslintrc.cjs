@@ -1,12 +1,12 @@
 module.exports = {
   root: true,
   env: { browser: true, es2020: true, node: true },
-  extends: ['plugin:react-hooks/recommended', 'plugin:prettier/recommended'],
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'prettier', 'simple-import-sort'],
+  plugins: ['prettier', 'simple-import-sort'],
   overrides: [
     {
-      files: ['*.ts', '*.d.ts', '*.tsx'],
+      files: ['*.ts', '*.d.ts', '*.tsx', '*.js'],
       parser: '@typescript-eslint/parser',
       extends: ['plugin:@typescript-eslint/recommended'],
       parserOptions: {
@@ -29,7 +29,6 @@ module.exports = {
       },
     },
   ],
-
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -38,14 +37,7 @@ module.exports = {
       jsx: true,
     },
   },
-  globals: {
-    t: true,
-  },
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
     'prettier/prettier': [
       'error',
       {
@@ -74,6 +66,11 @@ module.exports = {
     ],
     'simple-import-sort/exports': 'error',
     'import/no-anonymous-default-export': 0,
-    'react-refresh/only-export-components': 0,
+    'no-unused-vars': [
+      'warn',
+      {
+        varsIgnorePattern: '_*',
+      },
+    ],
   },
 }
