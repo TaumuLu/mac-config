@@ -1,4 +1,5 @@
 import { exec } from 'child_process'
+import { resolve } from 'path'
 
 export const execAsync = command => {
   return new Promise((resolve, reject) => {
@@ -14,8 +15,20 @@ export const execAsync = command => {
   })
 }
 
+export const mvFile = (currentPath, targetPath) => {
+  return execAsync(
+    `mv ${currentPath.replace(/\s/g, '\\' + ' ')} ${targetPath.replace(/\s/g, '\\' + ' ')}`,
+  )
+}
+
 const trashDirectory = '~/.Trash'
 
 export const toTrash = filePath => {
-  return execAsync(`mv "${filePath}" ${trashDirectory}`)
+  return mvFile(filePath, trashDirectory)
+}
+
+export const homePath = process.env.HOME
+
+export const getAbsPath = (...paths) => {
+  return resolve(...paths.map(item => item.replace('~', homePath)))
 }

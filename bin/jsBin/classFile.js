@@ -1,19 +1,10 @@
 import chalk from 'chalk'
-import cpy from 'cpy'
-import dayjs from 'dayjs'
 import fs from 'fs'
-import ora from 'ora'
-import { extname, join, resolve } from 'path'
+import { extname, join } from 'path'
 
-import { execAsync } from './common.js'
+import { getAbsPath, mvFile } from './common.js'
 
 const [originPath = './', noClassExt = '.jpg'] = process.argv.slice(2)
-
-const homePath = process.env.HOME
-
-const getAbsPath = (...paths) => {
-  return resolve(...paths.map(item => item.replace('~', homePath)))
-}
 
 const currentPathAbs = getAbsPath(originPath)
 const noClassExts = noClassExt.split(',').map(item => item.trim().toLowerCase())
@@ -42,7 +33,7 @@ fs.readdirSync(currentPathAbs).map(item => {
         fs.mkdirSync(extPath)
       }
       const targetPath = join(currentPathAbs, name, item)
-      execAsync(`mv "${itemPath}" ${targetPath}`).then(() => {
+      mvFile(itemPath, targetPath).then(() => {
         console.log(chalk.yellow(`移动文件: ${item} -> ${name}`))
       })
     } else {
