@@ -6,7 +6,7 @@
 	ignorecase = false
 	longpaths = true
 	editor = vim
-	excludesfile = ~/.gitignore
+	excludesfile = /Users/taumulu/.gitignore
 [credential]
 	helper = store
 [color]
@@ -17,7 +17,19 @@
 	ignored = !git ls-files -v | grep "^[SMh]"
 [http]
 	postBuffer = 524288000
+	emptyAuth = true
+  # proxy = socks5://127.0.0.1:1087
+	sslVerify = false
+	sslBackend = openssl
+# [https]
+#   proxy = socks5://127.0.0.1:1087
 [pull]
 	rebase = false
 [init]
 	defaultBranch = master
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

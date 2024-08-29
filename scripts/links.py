@@ -14,7 +14,7 @@ folder = [
 
 # 需要同步的文件
 files = [
-  ['proxychains.conf', '/usr/local/etc'],
+  # ['proxychains.conf', '/usr/local/etc'],
   ['config.ini', '.snipaste'],
   '.bash_profile',
   '.bashrc',
@@ -28,6 +28,7 @@ files = [
   # '.tmux.conf',
   # '.tmux.conf.local',
   # '.vimrc',
+  'bash-config'
 ]
 
 # 需要同步的 iCloud 文件及目录

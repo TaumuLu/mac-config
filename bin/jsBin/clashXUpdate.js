@@ -23,24 +23,23 @@ if (subUrl) {
       const config = parse(res.data)
 
       Object.keys(myConfig).forEach(key => {
-        const myValue = myConfig[key]
         const value = config[key]
         switch (key) {
           // 跳过配置
           case 'rules':
-            break
           case 'proxy-groups':
-            const nodeSelect = value.find(item => item.name === '🔰 节点选择')
-            if (nodeSelect) {
-              console.log('--------', `同步：'🔰 节点选择'`)
-              myValue[0].proxies = nodeSelect.proxies
-            }
-            const autoSelect = value.find(item => item.name === '♻️ 自动选择')
-            if (autoSelect) {
-              console.log('--------', `同步：'♻️ 自动选择'`)
-              myValue[1].proxies = autoSelect.proxies
-            }
             break
+          // const nodeSelect = value.find(item => item.name === '🔰 节点选择')
+          // if (nodeSelect) {
+          //   console.log('--------', `同步：'🔰 节点选择'`)
+          //   myValue[0].proxies = nodeSelect.proxies
+          // }
+          // const autoSelect = value.find(item => item.name === '♻️ 自动选择')
+          // if (autoSelect) {
+          //   console.log('--------', `同步：'♻️ 自动选择'`)
+          //   myValue[1].proxies = autoSelect.proxies
+          // }
+          // proxies
           default:
             if (value) {
               console.log('--------', `同步配置：${key}`)
@@ -49,6 +48,11 @@ if (subUrl) {
             break
         }
       })
+
+      // PROXY config
+      myConfig['proxy-groups'][0].proxies = config.proxies.map(
+        item => item.name,
+      )
 
       // 写入原文件
       const newConfig = stringify(myConfig)
