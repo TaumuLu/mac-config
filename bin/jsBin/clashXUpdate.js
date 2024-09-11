@@ -21,6 +21,7 @@ if (subUrl) {
       const myConfigFile = fs.readFileSync(myConfigPath, 'utf8')
       const myConfig = parse(myConfigFile)
       const config = parse(res.data)
+      spinner.succeed('解析完成')
 
       Object.keys(myConfig).forEach(key => {
         const value = config[key]
@@ -53,14 +54,16 @@ if (subUrl) {
       myConfig['proxy-groups'][0].proxies = config.proxies.map(
         item => item.name,
       )
+      spinner.succeed('配置替换完成')
 
       // 写入原文件
       const newConfig = stringify(myConfig)
       fs.writeFileSync(myConfigPath, newConfig)
       console.log(chalk.green(`解析完成，请重新加载配置`))
     })
-    .catch(() => {
+    .catch(error => {
       spinner.fail('加载失败')
+      console.log(error)
     })
 } else {
   throw new Error(`not found clashX config url: ${subUrl}`)
