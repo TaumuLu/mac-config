@@ -7,6 +7,7 @@
 	longpaths = true
 	editor = vim
 	excludesfile = /Users/taumulu/.gitignore
+	compression = 1
 [credential]
 	helper = store
 [color]
@@ -21,6 +22,8 @@
   # proxy = socks5://127.0.0.1:1087
 	sslVerify = false
 	sslBackend = openssl
+	lowSpeedLimit = 0
+	lowSpeedTime = 999999
 # [https]
 #   proxy = socks5://127.0.0.1:1087
 [pull]
@@ -29,7 +32,7 @@
 	defaultBranch = master
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true

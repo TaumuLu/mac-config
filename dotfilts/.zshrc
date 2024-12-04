@@ -420,3 +420,6 @@ if [ -f $userConfig ]; then
 fi
 
 source ~/bash-config/bash_git.sh
+
+# Added by Windsurf
+export PATH="$HOME/.codeium/windsurf/bin:$PATH"

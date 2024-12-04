@@ -12,7 +12,8 @@ if (!fs.existsSync(myConfigPath)) {
 }
 
 if (subUrl) {
-  const spinner = ora(`加载远程配置：\n${subUrl}`).start()
+  console.log(chalk.yellow(`加载远程配置：\n${subUrl}`))
+  const spinner = ora(`加载中`).start()
 
   axios
     .get(subUrl)
