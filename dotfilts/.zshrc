@@ -423,3 +423,9 @@ source ~/bash-config/bash_git.sh
 
 # Added by Windsurf
 export PATH="$HOME/.codeium/windsurf/bin:$PATH"
+
+# ssh -f -N -L 1087:127.0.0.1:1087 mark
+
+# export all_proxy=socks5://127.0.0.1:1087
+
+# echo $all_proxy
