@@ -429,3 +429,62 @@ export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 # export all_proxy=socks5://127.0.0.1:1087
 
 # echo $all_proxy
+
+onProxy() {
+    local ssh_host=$1
+    local port=${2:-6001}
+
+    # 检查是否提供了必要参数
+    if [ -z "$ssh_host" ]; then
+        echo "Usage: onProxy <ssh_host> [port]"
+        return 1
+    fi
+
+    # 检查端口是否已经被占用并确认是 SOCKS 代理
+    if lsof -i TCP:$port | grep -q "ssh"; then
+        echo "SOCKS proxy on port $port is already running."
+
+        export all_proxy="socks5://127.0.0.1:$port"
+        return 0
+    fi
+
+    # 如果端口未被占用，则启动代理
+    ssh -D "$port" -f -N "$ssh_host"
+
+    if [ $? -eq 0 ]; then
+        echo "SOCKS proxy started on port $port for host $ssh_host"
+    else
+        echo "Failed to start SOCKS proxy for host $ssh_host"
+        return 1
+    fi
+
+    # 设置 all_proxy 环境变量
+    export all_proxy="socks5://127.0.0.1:$port"
+}
+
+offProxy() {
+  # pkill -f "ssh -D"
+
+  # 检查传入的端口号，默认使用 6001
+  local port=${1:-6001}
+
+  # 检查端口是否被占用
+  local pid
+  pid=$(lsof -i TCP:$port -s TCP:LISTEN -t)
+
+  if [ -z "$pid" ]; then
+      echo "No SOCKS proxy running on port $port."
+      return 0
+  fi
+
+  # 停止对应的进程
+  kill "$pid"
+
+  if [ $? -eq 0 ]; then
+      echo "SOCKS proxy on port $port has been stopped."
+  else
+      echo "Failed to stop SOCKS proxy on port $port."
+  fi
+
+  unset all_proxy
+}
