@@ -7,7 +7,7 @@
 	longpaths = true
 	editor = vim
 	excludesfile = /Users/taumulu/.gitignore
-	compression = 1
+	compression = 0
 [credential]
 	helper = store
 [color]
@@ -36,3 +36,5 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[commit]
+	template = /Users/taumulu/.stCommitMsg

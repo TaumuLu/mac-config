@@ -220,7 +220,8 @@ switchJdkVersion 11
 
 # alias
 alias shs='cat ~/.zsh_history | ag '
-alias ip='curl ip.cn'
+# alias ip='curl ip.cn'
+alias ip='curl curl cip.cc'
 alias pc='proxychains4'
 alias karabiner_cli="'/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli'"
 
