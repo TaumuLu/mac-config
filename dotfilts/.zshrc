@@ -489,3 +489,35 @@ offProxy() {
 
   unset all_proxy
 }
+
+onProxyInDir() {
+    # 获取参数：文件夹、主机地址和端口号
+    local target_dir=$1
+    local ssh_host=$2
+    local port=$3
+
+    # 参数检查
+    if [ -z "$target_dir" ] || [ -z "$ssh_host" ]; then
+        echo "Usage: onProxyInDir <target_dir> <ssh_host> <port>"
+        return 1
+    fi
+
+    # 获取当前目录和目标目录的绝对路径
+    local current_dir
+    current_dir=$(realpath "$PWD")
+
+    local target_abs_dir
+    target_dir=$(eval echo "$target_dir")
+    target_abs_dir=$(realpath "$target_dir")
+
+    # 确保目标目录以 `/` 结尾，避免误判
+    target_abs_dir="${target_abs_dir%/}/"
+
+    # 判断当前目录是否是目标目录或其子目录
+    if [[ "$current_dir/" == "$target_abs_dir"* ]]; then
+        onProxy $ssh_host $port
+        echo "onProxy mark"
+    fi
+}
+
+onProxyInDir "~/Master/Project/Mark" "mark"
