@@ -37,6 +37,23 @@ gbp() {
   # done
 }
 
+getDomain() {
+    local url=`git remote get-url origin`
+    local domain=""
+
+    if [[ $url == git* ]]; then
+        # Handle SSH format
+        domain=${url#*@}        # Remove 'git@'
+        domain=${domain%:*}     # Remove everything after ':'
+    elif [[ $url == http* ]]; then
+        # Handle HTTPS format
+        domain=${url##*//}      # Remove 'http(s)://'
+        domain=${domain%%/*}    # Remove everything after '/'
+    fi
+
+    echo "$domain"
+}
+
 # 引入用户自定义配置变量，防止泄露信息
 # git 账号信息格式为
 # ```
@@ -44,22 +61,14 @@ gbp() {
 # GIT_DOMAIN_USER["domain"]="user email"
 # GIT_DOMAIN_USER["github.com"]="TaumuLu 972409545@qq.com"
 # ```
-userConfig="$HOME/Documents/Config/.bash_config"
-if [ -f $userConfig ]; then
-  source $userConfig
+userBashConfig="$HOME/Documents/Config/.bash_config"
+if [ -f $userBashConfig ]; then
+  source $userBashConfig
 
   local ogit=`which git`
 
   gcu() {
-    local url=`git remote get-url origin`
-    local domain=""
-    if [[ $url == git* ]]; then
-      domain=${url#*@}
-      domain=${domain%:*}
-    elif [[ $url == http* ]]; then
-      domain=${url##*//}
-      domain=${domain%%/*}
-    fi
+    local domain=`getDomain`
 
     local userInfo=""
     if [[ -n $domain ]]; then
@@ -73,7 +82,10 @@ if [ -f $userConfig ]; then
       git config --replace-all user.email "${list[2]}"
     fi
 
-    echo "user: `git config user.name`; email: `git config user.email`"
+    echo -e -n "user: "
+    printGreen `git config user.name`
+    echo -e -n "email: "
+    printGreen `git config user.email`
   }
 
   local gitClone() {
