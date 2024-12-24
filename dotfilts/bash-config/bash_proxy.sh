@@ -1,29 +1,52 @@
+# 检查代理状态
+checkProxyStatus() {
+    local port=$1
+    if lsof -i TCP:$port -s TCP:LISTEN &>/dev/null; then
+        return 0
+    fi
+    return 1
+}
+
+# 设置代理环境变量
+# all_proxy: 小写版本，被大多数 Unix 工具和命令行应用程序使用
+# ALL_PROXY: 大写版本，是一些特定应用程序的后备选项，当 all_proxy 未设置时会使用它
+# 同时设置两者以确保最大兼容性
+setProxyEnv() {
+    local port=$1
+    export all_proxy="socks5://127.0.0.1:$port"  # 设置小写版本，常用于 curl, wget 等工具
+    export ALL_PROXY="socks5://127.0.0.1:$port"  # 设置大写版本，作为后备选项
+    printGreen "Proxy environment variables set for port $port"
+}
+
+# 清除代理环境变量
+unsetProxyEnv() {
+    unset all_proxy
+    unset ALL_PROXY
+    printGreen "Proxy environment variables cleared"
+}
+
 onProxy() {
     local ssh_host=$1
     local port=$2
+    local setProxy=$3
 
-    # 检查是否提供了必要参数
+    # 参数验证
     if [ -z "$ssh_host" ] || [ -z "$port" ]; then
-        printRed "Usage: onProxy <ssh_host> <port>"
+        printRed "Usage: onProxy <ssh_host> <port> [setProxy]"
         return 1
     fi
 
-    # 检查端口是否已经被占用并确认是 SOCKS 代理
-    if lsof -i TCP:$port | grep -q "ssh"; then
-        printYellow "SOCKS proxy on port $port is already running."
-
-        export all_proxy="socks5://127.0.0.1:$port"
+    # 检查端口是否已经被占用
+    if checkProxyStatus "$port"; then
+        printYellow "SOCKS proxy on port $port is already running"
+        [ "$setProxy" = true ] && setProxyEnv "$port"
         return 0
     fi
 
-    # 如果端口未被占用，则启动代理
-    ssh -D "$port" -f -N "$ssh_host"
-
-    if [ $? -eq 0 ]; then
+    # 启动代理
+    if ssh -D "$port" -f -N "$ssh_host" 2>/dev/null; then
         printGreen "SOCKS proxy started on port $port for host $ssh_host"
-
-        # 设置 all_proxy 环境变量
-        export all_proxy="socks5://127.0.0.1:$port"
+        [ "$setProxy" = true ] && setProxyEnv "$port"
     else
         printRed "Failed to start SOCKS proxy for host $ssh_host"
         return 1
@@ -31,64 +54,61 @@ onProxy() {
 }
 
 offProxy() {
-  # pkill -f "ssh -D"
+    local port=$1
 
-  # 检查传入的端口号
-  local port=$1
+    if [ -z "$port" ]; then
+        printRed "Usage: offProxy <port>"
+        return 1
+    fi
 
-  # 检查是否提供了必要参数
-  if [ -z "$port" ]; then
-      printRed "Usage: offProxy <port>"
-      return 1
-  fi
+    local pid
 
-  # 检查端口是否被占用
-  local pid
-  pid=$(lsof -i TCP:$port -s TCP:LISTEN -t)
+    # 获取进程ID
+    pid=$(lsof -i TCP:$port -s TCP:LISTEN -t 2>/dev/null)
 
-  if [ -z "$pid" ]; then
-      printRed "No SOCKS proxy running on port $port."
-      return 0
-  fi
+    if [ -z "$pid" ]; then
+        printYellow "No SOCKS proxy running on port $port"
+        return 0
+    fi
 
-  # 停止对应的进程
-  kill "$pid"
-
-  if [ $? -eq 0 ]; then
-      printGreen "SOCKS proxy on port $port has been stopped."
-      unset all_proxy
-  else
-      printRed "Failed to stop SOCKS proxy on port $port."
-      return 1
-  fi
+    if kill "$pid" 2>/dev/null; then
+        printGreen "SOCKS proxy on port $port has been stopped"
+        unsetProxyEnv
+    else
+        printRed "Failed to stop SOCKS proxy on port $port"
+        return 1
+    fi
 }
 
 onProxyInDir() {
-    # 获取参数：文件夹、主机地址和端口号
     local target_dir=$1
     local ssh_host=$2
     local port=$3
 
-    # 参数检查
-    if [ -z "$target_dir" ] || [ -z "$ssh_host" ]; then
+    # 参数验证
+    if [ -z "$target_dir" ] || [ -z "$ssh_host" ] || [ -z "$port" ]; then
         printRed "Usage: onProxyInDir <target_dir> <ssh_host> <port>"
         return 1
     fi
 
-    # 获取当前目录和目标目录的绝对路径
-    local current_dir
-    current_dir=$(realpath "$PWD")
+    # 规范化路径
+    local current_dir=$(realpath "$PWD")
+    local target_abs_dir=$(realpath "$(eval echo "$target_dir")")
 
-    local target_abs_dir
-    target_dir=$(eval echo "$target_dir")
-    target_abs_dir=$(realpath "$target_dir")
+    # 路径匹配检查
+    if [[ "${current_dir}/" == "${target_abs_dir%/}/"* ]]; then
+        onProxy "$ssh_host" "$port"
+        printGreen "Proxy enabled in directory: $target_abs_dir"
+    fi
+}
 
-    # 确保目标目录以 `/` 结尾，避免误判
-    target_abs_dir="${target_abs_dir%/}/"
-
-    # 判断当前目录是否是目标目录或其子目录
-    if [[ "$current_dir/" == "$target_abs_dir"* ]]; then
-        onProxy $ssh_host $port
-        printGreen "onProxyInDir mark"
+# 显示代理状态
+showProxyStatus() {
+    if [ -n "$all_proxy" ] || [ -n "$ALL_PROXY" ]; then
+        printGreen "Current proxy settings:"
+        [ -n "$all_proxy" ] && echo "all_proxy=$all_proxy"
+        [ -n "$ALL_PROXY" ] && echo "ALL_PROXY=$ALL_PROXY"
+    else
+        printYellow "No proxy environment variables set"
     fi
 }
