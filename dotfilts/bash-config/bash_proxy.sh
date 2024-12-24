@@ -33,7 +33,7 @@ onProxy() {
 offProxy() {
   # pkill -f "ssh -D"
 
-  # 检查传入的端口号，默认使用 6001
+  # 检查传入的端口号
   local port=$1
 
   # 检查是否提供了必要参数
