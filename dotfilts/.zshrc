@@ -419,21 +419,26 @@ export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 
 # custom config
 
+# 设置配置文件目录
+CLOUD_CONFIG_DIR="$HOME/Documents/Config"
+
+# 获取当前脚本路径
+CURRENT_SCRIPT_DIR=${${(%):-%x}:A:h}
+
 # 设置 bash-config 路径
-SCRIPT_DIR=${${(%):-%x}:A:h}
-configIndexPath="${SCRIPT_DIR}/bash-config/index.sh"
+configIndexPath="${CURRENT_SCRIPT_DIR}/bash-config/index.sh"
 if [ -f $configIndexPath ]; then
   source $configIndexPath
 fi
 
 # 设置历史文件地址
-userHistoryFile="$HOME/Documents/Config/.history"
+userHistoryFile="$CLOUD_CONFIG_DIR/Bash/.history"
 if [ -f $userHistoryFile ]; then
   export HISTFILE=$userHistoryFile
 fi
 
 # 设置 bashrc 文件地址
-userBashrc="$HOME/Documents/Config/.bashrc"
+userBashrc="$CLOUD_CONFIG_DIR/Bash/.bashrc"
 if [ -f $userBashrc ]; then
   source $userBashrc
 fi

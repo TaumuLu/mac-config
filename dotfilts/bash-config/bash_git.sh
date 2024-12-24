@@ -61,7 +61,7 @@ getDomain() {
 # GIT_DOMAIN_USER["domain"]="user email"
 # GIT_DOMAIN_USER["github.com"]="TaumuLu 972409545@qq.com"
 # ```
-userBashConfig="$HOME/Documents/Config/.bash_config"
+userBashConfig="$CLOUD_CONFIG_DIR/Bash/.bash_config"
 if [ -f $userBashConfig ]; then
   source $userBashConfig
 
