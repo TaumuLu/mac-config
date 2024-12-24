@@ -1,1 +1,1 @@
-commit 生成的信息总是用英文
+生成 commit message 必须使用英文
