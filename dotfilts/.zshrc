@@ -417,9 +417,14 @@ fi
 # Added by Windsurf
 export PATH="$HOME/.codeium/windsurf/bin:$PATH"
 
-source "$(dirname "$0")/bash-config/index.sh"
-
 # custom config
+
+# 设置 bash-config 路径
+SCRIPT_DIR=${${(%):-%x}:A:h}
+configIndexPath="${SCRIPT_DIR}/bash-config/index.sh"
+if [ -f $configIndexPath ]; then
+  source $configIndexPath
+fi
 
 # 设置历史文件地址
 userHistoryFile="$HOME/Documents/Config/.history"
@@ -427,6 +432,7 @@ if [ -f $userHistoryFile ]; then
   export HISTFILE=$userHistoryFile
 fi
 
+# 设置 bashrc 文件地址
 userBashrc="$HOME/Documents/Config/.bashrc"
 if [ -f $userBashrc ]; then
   source $userBashrc

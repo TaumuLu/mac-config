@@ -1,10 +1,10 @@
 onProxy() {
     local ssh_host=$1
-    local port=${2:-6001}
+    local port=$2
 
     # 检查是否提供了必要参数
-    if [ -z "$ssh_host" ]; then
-        printRed "Usage: onProxy <ssh_host> [port]"
+    if [ -z "$ssh_host" ] || [ -z "$port" ]; then
+        printRed "Usage: onProxy <ssh_host> <port>"
         return 1
     fi
 
@@ -21,20 +21,26 @@ onProxy() {
 
     if [ $? -eq 0 ]; then
         printGreen "SOCKS proxy started on port $port for host $ssh_host"
+
+        # 设置 all_proxy 环境变量
+        export all_proxy="socks5://127.0.0.1:$port"
     else
         printRed "Failed to start SOCKS proxy for host $ssh_host"
         return 1
     fi
-
-    # 设置 all_proxy 环境变量
-    export all_proxy="socks5://127.0.0.1:$port"
 }
 
 offProxy() {
   # pkill -f "ssh -D"
 
   # 检查传入的端口号，默认使用 6001
-  local port=${1:-6001}
+  local port=$1
+
+  # 检查是否提供了必要参数
+  if [ -z "$port" ]; then
+      printRed "Usage: offProxy <port>"
+      return 1
+  fi
 
   # 检查端口是否被占用
   local pid
