@@ -38,7 +38,17 @@ gbp() {
 }
 
 getDomain() {
-    local url=`git remote get-url origin`
+    # 检查当前目录是否为 git 仓库
+    if ! git rev-parse --git-dir > /dev/null 2>&1; then
+        return 1
+    fi
+
+    # 检查是否有远程仓库配置
+    local url=$(git remote get-url origin 2>/dev/null)
+    if [ -z "$url" ]; then
+        return 1
+    fi
+
     local domain=""
 
     if [[ $url == git* ]]; then
