@@ -37,7 +37,7 @@ gbp() {
   # done
 }
 
-getDomain() {
+parseGitUrl() {
     # 检查当前目录是否为 git 仓库
     if ! git rev-parse --git-dir > /dev/null 2>&1; then
         return 1
@@ -49,28 +49,33 @@ getDomain() {
         return 1
     fi
 
+    local type=""
     local domain=""
+    local firstPath=""
 
     if [[ $url == git* ]]; then
-        # Handle SSH format
+        # Handle SSH format (git@github.com:owner/repo.git)
         domain=${url#*@}        # Remove 'git@'
+        firstPath=${domain#*:} # Get everything after ':'
+        firstPath=${firstPath%%/*} # Get first path component
         domain=${domain%:*}     # Remove everything after ':'
+        type="ssh"
     elif [[ $url == http* ]]; then
-        # Handle HTTPS format
+        # Handle HTTPS format (https://github.com/owner/repo.git)
         domain=${url##*//}      # Remove 'http(s)://'
+        firstPath=${domain#*/} # Get everything after first '/'
+        firstPath=${firstPath%%/*} # Get first path component
         domain=${domain%%/*}    # Remove everything after '/'
+        type="http"
     fi
 
+    echo "$type"
     echo "$domain"
+    echo "$firstPath"
 }
 
-# 引入用户自定义配置变量，防止泄露信息
-# git 账号信息格式为
-# ```
-# declare -A GIT_DOMAIN_USER
-# GIT_DOMAIN_USER["domain"]="user email"
-# GIT_DOMAIN_USER["github.com"]="TaumuLu 972409545@qq.com"
-# ```
+
+# 从配置文件中读取用户信息
 userBashConfig="$CLOUD_CONFIG_DIR/Bash/.bash_config"
 if [ -f $userBashConfig ]; then
   source $userBashConfig
@@ -78,18 +83,34 @@ if [ -f $userBashConfig ]; then
   local ogit=`which git`
 
   gcu() {
-    local domain=`getDomain`
+    result=($(parseGitUrl))
+    local type=${result[1]}
+    local domain=${result[2]}
+    local firstPath=${result[3]}
 
-    local userInfo=""
-    if [[ -n $domain ]]; then
-      userInfo=${GIT_DOMAIN_USER["$domain"]}
+    local user=""
+    local email=""
+
+    userInfo=${GIT_USER_MAP["$firstPath"]}
+    if [[ -n $userInfo ]]; then
+      IFS=' ' read -A list <<< $userInfo
+      if [[ ${#list[@]} -eq 2 ]]; then
+        user=${list[1]}
+        email=${list[2]}
+      else
+        user=${firstPath}
+        email=${GIT_USER_MAP["$user"]}
+      fi
+    elif [[ -n $domain ]]; then
+      user=${GIT_DOMAIN_USER["$domain"]}
+      email=${GIT_USER_MAP["$user"]}
     fi
 
-    if [[ -n $userInfo ]]; then
+    if [[ -n $user && -n $email ]]; then
       # eval "git cu $userInfo"
-      IFS=' ' read -A list <<< $userInfo
-      git config --replace-all user.name "${list[1]}"
-      git config --replace-all user.email "${list[2]}"
+      # IFS=' ' read -A list <<< $userInfo
+      git config --replace-all user.name "${user}"
+      git config --replace-all user.email "${email}"
     fi
 
     echo -e -n "user: "
