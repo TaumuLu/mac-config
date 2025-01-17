@@ -21,6 +21,7 @@ files = [
   '.gitconfig',
   '.gitignore',
   # '.npmrc',
+  '.finicky.js',
   '.zshrc',
   '.zshenv',
   '.huskyrc',
