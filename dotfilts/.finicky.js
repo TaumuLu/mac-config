@@ -15,7 +15,7 @@ module.exports = {
         // com.electron.lark
         return opener.bundleId === "com.larksuite.larkApp"
       },
-      browser: "Microsoft Edge",
+      browser: "Google Chrome Canary",
     }
   ]
 }
