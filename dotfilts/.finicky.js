@@ -6,16 +6,28 @@ module.exports = {
   options: {
     hideIcon: false,
     checkForUpdate: true,
-    logRequests: false
+    logRequests: false,
   },
   handlers: [
     {
       match: ({ opener }) => {
         // finicky.log(opener.bundleId);
         // com.electron.lark
-        return opener.bundleId === "com.larksuite.larkApp"
+        return opener.bundleId === "com.larksuite.larkApp";
       },
       browser: "Google Chrome Canary",
-    }
-  ]
-}
+    },
+  ],
+  rewrite: [
+    {
+      match: ({ url }) => url.host.endsWith("zentao2.siyecao1.com"),
+      url: ({ url }) => {
+        return {
+          ...url,
+          host: "zentao2.smqwe.com",
+          protocol: "http",
+        };
+      },
+    },
+  ],
+};
