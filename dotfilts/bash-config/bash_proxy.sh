@@ -14,7 +14,8 @@ checkProxyStatus() {
 setProxyEnv() {
     local port=$1
     export all_proxy="socks5://127.0.0.1:$port"  # 设置小写版本，常用于 curl, wget 等工具
-    export ALL_PROXY="socks5://127.0.0.1:$port"  # 设置大写版本，作为后备选项
+    export http_proxy="http://127.0.0.1:$port"
+    export https_proxy="http://127.0.0.1:$port"
     printGreen "Proxy environment variables set for port $port"
 }
 

@@ -134,10 +134,14 @@ chmod a+x "$MY_CONFIG_HOME/bin"
 # if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 # eval "$(pyenv init -)"
 
+# gem
+# export GEM_HOME=$HOME/.gem
+# export PATH=$GEM_HOME/bin:$PATH
+
 # rvm
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # dotnet
 export PATH="$PATH:$HOME/.dotnet/tools"
@@ -146,10 +150,6 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 export DOTNET_ROOT="$HOME/dotnet"
 export PATH="$PATH:$HOME/dotnet"
 # export PATH="$PATH:/usr/local/share/dotnet"
-
-# gem
-export GEM_HOME=$HOME/.gem
-export PATH=$GEM_HOME/bin:$PATH
 
 # java
 #jenv
