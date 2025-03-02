@@ -38,49 +38,48 @@ gbp() {
 }
 
 parseGitUrl() {
-    # 检查当前目录是否为 git 仓库
-    if ! git rev-parse --git-dir > /dev/null 2>&1; then
-        return 1
-    fi
+  # 检查当前目录是否为 git 仓库
+  if ! git rev-parse --git-dir >/dev/null 2>&1; then
+    return 1
+  fi
 
-    # 检查是否有远程仓库配置
-    local url=$(git remote get-url origin 2>/dev/null)
-    if [ -z "$url" ]; then
-        return 1
-    fi
+  # 检查是否有远程仓库配置
+  local url=$(git remote get-url origin 2>/dev/null)
+  if [ -z "$url" ]; then
+    return 1
+  fi
 
-    local type=""
-    local domain=""
-    local firstPath=""
+  local type=""
+  local domain=""
+  local firstPath=""
 
-    if [[ $url == git* ]]; then
-        # Handle SSH format (git@github.com:owner/repo.git)
-        domain=${url#*@}        # Remove 'git@'
-        firstPath=${domain#*:} # Get everything after ':'
-        firstPath=${firstPath%%/*} # Get first path component
-        domain=${domain%:*}     # Remove everything after ':'
-        type="ssh"
-    elif [[ $url == http* ]]; then
-        # Handle HTTPS format (https://github.com/owner/repo.git)
-        domain=${url##*//}      # Remove 'http(s)://'
-        firstPath=${domain#*/} # Get everything after first '/'
-        firstPath=${firstPath%%/*} # Get first path component
-        domain=${domain%%/*}    # Remove everything after '/'
-        type="http"
-    fi
+  if [[ $url == git* ]]; then
+    # Handle SSH format (git@github.com:owner/repo.git)
+    domain=${url#*@}           # Remove 'git@'
+    firstPath=${domain#*:}     # Get everything after ':'
+    firstPath=${firstPath%%/*} # Get first path component
+    domain=${domain%:*}        # Remove everything after ':'
+    type="ssh"
+  elif [[ $url == http* ]]; then
+    # Handle HTTPS format (https://github.com/owner/repo.git)
+    domain=${url##*//}         # Remove 'http(s)://'
+    firstPath=${domain#*/}     # Get everything after first '/'
+    firstPath=${firstPath%%/*} # Get first path component
+    domain=${domain%%/*}       # Remove everything after '/'
+    type="http"
+  fi
 
-    echo "$type"
-    echo "$domain"
-    echo "$firstPath"
+  echo "$type"
+  echo "$domain"
+  echo "$firstPath"
 }
-
 
 # 从配置文件中读取用户信息
 userBashConfig="$CLOUD_CONFIG_DIR/Bash/.bash_config"
 if [ -f $userBashConfig ]; then
   source $userBashConfig
 
-  local ogit=`which git`
+  local ogit=$(which git)
 
   gcu() {
     result=($(parseGitUrl))
@@ -93,7 +92,7 @@ if [ -f $userBashConfig ]; then
 
     userInfo=${GIT_USER_MAP["$firstPath"]}
     if [[ -n $userInfo ]]; then
-      IFS=' ' read -A list <<< $userInfo
+      IFS=' ' read -A list <<<$userInfo
       if [[ ${#list[@]} -eq 2 ]]; then
         user=${list[1]}
         email=${list[2]}
@@ -114,15 +113,14 @@ if [ -f $userBashConfig ]; then
     fi
 
     echo -e -n "user: "
-    printGreen `git config user.name`
+    printGreen $(git config user.name)
     echo -e -n "email: "
-    printGreen `git config user.email`
+    printGreen $(git config user.email)
   }
 
-  local gitClone() {
+  gitClone() {
     local folder=""
-    for value in "$@"
-    do
+    for value in "$@"; do
       if [[ $value == git* || $value == http* ]]; then
         folder=${value##*/}
         folder=${folder%\.*}

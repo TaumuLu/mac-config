@@ -6,8 +6,8 @@ sudo -v
 ###############################################################################
 # init mac                                                                    #
 ###############################################################################
-isInit=`defaults read com.apple.finder AppleShowAllFiles || echo 0`
-if [ $isInit -eq 0 ]; then
+isInit=$(defaults read com.apple.finder AppleShowAllFiles || echo 0)
+if [ "$isInit" -eq 0 ]; then
   # 取消4位数密码限制
   pwpolicy -clearaccountpolicies
   # 修改密码
@@ -18,8 +18,8 @@ if [ $isInit -eq 0 ]; then
 fi
 
 # Enable apps at startup
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:true}' > /dev/null
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Karabiner-Elements.app", hidden:true}' > /dev/null
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Hammerspoon.app", hidden:true}' >/dev/null
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Karabiner-Elements.app", hidden:true}' >/dev/null
 
 # dock 设置
 # 根据用户最近的使用自动重排
@@ -123,16 +123,15 @@ defaults write com.apple.dock show-recents -bool false
 defaults write com.apple.dock ResetLaunchPad -bool true
 
 # 状态栏菜单展示图标
-defaults write com.apple.systemuiserver menuExtras -array\
-  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"\
-  "/System/Library/CoreServices/Menu Extras/AirPort.menu"\
-  "/System/Library/CoreServices/Menu Extras/Battery.menu"\
-  "/System/Library/CoreServices/Menu Extras/Clock.menu"\
-  "/System/Library/CoreServices/Menu Extras/Volume.menu"\
-  # "/System/Library/CoreServices/Menu Extras/RemoteDesktop.menu"\
-  # "/System/Library/CoreServices/Menu Extras/Script Menu.menu"\
-  # "/System/Library/CoreServices/Menu Extras/TextInput.menu"\
-  # "/System/Library/CoreServices/Menu Extras/TimeMachine.menu"\
+defaults write com.apple.systemuiserver menuExtras -array "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+  "/System/Library/CoreServices/Menu Extras/Clock.menu" \
+  "/System/Library/CoreServices/Menu Extras/Volume.menu"
+# "/System/Library/CoreServices/Menu Extras/RemoteDesktop.menu"\
+# "/System/Library/CoreServices/Menu Extras/Script Menu.menu"\
+# "/System/Library/CoreServices/Menu Extras/TextInput.menu"\
+# "/System/Library/CoreServices/Menu Extras/TimeMachine.menu"\
 
 # Chrome
 # 前进后退手势

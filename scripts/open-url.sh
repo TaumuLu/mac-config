@@ -16,5 +16,5 @@ urls=(
 )
 
 for url in ${urls[@]}; do
-  open $url
+  open "$url"
 done

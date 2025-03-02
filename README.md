@@ -1,20 +1,25 @@
 # mac-config
+
 - 在这组织我的 mac 配置，定义一些脚本方便快速重装、迁移、同步配置
 - 同时记录一些配置和技巧
 
 ## 使用
+
 - 直接执行 init.sh 脚本即可，install.sh 脚本也可单独执行
 
 ### 执行脚本
+
 - init.sh
 - install.sh
 
 #### init.sh
+
 - 初始化脚本，建立文件夹，克隆 mac-config 项目到指定目录，执行 install.sh 脚本
 - 无依赖直接使用方式
 - `sh -c "$(curl -fsSL https://raw.githubusercontent.com/TaumuLu/mac-config/master/init.sh)"`
 
 #### install.sh
+
 - 安装执行脚本，安装 rvm、zsh，引入公共库并 source install 和 script 目录下的脚本
 - 执行 init.sh 时会自动执行，也可进入项目目录下执行
 - `./install.sh`
@@ -22,6 +27,7 @@
 ## 脚本目录
 
 ### install
+
 目录下的脚本依赖 install.sh 脚本调用，无法单独执行
 
 - brew
@@ -39,6 +45,7 @@
   - 安装 spf13_vim
 
 ### script
+
 一些脚本处理，包括 bash 公共工具库
 
 - links.py
@@ -56,9 +63,11 @@
   - 公共函数库
 
 ## 配置目录
+
 通过软链统一管理软件配置，链接了以下文件/文件夹
 
 ### dotfilts
+
 - .bash_profile
 - .bashrc
 - .gitconfig
@@ -70,25 +79,30 @@
 - proxychains.conf
 
 ### configs
+
 - .hammerspoon
 - .SwitchHosts
 - karabiner
 
 #### karabiner
+
 键盘改键软件，有多种方案配置，目前主要为将 caps lock 按键改为点按为 esc，长按为 control
 
 ## hammerspoon
+
 - 自动化工具，可以通过写 lua 脚本去实现想要的功能，使用的是[这里的配置](https://github.com/TaumuLu/hammerspoon-config)
 
 ## data目录
+
 存储相关的脚本数据
 
 - data.js
-  + SwitchHosts 初始数据
+  - SwitchHosts 初始数据
 - duti
-  + duti 配置数据
+  - duti 配置数据
 
 ### duti
+
 - 通过 duti 命令修改文件的默认打开方式，目前定义了 sublime 和 vscode
 - 文件类型可通过 mdls 命令查询
   - `mdls <filePath>`
@@ -96,12 +110,14 @@
 ## 命令片段
 
 ### 查看当前shell
+
 ```bash
 echo $SHELL
 ps -p $$
 ```
 
 ### 清除DNS缓存
+
 ```
 sudo killall -HUP mDNSResponder
 sudo killall mDNSResponderHelper
@@ -109,15 +125,18 @@ sudo dscacheutil -flushcache
 ```
 
 ### 列出app store安装的应用
+
 ```
 find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
 ```
 
 ## 其他
+
 - 如果当前 shell 为 zsh，则不会加载 bash 相关文件，如需要加载，在 .zshrc 中写入 source 引用 bash 配置
 - 如果追求零配置 shell 推荐使用 fish
 
 ### 保存iterm2配置
+
 - 打开 iTerm2 时创建一个默认文件 com.googlecode.iterm2.plist
 - 删除 iterm2 的所有缓存首选项：defaults delete com.googlecode.iterm2
 - 将文件复制到 Preferences 文件夹中，恢复旧的配置文件和设置
@@ -126,19 +145,23 @@ find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\se
 - 打开 iTerm2
 
 ### QuickLook
+
 - [quick-look-plugins](https://github.com/sindresorhus/quick-look-plugins)
 
 ### 模拟慢速网络
+
 - xcode 工具[Network Link Conditioner](https://www.jianshu.com/p/343aa3a65c5c)
 - 在 Additional tools for Xcode 目录下载
 
 ### 快捷键
+
 - control+shift+power 息屏，程序继续运行
 - command+option+power 睡眠，等于合盖
 - control+power 显示重启、关机、睡眠对话框
 - command+control+power 重新启动
 
 ### 设置开机自启
+
 - 利用 Launchctl 来设置，通过写在 /Library/LaunchDaemons/ 下的 .plist 文件
 - 通过 brew 安装的软件去 /usr/local/opt 下找到对应的 .plist文件
 
@@ -157,6 +180,7 @@ sudo chown root:wheel /Library/LaunchDaemons/*.plist
 ```
 
 ## 可参考配置
+
 - https://github.com/mdo/config
 - https://github.com/mzdr/macOS
 - https://github.com/boochtek/mac_config

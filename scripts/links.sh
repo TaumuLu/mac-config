@@ -13,7 +13,7 @@ files=(
 )
 
 for file in ${files[@]}; do
-  ln -sf `get_pwd`/$file $HOME/$file
+  ln -sf $(get_pwd)/"$file" "$HOME"/"$file"
 done
 
 go_back_dir

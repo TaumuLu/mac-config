@@ -19,8 +19,8 @@ configDir=$MASTER/Config/mac-config
 function init_folder() {
   for path in ${dirList[@]}; do
     local fullPath="$MASTER/$path"
-    if [ ! -d $fullPath ]; then
-      mkdir -p $fullPath
+    if [ ! -d "$fullPath" ]; then
+      mkdir -p "$fullPath"
     fi
   done
 }
@@ -32,8 +32,8 @@ function print_finish() {
 }
 
 function install() {
-  if [ -d $configDir ]; then
-    cd $configDir
+  if [ -d "$configDir" ]; then
+    cd "$configDir"
     ./install.sh
   fi
 
@@ -42,9 +42,9 @@ function install() {
 
 function main() {
   init_folder
-  if [ ! -d $configDir ]; then
-    mkdir -p $configDir
-    git clone https://github.com/TaumuLu/mac-config.git $configDir --depth=1
+  if [ ! -d "$configDir" ]; then
+    mkdir -p "$configDir"
+    git clone https://github.com/TaumuLu/mac-config.git "$configDir" --depth=1
   fi
 
   print_finish 'init.sh'
