@@ -1,7 +1,7 @@
 # 检查代理状态
 checkProxyStatus() {
   local port=$1
-  if lsof -i TCP:$port -s TCP:LISTEN &>/dev/null; then
+  if lsof -i TCP:"$port" -s TCP:LISTEN &>/dev/null; then
     return 0
   fi
   return 1
@@ -22,7 +22,8 @@ setProxyEnv() {
 # 清除代理环境变量
 unsetProxyEnv() {
   unset all_proxy
-  unset ALL_PROXY
+  unset http_proxy
+  unset https_proxy
   printGreen "Proxy environment variables cleared"
 }
 
@@ -65,7 +66,7 @@ offProxy() {
   local pid
 
   # 获取进程ID
-  pid=$(lsof -i TCP:$port -s TCP:LISTEN -t 2>/dev/null)
+  pid=$(lsof -i TCP:"$port" -s TCP:LISTEN -t 2>/dev/null)
 
   if [ -z "$pid" ]; then
     printYellow "No SOCKS proxy running on port $port"

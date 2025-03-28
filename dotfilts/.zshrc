@@ -97,6 +97,9 @@ export LC_ALL="en_US.UTF-8"
 # homebrew
 export HOMEBREW_NO_AUTO_UPDATE=true
 
+# proxy
+export NO_PROXY=localhost,::1,127.0.0.1,LOCALHOST
+
 # nvm
 # export NVM_DIR="$HOME/.nvm"
 #   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvma
@@ -115,11 +118,15 @@ export PATH="$PATH:$ANDROID_HOME/tools"
 export PATH="$PATH:$ANDROID_HOME/platform-tools"
 
 # flutter
-export FLUTTER_HOME="$HOME/Library/flutter"
-export PATH="$PATH:$FLUTTER_HOME/bin"
+# export FLUTTER_HOME="$HOME/Library/flutter"
+# export PATH="$PATH:$FLUTTER_HOME/bin"
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
-export NO_PROXY=localhost,::1,127.0.0.1,LOCALHOST
+
+# fvm
+export FLUTTER_HOME="$HOME/fvm/default"
+export PATH="$PATH:$FLUTTER_HOME/bin"
+# alias flutter="fvm flutter"
 
 # depot_tools
 export DEPOT_TOOLS_HOME="$HOME/Library/depot_tools"
@@ -442,3 +449,9 @@ userBashrc="$CLOUD_CONFIG_DIR/Bash/.bashrc"
 if [ -f $userBashrc ]; then
   source $userBashrc
 fi
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /Users/taumulu/.dart-cli-completion/zsh-config.zsh ]] && . /Users/taumulu/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
