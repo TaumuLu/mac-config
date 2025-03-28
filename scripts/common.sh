@@ -13,21 +13,21 @@ function app_exists() {
 }
 
 function check_file() {
-  if [ ! -f $1 ]; then
-    touch $1
+  if [ ! -f "$1" ]; then
+    touch "$1"
   fi
 }
 
 function add_text() {
-  check_file $1
-  if ! (grep -c $2 $1 >/dev/null 2>&1) then
-    echo $2 >> $1
+  check_file "$1"
+  if ! (grep -c "$2" "$1" >/dev/null 2>&1); then
+    echo "$2" >>"$1"
   fi
 }
 
 function write_text() {
-  check_file $1
-  echo $2 > $1
+  check_file "$1"
+  echo "$2" >"$1"
 }
 
 function go_back_dir() {
@@ -35,10 +35,10 @@ function go_back_dir() {
 }
 
 function get_pwd() {
-  cd $(dirname $0)
-  local cPwd=`pwd`
+  cd $(dirname "$0")
+  local cPwd=$(pwd)
   go_back_dir
-  echo $cPwd
+  echo "$cPwd"
 }
 
 function diff_arr() {
@@ -46,9 +46,9 @@ function diff_arr() {
   local arr2=$2
   local list=()
   local i=0
-  for x in ${arr[@]}; do
+  for x in "${arr[@]}"; do
     local isInstall=true
-    for y in ${arr2[@]}; do
+    for y in "${arr2[@]}"; do
       if [[ $x == $y || $y == $x* ]]; then
         isInstall=false
       fi
@@ -58,7 +58,7 @@ function diff_arr() {
       let i+=1
     fi
   done
-  echo ${list[@]-}
+  echo "${list[@]-}"
 }
 
 ## success

@@ -12,7 +12,7 @@ files=(
   .zprofile
 )
 
-for file in ${files[@]}; do
+for file in "${files[@]}"; do
   ln -sf $(get_pwd)/"$file" "$HOME"/"$file"
 done
 

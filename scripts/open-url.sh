@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 urls=(
   # 'https://music.163.com/download'
   # 'https://im.qq.com/macqq/'
@@ -15,6 +17,6 @@ urls=(
   'https://pinyin.sogou.com/mac'
 )
 
-for url in ${urls[@]}; do
+for url in "${urls[@]}"; do
   open "$url"
 done

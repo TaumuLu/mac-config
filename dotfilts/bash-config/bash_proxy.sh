@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # 检查代理状态
 checkProxyStatus() {
   local port=$1
