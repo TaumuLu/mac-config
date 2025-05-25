@@ -138,8 +138,9 @@ export PATH="$PATH:$MY_CONFIG_HOME/bin"
 chmod a+x "$MY_CONFIG_HOME/bin"
 
 # pyenv
-# if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-# eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # gem
 # export GEM_HOME=$HOME/.gem
