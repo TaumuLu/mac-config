@@ -137,6 +137,18 @@ export MY_CONFIG_HOME="$HOME/Master/Config/mac-config"
 export PATH="$PATH:$MY_CONFIG_HOME/bin"
 chmod a+x "$MY_CONFIG_HOME/bin"
 
+# asdf
+# . "$(brew --prefix asdf)/libexec/asdf.sh"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+if ! grep -q "^nodejs$" < <(asdf plugin list); then
+  asdf plugin add nodejs
+fi
+
+if ! grep -q "^pnpm$" < <(asdf plugin list); then
+  asdf plugin add pnpm
+fi
+
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
@@ -148,8 +160,8 @@ eval "$(pyenv init -)"
 
 # rvm
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+# export PATH="$PATH:$HOME/.rvm/bin"
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # dotnet
 export PATH="$PATH:$HOME/.dotnet/tools"
