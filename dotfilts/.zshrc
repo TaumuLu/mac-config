@@ -104,13 +104,9 @@ export NO_PROXY=localhost,::1,127.0.0.1,LOCALHOST
 # export NVM_DIR="$HOME/.nvm"
 #   [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvma
 #   [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-# node
-_nodePath=`which node`
-export NODE_PATH=${_nodePath/%bin\/node/lib\/node_modules}
+# export NVM_DIR="$HOME/.nvm"
+#   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+#   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # android
 export ANDROID_HOME="$HOME/Library/Android/sdk"
@@ -138,8 +134,10 @@ export PATH="$PATH:$MY_CONFIG_HOME/bin"
 chmod a+x "$MY_CONFIG_HOME/bin"
 
 # asdf
-# . "$(brew --prefix asdf)/libexec/asdf.sh"
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+# export PATH="$HOME/bin:$PATH"
+export ASDF_DATA_DIR="$HOME/.asdf"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+# export PATH="$(npm prefix -g)/bin:$PATH"
 
 if ! grep -q "^nodejs$" < <(asdf plugin list); then
   asdf plugin add nodejs
@@ -148,6 +146,10 @@ fi
 if ! grep -q "^pnpm$" < <(asdf plugin list); then
   asdf plugin add pnpm
 fi
+
+# node
+# _nodePath=`which node`
+# export NODE_PATH=${_nodePath/%bin\/node/lib\/node_modules}
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -434,9 +436,6 @@ fi
 # alias subl='/Applications/SublimeText.app/Contents/SharedSupport/bin/subl'
 # alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 
-# Added by Windsurf
-export PATH="$HOME/.codeium/windsurf/bin:$PATH"
-
 # custom config
 
 # 设置配置文件目录
@@ -467,4 +466,3 @@ fi
 ## Completion scripts setup. Remove the following line to uninstall
 [[ -f /Users/taumulu/.dart-cli-completion/zsh-config.zsh ]] && . /Users/taumulu/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
-
